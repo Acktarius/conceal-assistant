@@ -1,0 +1,15 @@
+extends layout
+
+block layout-content
+  div.View.UserView
+    h1.Banner Welcome Back !
+    div.Message
+      div.Title
+        h2 User
+        input(type="text" id="user" name="user" required)
+        h2 Password
+        input(type="password" id="password" name="password" required)
+    div.NavButtons
+      a(href="/main")
+        div.NavButton Connect
+    
