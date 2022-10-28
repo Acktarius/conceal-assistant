@@ -44,7 +44,9 @@ h3 {
 h1 {
   font-size: 40px;
 }
-h5 {
+h5,
+h6,
+label {
   font-family: "Helvetica", sans-serif;
   
   padding: 0;

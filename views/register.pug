@@ -2,19 +2,18 @@ extends layout
 
 block layout-content
   div.View.UserView
-    h1.Banner Welcome Back !
-    if (messages.error)
-      h3 error
-    form(action="/login" method="POST") 
+    h1.Banner Register new user
+    form(action="/register" method="POST") 
       div.Message
         div.Title
-          label(for="username")  User : 
+          label(for="username")  Username : 
           input(type="text" id="username" name="username" required)
           div 
           label(for="password") Password : 
           input(type="password" id="password" name="password" required)
           div
-          button(type="submit") LogIn   
+          button(type="submit") Register    
     div.NavButtons
-      a(href="/register")
-        div.NavButton Register
+      a(href="/login")
+        div.NavButton Login
+    
