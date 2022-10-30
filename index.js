@@ -18,7 +18,8 @@ const users = [];
 const initializePassport = require('./passport-config.js')
 initializePassport(
   passport, 
-  user => users.find(user => user.user === user)
+  username => users.find(user => user.username === username),
+  id => users.find(user => user.id === id)
 )
 
 //App Variables
@@ -46,14 +47,14 @@ app.use('/', itenerary)
 //Routes Definitions
 
 app.post("/login", passport.authenticate('local', {
-  successRedirect: '/index',
+  successRedirect: '/main',
   failureRedirect: '/login',
   failureFlash: true
 }));
 
 app.post("/register", async (req, res) => {
   try {
-    const hashedPassword = req.body.password //await bcrypt.hash(req.body.password, 10);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     users.push({
       id: Date.now().toString(),
       username: req.body.username,
