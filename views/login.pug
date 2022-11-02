@@ -3,8 +3,7 @@ extends layout
 block layout-content
   div.View.UserView
     h1.Banner Welcome Back !
-    if (messages.error)
-      h3 error
+    
     form(action="/login" method="POST") 
       div.Message
         div.Title
