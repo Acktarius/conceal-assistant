@@ -23,7 +23,8 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.2",
-    "stack": "^0.1.0"
+    "stack": "^0.1.0",
+    "sysctlx": "^0.0.7"
   },
   "devDependencies": {
     "browser-sync": "^2.27.10",

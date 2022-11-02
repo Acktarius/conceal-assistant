@@ -14,6 +14,7 @@ const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const jwt = require('jsonwebtoken');
+const sys = require('sysctlx')
 
 const { checkAuthenticated } = require('./middleware/checkAuth');
 const { checkNotAuthenticated } = require('./middleware/checkAuth');
@@ -105,9 +106,11 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
         })
       }      
       
+const nodeRunning = sys.status(ccx-guardian);
 
   app.get("/main", /*authenticateToken,*/ (req, res) => {
       res.render("main"/*, { Authorization: "Bearer"+ " " + accessToken }*/);
+      console.log(nodeRunning);
     });
 
 
