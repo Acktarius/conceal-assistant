@@ -14,7 +14,8 @@ const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const jwt = require('jsonwebtoken');
-const sys = require('sysctlx')
+const sys = require('sysctlx');
+const Promise = require('bluebird');
 
 const { checkAuthenticated } = require('./middleware/checkAuth');
 const { checkNotAuthenticated } = require('./middleware/checkAuth');
@@ -30,7 +31,7 @@ initializePassport(
 
 //App Variables
 const app = express();
-const port = process.env.PORT || "3500"; 
+const port = process.env.PORT || "3800"; 
 
 const itineraryGet = require('./routes/routesGet');
 const itineraryPost = require('./routes/routesPost');
@@ -56,7 +57,7 @@ app.use(methodOverride('_method'));
 //Routes Definitions
 // access via routesXXX.js in routes folder
 app.use('/', itineraryGet)
-app.use('/', itineraryPost)
+//app.use('/', itineraryPost)
 
 app.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
@@ -106,13 +107,79 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
         })
       }      
       
-const nodeRunning = sys.status(ccx-guardian);
 
-  app.get("/main", /*authenticateToken,*/ (req, res) => {
-      res.render("main"/*, { Authorization: "Bearer"+ " " + accessToken }*/);
-      console.log(nodeRunning);
+
+//Main page handling
+ app.get("/main", /*authenticateToken,*/ (req, res) => {
+ 
+const guardianRunningP = sys.checkActive('ccx-guardian');
+const minerRunningP = sys.checkActive('ccx-mining');
+
+Promise.allSettled([
+ 		guardianRunningP,
+ 		minerRunningP
+ 		]).then((results) => {
+ 			const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
+ 			const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+      res.render("main", { guardianstatus: gr , minerstatus: mr }/*, { Authorization: "Bearer"+ " " + accessToken }*/);   
+      }); 
+      
+    });
+ //   });
+
+//miner Deactivation handling
+app.get("/minerd", /*authenticateToken,*/ (req, res) => {
+const guardianRunningP = sys.checkActive('ccx-guardian');
+const minerRunningP = sys.checkActive('ccx-mining');
+
+Promise.allSettled([
+ 		guardianRunningP,
+ 		minerRunningP
+ 		]).then((results) => {
+ 			const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
+ 			const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+      res.render("minerd", { minerstatus: mr }/*, { Authorization: "Bearer"+ " " + accessToken }*/);   
+      }); 
+      
     });
 
+  app.post("/minerd(.html)?", (req, res) => {
+  		const minerStoppingP = sys.stop('ccx-mining');
+  		
+    minerStoppingP.then((stop) => {
+    console.log('stopping miner');
+    console.log(stop);
+    res.redirect("/main");
+    })
+  
+  });
+ 
+ //miner Activation handling
+app.get("/minera", /*authenticateToken,*/ (req, res) => {
+const guardianRunningP = sys.checkActive('ccx-guardian');
+const minerRunningP = sys.checkActive('ccx-mining');
+
+Promise.allSettled([
+ 		guardianRunningP,
+ 		minerRunningP
+ 		]).then((results) => {
+ 			const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
+ 			const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+      res.render("minera", { minerstatus: mr }/*, { Authorization: "Bearer"+ " " + accessToken }*/);   
+      }); 
+      
+    }); 
+  
+  app.post("/minera(.html)?", (req, res) => {
+  		const minerStartingP = sys.start('ccx-mining');
+  		
+    minerStartingP.then((start) => {
+    console.log('starting miner');
+    console.log(start);
+    res.redirect("/main");
+    })
+  
+  });
 
  app.get('/logout', (req, res) => {  
   //req.logOut();
