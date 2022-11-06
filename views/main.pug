@@ -5,14 +5,29 @@ block layout-content
     h1.Banner Conceal Assistant
     div.Message
       div.Title
-        h3 Making the Best
         h1 Node Assistant
-      span.Details Access your CCX-BOX
+      span.Details Guardian servive is
+        -var gs = guardianstatus
+        -if (gs === 'active')
+         h3 active
+         a(href="http://localhost:8080/index.html" target="_blank" rel="noopener") open API
+         p Deactivate
+        -else
+         p Activate
     div.Message
       div.Title
-        h3 Making the Best
         h1 Miner Assistant
-      span.Details Access your CCX-BOX
+      span.Details Miner is
+        -var ms = minerstatus
+        -if (ms === 'active')
+         h3 Active
+         a(href="http://localhost:21550/stats" target="_blank" rel="noopener") open API
+         a(href="/minerd") 
+          div.NavButton Deactivate
+        -else
+         h4 Not Active
+         a(href="/minera")
+          div.NavButton Activate
     div.NavButtons
       a(href="/logout")
           div.NavButton Log Out
