@@ -14,10 +14,11 @@ const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const jwt = require('jsonwebtoken');
-const sys = require('sysctlx')
+const sys = require('sysctlx');
 
 const { checkAuthenticated } = require('./middleware/checkAuth');
 const { checkNotAuthenticated } = require('./middleware/checkAuth');
+const { checkLinuxOs } = require('./middleware/checkOs.js')
 
 const users = [];
 
@@ -108,7 +109,7 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
       
 
 //Main page handling
-app.get("/main", /*authenticateToken,*/ (req, res) => {
+app.get("/main", /*authenticateToken,*/ checkLinuxOs, (req, res) => {
  
   const guardianRunningP = sys.checkActive('ccx-guardian');
   const minerRunningP = sys.checkActive('ccx-mining');
@@ -123,7 +124,7 @@ app.get("/main", /*authenticateToken,*/ (req, res) => {
         }); 
         
       });
-   //   });
+   
   
   //miner Deactivation handling
   app.get("/minerd", /*authenticateToken,*/ (req, res) => {
