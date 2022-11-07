@@ -1,0 +1,20 @@
+extends layout
+
+block layout-content
+  div.View.WelcomeView
+    h1.Banner Conceal Assistant
+ 
+    form(action="/minera" method="POST")
+      div.Message
+       div.Title
+        h1 Miner Assistant
+        span.Details Miner is
+        -var ms = minerstatus
+        -if (ms === 'active')
+         h3 Active
+        -else
+         h4 Not Active
+         button(type="submit") Activate
+    div.NavButtons
+      a(href="/logout")
+          div.NavButton Log Out

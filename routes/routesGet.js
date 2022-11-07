@@ -22,6 +22,10 @@ router.get("/register", checkNotAuthenticated, (req, res) => {
   res.render("register", { title: "Profile" });
 });
 
+//minerd
+router.get("/minerd", checkNotAuthenticated, (req, res) => {
+  res.render("minerd", { title: "Profile" });
+});
 
   //Main Page
   /*
