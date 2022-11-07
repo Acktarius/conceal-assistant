@@ -24,4 +24,4 @@ abilitity to change miner's setting such as mining address and mining pool
 
 
 ****NOTES****
-need to create a .env folder with a password for session => contact author
+need to create a .env file with a password for session => contact author
