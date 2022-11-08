@@ -13,6 +13,7 @@ const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const Promise = require('bluebird');
 const jwt = require('jsonwebtoken');
 const sys = require('sysctlx');
 
