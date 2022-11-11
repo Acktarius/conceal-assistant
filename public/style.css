@@ -31,16 +31,24 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: "Helvetica", sans-serif;
   text-transform: uppercase;
 
   padding: 0;
   margin: 0;
 
+  
+}
+h1,
+h2,
+h3 {
   color: #868BA1;
 }
-
+h4 {
+  color: #cf332a;
+}
 h1 {
   font-size: 40px;
 }
@@ -95,7 +103,7 @@ a {
 
   overflow: hidden;
   background: #343A40;
-  padding: 15px;
+  padding: 18px;
 
   font-family: "Helvetica", monospace;
     color: #F39917;
@@ -167,3 +175,11 @@ a {
       bottom;
     background-size: cover;
   }
+footer {
+  position : absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 18;
+  background: #343A40;
+}

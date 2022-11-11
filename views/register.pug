@@ -4,15 +4,22 @@ block layout-content
   div.View.UserView
     h1.Banner Register new user
     form(action="/register" method="POST") 
-      div.Message
-        div.Title
-          label(for="username")  Username : 
-          input(type="text" id="username" name="username" required)
-          div 
-          label(for="password") Password : 
-          input(type="password" id="password" name="password" required)
-          div
-          button(type="submit") Register    
+        div.Message
+          div.Title
+            label(for="user")  Username : 
+            input(type="text" id="user" name="user" required)
+            div
+            br
+            label(for="pwd") Password : 
+            input(type="password" id="pwd" name="pwd" required)
+            div
+            br
+            button(type="submit") Register
+            div
+            -var e = erreur
+            -if (e !== '')
+             br
+             h4= e 
     div.NavButtons
       a(href="/login")
         div.NavButton Login

@@ -12,9 +12,11 @@
     "Conceal"
   ],
   "author": "Acktarius",
-  "license": "ISC",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "bluebird": "^3.7.2",
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "express-flash": "0.0.2",
     "express-session": "^1.17.3",
@@ -23,6 +25,7 @@
     "os-name": "^5.0.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "path": "^0.12.7",
     "pug": "^3.0.2",
     "stack": "^0.1.0",
     "sysctlx": "^0.0.7"
