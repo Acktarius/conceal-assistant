@@ -3,8 +3,8 @@ const router = express.Router();
 
 const refreshTokenController = require('../controllers/refreshTokenController');
 
+//Refresh
 
-  //Logout
 
   router.get("/", refreshTokenController.handleRefreshToken);
     
