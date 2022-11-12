@@ -4,9 +4,10 @@ const router = express.Router();
 const logoutController = require('../controllers/logoutController');
 
 
+  //Logout
 
-router.get("/", logoutController.handleLogout);
+  router.get("/", logoutController.handleLogout);
     
 
-module.exports = router;
 
+  module.exports = router;

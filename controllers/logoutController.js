@@ -8,12 +8,12 @@ const path = require('path')
 const handleLogout = async (req, res) => {
     const cookies = req.cookies;
     //delete access_token cookie
-    if (cookies?.access_token) {
+    if (cookies.access_token) {
         res.clearCookie('access_token', { httpOnly: true});
     }
     
     //delete refreshToken cookie and update users.json
-    if (!cookies?.jwt) return res.sendStatus(204); // no content to sendback
+    if (!cookies.jwt) return res.sendStatus(204); // no content to sendback
     const refreshToken = cookies.jwt;
    
     const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
@@ -29,7 +29,7 @@ const handleLogout = async (req, res) => {
         JSON.stringify(usersDB.users)
     );
     res.clearCookie('jwt', { httpOnly: true});
-    res.redirect('index');
+    res.redirect('/index');
    } 
 }
 

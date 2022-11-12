@@ -17,14 +17,12 @@ const Promise = require('bluebird');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const sys = require('sysctlx');
-const Promise = require('bluebird');
 
 //Required Middlewares
 const { checkLinuxOs } = require('./middleware/checkOs.js')
 const registerController = require('./controllers/registerController');
 const authController = require('./controllers/authController');
 const verifyJWT = require('./middleware/verifyJWT');
-const refreshTokenController = require('./controllers/refreshTokenController');
 
 //App Variables
 const app = express();
@@ -53,17 +51,18 @@ app.use(cookieParser());
 //Routes Definitions
 // access via routes.js in routes folder
 
-app.use('/logout', require('./routes/logout')) 
+
 app.use('/', itinerary)
 //app.use('/register', require('./routes/register'))
 //app.use('/login', require('./routes/auth'))
-
+app.use('/refresh', require('./routes/refresh')) //offers the option to recreate a token based on refresh token
+app.use('/logout', require('./routes/logout')) 
 
 app.post("/register", registerController.handleNewUser);
 
 app.post("/login(.html)?", authController.handleLogin);
 
-app.get("/refresh", refreshTokenController.handleRefreshToken); //offers the option to recreate a token based on refresh token
+
 
 //Any route below that will require access Token AND an OS check = Linux
 
@@ -71,7 +70,7 @@ app.get("/refresh", refreshTokenController.handleRefreshToken); //offers the opt
 
 //Main page handling for trying purpose
 
-app.get("/maintry", verifyJWT, (req, res) => {
+app.get("/maintry", verifyJWT, checkLinuxOs, (req, res) => {
   res.render("maintry",  { guardianstatus: 'active' , minerstatus: 'active' });
 });
 

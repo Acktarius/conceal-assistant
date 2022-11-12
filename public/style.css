@@ -42,9 +42,11 @@ h4 {
   
 }
 h1,
-h2,
-h3 {
+h2 {
   color: #868BA1;
+}
+h3 {
+  color: #23ec09;
 }
 h4 {
   color: #cf332a;

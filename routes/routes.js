@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 
+const logoutController = require('../controllers/logoutController');
 
 // main index page
 router.get("^/$|/index(.html)?", (req, res) => {
@@ -20,8 +21,6 @@ router.get("/register", (req, res) => {
   res.render("register", { title: "Profile" });
 });
 
-
-  //Main Page
 
 
 
