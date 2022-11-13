@@ -1,18 +1,19 @@
 {
-  "name": "conceal_assist",
-  "version": "1.0.0",
+  "name": "conceal-assistant",
+  "version": "1.0.1",
   "description": "Assistant pour Conceal",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "ui": "browser-sync start --config bs-config.js"
+    "ui": "browser-sync start --config bs-config.js",
+    "start": "node server.js"
   },
   "keywords": [
     "Conceal"
   ],
   "author": "Acktarius",
-  "license": "ISC",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "bluebird": "^3.7.2",
