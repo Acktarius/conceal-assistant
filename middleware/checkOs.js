@@ -7,18 +7,18 @@ const flash = require('express-flash');
 const osName = process.platform;
 
 const checkLinuxOs = (req, res, next) => {
-    const linuxOs = () => {
-        if (osName.startsWith('linux')) {
-            return true
-        } else {
-            return false
-        }}
-    if (linuxOs() == true) { 
-      return next();
+      const linuxOs = () => {
+      if (osName.startsWith('linux')) {
+      	return true
+      	} else {
+      	return false
+      	}}	
+      if (linuxOs() == false) { 
+      console.log('wrong OS');
+      res.redirect('/index');
     } else { 
-    res.redirect('/index');
-    console.log('wrong OS');
+    return next();
     }
   };
 
-module.exports = { checkLinuxOs }
+module.exports = { checkLinuxOs };

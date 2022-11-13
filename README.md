@@ -1,26 +1,34 @@
 # conceal-assistant
+
+it allows the user after authentification to check the status of node and mining service.
+And to activate or deactivate those service
+
 Node.JS and NPM are required :
+$ sudo apt update
 
-'sudo apt install nodejs'
+$ 'sudo apt install nodejs'
 
-'sudo apt install npm'
+$ 'sudo apt install npm'
 
-to run from the conceal-assistant folder:
-$node server
-or as a dev with nodemon :
-$npm run dev
+dependancies required are indicated in package.json
 
-To be complete or improve :
+to run in devlopper mode
+$ npm run dev
 
-authentification
-catching errors
-guardian activation/deactivation
+Normal use
+$ node server
 
+User is empty,
+You'll have to register at first launch
 
+To be done:
+To regulate access to register page
+To allow to have more than one user ? and option to delete some user? 
 
-What's left to be done :
+Known Glitch
+Some latency to load some pages, just a refresh page can solve it
 
-abilitity to change miner's setting such as mining address and mining pool
+Logout doesnt fall back on index page, nevertheless, token are correctly erased 
 
 
 ****NOTES****

@@ -10,7 +10,7 @@ block layout-content
         -var gs = guardianstatus
         -if (gs === 'active')
          h3 active
-         a(href="http://localhost:8080/index.html" target="_blank" rel="noopener") open API
+         a(href=urlN target="_blank" rel="noopener") open API
          p Deactivate
         -else
          p Activate
@@ -21,7 +21,7 @@ block layout-content
         -var ms = minerstatus
         -if (ms === 'active')
          h3 Active
-         a(href="http://localhost:21550/stats" target="_blank" rel="noopener") open API
+         a(href=urlM target="_blank" rel="noopener") open API
          a(href="/minerd") 
           div.NavButton Deactivate
         -else
@@ -31,3 +31,4 @@ block layout-content
     div.NavButtons
       a(href="/logout")
           div.NavButton Log Out
+          

@@ -13,28 +13,25 @@ const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
-const jwt = require('jsonwebtoken');
-const sys = require('sysctlx');
 const Promise = require('bluebird');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+const sys = require('sysctlx');
 
-const { checkAuthenticated } = require('./middleware/checkAuth');
-const { checkNotAuthenticated } = require('./middleware/checkAuth');
 
-const users = [];
-
-const initializePassport = require('./passport-config.js')
-initializePassport(
-  passport, 
-  username => users.find(user => user.username === username),
-  id => users.find(user => user.id === id)
-)
+//Required Middlewares
+const { checkLinuxOs } = require('./middleware/checkOs.js')
+const registerController = require('./controllers/registerController');
+const authController = require('./controllers/authController');
+const verifyJWT = require('./middleware/verifyJWT');
+const renderX = require('./middleware/serviceCheck');
+const { urlNode , urlMiner } = require('./middleware/localIpUrl')
 
 //App Variables
 const app = express();
-const port = process.env.PORT || "3800"; 
+const port = process.env.PORT || "3500"; 
 
-const itineraryGet = require('./routes/routesGet');
-const itineraryPost = require('./routes/routesPost');
+const itinerary = require('./routes/routes');
 const { sign } = require('crypto');
 
 
@@ -49,142 +46,70 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(methodOverride('_method'));
-//app.use(express.json());
+app.use(express.json());
+app.use(cookieParser());
 
 //Routes Definitions
-// access via routesXXX.js in routes folder
-app.use('/', itineraryGet)
-//app.use('/', itineraryPost)
+// access via routes.js in routes folder
 
-app.post("/register", checkNotAuthenticated, async (req, res) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    users.push({
-      id: Date.now().toString(),
-      username: req.body.username,
-      password: hashedPassword
-    })
-    res.redirect("/login")
-  } catch (error) {
-    res.redirect("/register");
-    console.log(error)
-  }
-  console.log(users)
-  });
- 
-  
-  app.post("/login(.html)?", 
-    passport.authenticate('local', {
-    successRedirect: '/main',
-     failureRedirect: '/login',
-     failureFlash: true,
-       }),
-       // Explicitly save the session before redirecting!
-      /*
-      function (req, res) {
-       res.redirect('/main');
-      req.session.save(() => {
-        res.redirect('/main')
-      })}, */
-      (req, res) => {
-      const username = req.body.username
-      const user = { name: username }
-      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET )
-    } 
-    )
-      function authenticateToken(req, res, next) {
-        const authHeader = req.headers['authorization']
-        const token = authHeader && authHeader.split(' ')[1]
-        if (token == null) return res.sendStatus(401)
 
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-          if (err) return res.sendStatus(403)
-            req.user = user
-            next ()
-        })
-      }      
-      
+app.use('/', itinerary);
+//app.use('/register', require('./routes/register'))
+//app.use('/login', require('./routes/auth'))
+
+app.use('/refresh', require('./routes/refresh')) //offers the option to recreate a token based on refresh token
+app.use('/', require('./routes/logout')) 
+
+app.post("/register", registerController.handleNewUser);
+
+app.post("/login(.html)?", authController.handleLogin);
+//Any route below that will require access Token AND an OS check = Linux
+
+//app.use(verifyJWT);
+//app.use(checkLinuxOs);
+//Main page handling for trying purpose
+/*
+app.get("/maintry", verifyJWT, (req, res) => {
+  res.render("maintry",  { guardianstatus: 'active' , minerstatus: 'active' });
+});
+*/
+     
 
 
 //Main page handling
- app.get("/main", /*authenticateToken,*/ (req, res) => {
- 
-const guardianRunningP = sys.checkActive('ccx-guardian');
-const minerRunningP = sys.checkActive('ccx-mining');
-
-Promise.allSettled([
- 		guardianRunningP,
- 		minerRunningP
- 		]).then((results) => {
- 			const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
- 			const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-      res.render("main", { guardianstatus: gr , minerstatus: mr }/*, { Authorization: "Bearer"+ " " + accessToken }*/);   
-      }); 
-      
+app.get("/main", verifyJWT, checkLinuxOs, renderX.main);
+   
+  
+  //miner Deactivation handling
+  app.get("/minerd", verifyJWT, renderX.minerd);
+  
+    app.post("/minerd(.html)?", (req, res) => {
+        const minerStoppingP = sys.stop('ccx-mining');
+        
+      minerStoppingP.then((stop) => {
+      console.log('stopping miner');
+      console.log(stop);
+      res.redirect("/main");
+      })
+    
     });
- //   });
-
-//miner Deactivation handling
-app.get("/minerd", /*authenticateToken,*/ (req, res) => {
-const guardianRunningP = sys.checkActive('ccx-guardian');
-const minerRunningP = sys.checkActive('ccx-mining');
-
-Promise.allSettled([
- 		guardianRunningP,
- 		minerRunningP
- 		]).then((results) => {
- 			const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
- 			const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-      res.render("minerd", { minerstatus: mr }/*, { Authorization: "Bearer"+ " " + accessToken }*/);   
-      }); 
-      
+   
+   //miner Activation handling
+  app.get("/minera", verifyJWT, renderX.minera); 
+    
+    app.post("/minera(.html)?", verifyJWT, (req, res) => {
+        const minerStartingP = sys.start('ccx-mining');
+        
+      minerStartingP.then((start) => {
+      console.log('starting miner');
+      console.log(start);
+      res.redirect("/main");
+      })
+    
     });
 
-  app.post("/minerd(.html)?", (req, res) => {
-  		const minerStoppingP = sys.stop('ccx-mining');
-  		
-    minerStoppingP.then((stop) => {
-    console.log('stopping miner');
-    console.log(stop);
-    res.redirect("/main");
-    })
-  
-  });
- 
- //miner Activation handling
-app.get("/minera", /*authenticateToken,*/ (req, res) => {
-const guardianRunningP = sys.checkActive('ccx-guardian');
-const minerRunningP = sys.checkActive('ccx-mining');
-
-Promise.allSettled([
- 		guardianRunningP,
- 		minerRunningP
- 		]).then((results) => {
- 			const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
- 			const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-      res.render("minera", { minerstatus: mr }/*, { Authorization: "Bearer"+ " " + accessToken }*/);   
-      }); 
-      
-    }); 
-  
-  app.post("/minera(.html)?", (req, res) => {
-  		const minerStartingP = sys.start('ccx-mining');
-  		
-    minerStartingP.then((start) => {
-    console.log('starting miner');
-    console.log(start);
-    res.redirect("/main");
-    })
-  
-  });
-
- app.get('/logout', (req, res) => {  
-  //req.logOut();
-  res.redirect('/index');
-})
 
 //Server Activation
 app.listen(port, () => {
