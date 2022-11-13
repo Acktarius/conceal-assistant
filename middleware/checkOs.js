@@ -8,7 +8,7 @@ const osName = process.platform;
 
 const checkLinuxOs = (req, res, next) => {
     const linuxOs = () => {
-        if (osName.startsWith('w')) {
+        if (osName.startsWith('lin')) {
             return true
         } else {
             return false
