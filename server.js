@@ -25,7 +25,8 @@ const registerController = require('./controllers/registerController');
 const authController = require('./controllers/authController');
 const verifyJWT = require('./middleware/verifyJWT');
 const renderX = require('./middleware/serviceCheck');
-const { urlNode , urlMiner } = require('./middleware/localIpUrl')
+const { urlNode , urlMiner } = require('./middleware/localIpUrl');
+const logoutController = require('./controllers/logoutController');
 
 //App Variables
 const app = express();
@@ -60,7 +61,9 @@ app.use('/', itinerary);
 //app.use('/login', require('./routes/auth'))
 
 app.use('/refresh', require('./routes/refresh')) //offers the option to recreate a token based on refresh token
-app.use('/', require('./routes/logout')) 
+app.get('/logout', logoutController.handleLogout, (req, res) => {
+  res.render("index");
+}); 
 
 app.post("/register", registerController.handleNewUser);
 

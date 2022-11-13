@@ -15,4 +15,6 @@ router.get("^/$|/index(.html)?", (req, res) => {
     res.render("register", { title: "Profile" });
   });
 
+
+
   module.exports = router
