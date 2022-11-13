@@ -28,19 +28,28 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: "Helvetica", sans-serif;
   text-transform: uppercase;
 
   padding: 0;
   margin: 0;
 
+  
+}
+h1,
+h2 {
   color: #868BA1;
 }
-
+h3 {
+  color: #23ec09;
+}
+h4 {
+  color: #cf332a;
+}
 h1 {
   font-size: 40px;
 }
