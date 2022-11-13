@@ -1,4 +1,4 @@
-//get service status
+//get service status and prepare render
 const sys = require('sysctlx');
 const Promise = require('bluebird');
 const { urlNode , urlMiner } = require('../middleware/localIpUrl');
@@ -19,7 +19,7 @@ const main = (req, res) => {
         });
         }
 //Miner Deactivation
-const minerd = (req, res) => {
+const minerD = (req, res) => {
   
   Promise.allSettled([
        guardianRunningP,
@@ -31,7 +31,7 @@ const minerd = (req, res) => {
         }); 
       }
 //Miner activation
-const minera = (req, res) => {
+const minerA = (req, res) => {
 
   Promise.allSettled([
        guardianRunningP,
@@ -43,6 +43,30 @@ const minera = (req, res) => {
         }); 
         
       }
+//guardian Node Deactivation
+const guardianD = (req, res) => {
+  
+  Promise.allSettled([
+       guardianRunningP,
+       minerRunningP
+       ]).then((results) => {
+         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
+         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+        res.render("guardiand", { guardianstatus: gr });   
+        }); 
+      }
+//guardian node activation
+const guardianA = (req, res) => {
 
+  Promise.allSettled([
+       guardianRunningP,
+       minerRunningP
+       ]).then((results) => {
+         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
+         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+        res.render("guardiana", { guardianstatus: gr });   
+        }); 
+        
+      }
 
-module.exports = { main , minerd , minera };
+module.exports = { main , minerD , minerA , guardianD , guardianA };

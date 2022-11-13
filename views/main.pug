@@ -11,9 +11,12 @@ block layout-content
         -if (gs === 'active')
          h3 active
          a(href=urlN target="_blank" rel="noopener") open API
-         p Deactivate
+         a(href="/guardiand") 
+          div.NavButton Deactivate
         -else
-         p Activate
+         h4 Not Active
+         a(href="/guardiana")
+          div.NavButton Activate
     div.Message
       div.Title
         h1 Miner Assistant

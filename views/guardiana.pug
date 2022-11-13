@@ -1,0 +1,19 @@
+extends layout
+
+block layout-content
+  div.View.WelcomeView
+    h1.Banner Conceal Assistant
+    form(action="/guardiana" method="POST")
+      div.Message
+       div.Title
+        h1 Node Assistant
+        span.Details Node is
+        -var gs = guardianstatus
+        -if (gs === 'active')
+         h3 Active
+        -else
+         h4 Not Active
+         button(type="submit") Activate
+    div.NavButtons
+      a(href="/logout")
+          div.NavButton Log Out

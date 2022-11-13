@@ -59,11 +59,8 @@ app.use(cookieParser());
 app.use('/', itinerary);
 //app.use('/register', require('./routes/register'))
 //app.use('/login', require('./routes/auth'))
-
 app.use('/refresh', require('./routes/refresh')) //offers the option to recreate a token based on refresh token
-app.get('/logout', logoutController.handleLogout, (req, res) => {
-  res.render("index");
-}); 
+
 
 app.post("/register", registerController.handleNewUser);
 
@@ -79,39 +76,59 @@ app.get("/maintry", verifyJWT, (req, res) => {
 });
 */
      
-
-
 //Main page handling
 app.get("/main", verifyJWT, checkLinuxOs, renderX.main);
    
   
   //miner Deactivation handling
-  app.get("/minerd", verifyJWT, renderX.minerd);
+  app.get("/minerd", verifyJWT, renderX.minerD);
   
-    app.post("/minerd(.html)?", (req, res) => {
-        const minerStoppingP = sys.stop('ccx-mining');
-        
+  app.post("/minerd(.html)?", (req, res) => {
+      const minerStoppingP = sys.stop('ccx-mining');  
       minerStoppingP.then((stop) => {
       console.log('stopping miner');
       console.log(stop);
       res.redirect("/main");
-      })
-    
+      })  
     });
    
    //miner Activation handling
-  app.get("/minera", verifyJWT, renderX.minera); 
+  app.get("/minera", verifyJWT, renderX.minerA); 
     
-    app.post("/minera(.html)?", verifyJWT, (req, res) => {
-        const minerStartingP = sys.start('ccx-mining');
-        
+  app.post("/minera(.html)?", verifyJWT, (req, res) => {
+      const minerStartingP = sys.start('ccx-mining');
       minerStartingP.then((start) => {
       console.log('starting miner');
       console.log(start);
       res.redirect("/main");
       })
-    
     });
+  //guardian Node Deactivation handling
+  app.get("/guardiand", verifyJWT, renderX.guardianD);
+  
+  app.post("/guardiand", (req, res) => {
+      const guardianStoppingP = sys.stop('ccx-guardian');  
+      guardianStoppingP.then((stop) => {
+      console.log('stopping guardian node');
+      console.log(stop);
+      res.redirect("/main");
+      })  
+    });
+   
+   //guardian node Activation handling
+  app.get("/guardiana", verifyJWT, renderX.guardianA); 
+    
+  app.post("/guardiana", verifyJWT, (req, res) => {
+      const guardianStartingP = sys.start('ccx-guardian');
+      guardianStartingP.then((start) => {
+      console.log('starting guardian node');
+      console.log(start);
+      res.redirect("/main");
+      })
+    });
+
+//logout
+  app.get("/logout", logoutController.handleLogout, (req, res) => { res.redirect("/index") }); 
 
 
 //Server Activation

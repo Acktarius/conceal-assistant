@@ -69,7 +69,19 @@ a {
   cursor: pointer;
   user-select: none;
 }
-
+footer {
+  position: relative;
+  bottom: 0;
+  z-index: 3;
+  background: #343A40;
+  padding: 10px;
+  
+}
+.h2 {
+  font-family: "Helvetica", sans-serif;
+  color: #868BA1;
+  font-size: 16px;
+}
 #root {
   display: flex;
   flex-direction: column;

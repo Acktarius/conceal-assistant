@@ -28,9 +28,9 @@ const handleLogout = async (req, res, next) => {
         path.join(__dirname, '..', 'data', 'users.json'),
         JSON.stringify(usersDB.users)
     );
-    res.clearCookie('jwt', { httpOnly: true});
     console.log('logging out');
-    return next();
+    res.clearCookie('jwt', { httpOnly: true});
+    return next(); //res.redirect("/index");
    } 
 }
 
