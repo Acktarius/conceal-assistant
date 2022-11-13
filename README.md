@@ -32,4 +32,4 @@ Logout doesnt fall back on index page, nevertheless, token are correctly erased
 
 
 ****NOTES****
-need to create a .env file with a password for session => contact author
+need to create a .env file with a password for session => contact author for more info
