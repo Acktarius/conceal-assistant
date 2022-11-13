@@ -6,8 +6,9 @@ const logoutController = require('../controllers/logoutController');
 
   //Logout
 
-  router.get("/", logoutController.handleLogout);
-    
+  router.get("/", logoutController.handleLogout, (req, res) => {
+    res.redirect("index")});
+  
 
 
   module.exports = router;

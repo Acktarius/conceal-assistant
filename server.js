@@ -19,10 +19,11 @@ const cookieParser = require('cookie-parser');
 const sys = require('sysctlx');
 
 //Required Middlewares
-const { checkLinuxOs } = require('./middleware/checkOs.js')
+const { checkLinuxOs } = require('./middleware/checkOs.js');
 const registerController = require('./controllers/registerController');
 const authController = require('./controllers/authController');
 const verifyJWT = require('./middleware/verifyJWT');
+const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 
 //App Variables
 const app = express();
@@ -68,10 +69,11 @@ app.post("/login(.html)?", authController.handleLogin);
 
 //app.use(verifyJWT);
 
-//Main page handling for trying purpose
+//Main page handling for dev trying purpose in Windows platform
+ 
 
 app.get("/maintry", verifyJWT, checkLinuxOs, (req, res) => {
-  res.render("maintry",  { guardianstatus: 'active' , minerstatus: 'active' });
+  res.render("maintry",  { guardianstatus: 'active' , minerstatus: 'active' , urln: urlNode });
 });
 
 //app.use(checkLinuxOs);

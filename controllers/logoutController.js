@@ -5,7 +5,7 @@ const usersDB = {
 const fsPromises = require('fs').promises
 const path = require('path')
 
-const handleLogout = async (req, res) => {
+const handleLogout = async (req, res, next) => {
     const cookies = req.cookies;
     //delete access_token cookie
     if (cookies.access_token) {
@@ -29,7 +29,8 @@ const handleLogout = async (req, res) => {
         JSON.stringify(usersDB.users)
     );
     res.clearCookie('jwt', { httpOnly: true});
-    res.redirect('/index');
+    console.log('logging out');
+    return next();
    } 
 }
 

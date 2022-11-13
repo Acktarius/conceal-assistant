@@ -7,6 +7,13 @@ block layout-content
       div.Title
         h1 Node Assistant
       span.Details Guardian servive is
+        -var gs = guardianstatus
+        -if (gs === 'active')
+         h3 Active
+         a(href=urln target="_blank" rel="noopener") open API
+         p Deactivate
+        -else
+         p Activate
     div.Message
       div.Title
         h1 Miner Assistant
