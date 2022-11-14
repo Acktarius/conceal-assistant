@@ -7,10 +7,12 @@ block layout-content
       div.Message
        div.Title
         h1 Miner Assistant
+        br
         span.Details Miner is
         -var ms = minerstatus
         -if (ms === 'active')
          h3 active
+         br
          button(type="submit") deactivate
         -else
          h4 not active  

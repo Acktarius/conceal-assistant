@@ -8,12 +8,14 @@ block layout-content
       div.Message
        div.Title
         h1 Miner Assistant
+        br
         span.Details Miner is
         -var ms = minerstatus
         -if (ms === 'active')
          h3 Active
         -else
          h4 Not Active
+         br
          button(type="submit") Activate
     div.NavButtons
       a(href="/logout")

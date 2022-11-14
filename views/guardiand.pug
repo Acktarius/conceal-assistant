@@ -7,12 +7,16 @@ block layout-content
       div.Message
        div.Title
         h1 Node Assistant
+        br
         span.Details Node is
         -var gs = guardianstatus
         -if (gs === 'active')
+         br
          h3 active
+         br
          button(type="submit") deactivate
         -else
+         br
          h4 not active  
     div.NavButtons
       a(href="/logout")
