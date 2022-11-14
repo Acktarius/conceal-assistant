@@ -1,9 +1,4 @@
 //get the OS 
-const express = require('express');
-const passport = require('passport');
-const session = require('express-session');
-const flash = require('express-flash');
-
 const osName = process.platform;
 
 const checkLinuxOs = (req, res, next) => {

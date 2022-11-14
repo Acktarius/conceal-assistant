@@ -5,18 +5,16 @@ if (process.env.NODE_ENV !== 'production'){
   require('dotenv').config()
 }
 
+
 //Required External Modules
 const express = require("express");
 const path = require("path");
 const bcrypt = require("bcrypt");
-const passport = require('passport');
-const flash = require('express-flash');
-const session = require('express-session');
 const methodOverride = require('method-override');
 const Promise = require('bluebird');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const sys = require('sysctlx');
+
 
 
 //Required Middlewares
@@ -24,7 +22,8 @@ const { checkLinuxOs } = require('./middleware/checkOs.js')
 const registerController = require('./controllers/registerController');
 const authController = require('./controllers/authController');
 const verifyJWT = require('./middleware/verifyJWT');
-const renderX = require('./middleware/serviceCheck');
+const renderG = require('./middleware/serviceCheckRender');
+const renderP = require('./middleware/startstopRender');
 const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
 
@@ -41,12 +40,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
-app.use(flash())
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
-}))
+
 
 app.use(methodOverride('_method'));
 app.use(express.json());
@@ -54,11 +48,7 @@ app.use(cookieParser());
 
 //Routes Definitions
 // access via routes.js in routes folder
-
-
 app.use('/', itinerary);
-//app.use('/register', require('./routes/register'))
-//app.use('/login', require('./routes/auth'))
 app.use('/refresh', require('./routes/refresh')) //offers the option to recreate a token based on refresh token
 
 
@@ -67,65 +57,27 @@ app.post("/register", registerController.handleNewUser);
 app.post("/login(.html)?", authController.handleLogin);
 //Any route below that will require access Token AND an OS check = Linux
 
-//app.use(verifyJWT);
-//app.use(checkLinuxOs);
-//Main page handling for trying purpose
-/*
-app.get("/maintry", verifyJWT, (req, res) => {
-  res.render("maintry",  { guardianstatus: 'active' , minerstatus: 'active' });
-});
-*/
      
 //Main page handling
-app.get("/main", verifyJWT, checkLinuxOs, renderX.main);
+app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
    
   
   //miner Deactivation handling
-  app.get("/minerd", verifyJWT, renderX.minerD);
-  
-  app.post("/minerd(.html)?", (req, res) => {
-      const minerStoppingP = sys.stop('ccx-mining');  
-      minerStoppingP.then((stop) => {
-      console.log('stopping miner');
-      console.log(stop);
-      res.redirect("/main");
-      })  
-    });
+  app.get("/minerd", verifyJWT, renderG.minerD);
+  app.post("/minerd", verifyJWT, renderP.minerStop);
    
    //miner Activation handling
-  app.get("/minera", verifyJWT, renderX.minerA); 
-    
-  app.post("/minera(.html)?", verifyJWT, (req, res) => {
-      const minerStartingP = sys.start('ccx-mining');
-      minerStartingP.then((start) => {
-      console.log('starting miner');
-      console.log(start);
-      res.redirect("/main");
-      })
-    });
+  app.get("/minera", verifyJWT, renderG.minerA); 
+  app.post("/minera", verifyJWT, renderP.minerStart);
+
   //guardian Node Deactivation handling
-  app.get("/guardiand", verifyJWT, renderX.guardianD);
+  app.get("/guardiand", verifyJWT, renderG.guardianD);
   
-  app.post("/guardiand", (req, res) => {
-      const guardianStoppingP = sys.stop('ccx-guardian');  
-      guardianStoppingP.then((stop) => {
-      console.log('stopping guardian node');
-      console.log(stop);
-      res.redirect("/main");
-      })  
-    });
+  app.post("/guardiand", verifyJWT, renderP.guardianStop);
    
    //guardian node Activation handling
-  app.get("/guardiana", verifyJWT, renderX.guardianA); 
-    
-  app.post("/guardiana", verifyJWT, (req, res) => {
-      const guardianStartingP = sys.start('ccx-guardian');
-      guardianStartingP.then((start) => {
-      console.log('starting guardian node');
-      console.log(start);
-      res.redirect("/main");
-      })
-    });
+  app.get("/guardiana", verifyJWT, renderG.guardianA); 
+  app.post("/guardiana", verifyJWT, renderP.guardianStart);
 
 //logout
   app.get("/logout", logoutController.handleLogout, (req, res) => { res.redirect("/index") }); 
