@@ -1,5 +1,5 @@
 const usersDB = {
-    users: require('../data/users.json'),
+    users: require('../.data/users.json'),
     setUsers: function (data) { this.users = data }
 }
 const fsPromises = require('fs').promises
@@ -19,7 +19,7 @@ const handleNewUser = async (req, res) => {
         const newUser = { "username": user, "password": hashedPwd }
         usersDB.setUsers([...usersDB.users, newUser])
         await fsPromises.writeFile(
-            path.join(__dirname, '..', 'data', 'users.json'),
+            path.join(__dirname, '..', '.data', 'users.json'),
             JSON.stringify(usersDB.users)
         )
             console.log(usersDB.users)

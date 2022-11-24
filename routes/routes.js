@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const { noUser } = require('../middleware/usersEmpty')
+
 
 // main index page
-router.get("^/$|/index(.html)?", (req, res) => {
-    res.render("index", { title: "Home" });
+router.get("^/$|/index(.html)?", (req, res) => { 
+  res.render("index", { noUser: noUser });
   });
 //Login Page
   router.get("/login(.html)?", (req, res) => {
@@ -12,7 +14,12 @@ router.get("^/$|/index(.html)?", (req, res) => {
 
   //Register Page
   router.get("/register", (req, res) => {
-    res.render("register", { title: "Profile" });
+    if (noUser) {
+    res.render("register", { title: "Profile" })
+    } else {
+      res.status(403).render('40x', { erreur: `Forbidden` });
+    }
+    
   });
 
 

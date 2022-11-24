@@ -9,7 +9,9 @@ block layout-content
         h1 Assistant For Concealers
       span.Details Access your CCX-BOX      
     div.NavButtons
-      a(href="/login")
+      -if (noUser === false)
+       a(href="/login")
           div.NavButton LogIn
-      a(href="/register")
+      -else
+       a(href="/register")
           div.NavButton Register

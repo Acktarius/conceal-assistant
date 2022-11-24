@@ -1,5 +1,5 @@
 const usersDB = {
-    users: require('../data/users.json'),
+    users: require('../.data/users.json'),
     setUsers: function (data) { this.users = data }
 }
 const fsPromises = require('fs').promises
@@ -25,7 +25,7 @@ const handleLogout = async (req, res, next) => {
     const currentUser = {...foundUser, refreshToken: ''}
     usersDB.setUsers([...otherUsers, currentUser]);
     await fsPromises.writeFile(
-        path.join(__dirname, '..', 'data', 'users.json'),
+        path.join(__dirname, '..', '.data', 'users.json'),
         JSON.stringify(usersDB.users)
     );
     console.log('logging out');

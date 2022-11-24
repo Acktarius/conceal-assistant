@@ -1,5 +1,5 @@
 const usersDB = {
-    users: require('../data/users.json'),
+    users: require('../.data/users.json'),
     setUsers: function (data) { this.users = data }
 }
 const jwt = require('jsonwebtoken')
