@@ -16,14 +16,18 @@ sudo apt install npm
 dependancies required are indicated in package.json
 
 ```
-npm i bluebird
+npm i bcrypt bluebird cookie-parser express express-flash jsonwebtoken local-ip-url pug sysctlx
 ```
 
-###to run in devlopper mode
-$ npm run dev
+### to run in devlopper mode
+```
+npm run dev
+```
 
-###Normal use
-$ node server
+### Normal use
+```
+ node server
+```
 
 User admin is already created, contact @Acktarius for password
 
@@ -33,7 +37,7 @@ To be done:
 - [ ] Delete user
 
 Exploring feature : 
-- [ ] Creating a separated FrontEnd using Reactjs
+- [ ] Creating a separated FrontEnd using Reactjs by @Ki-ll
 
 Known Glitch
 - [ ] Some latency to load some pages, just a refresh page can solve it
