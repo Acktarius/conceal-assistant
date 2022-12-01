@@ -6,16 +6,16 @@ block layout-content
     div.Message
       div.Title
         h1 Node Assistant
-      span.Details Guardian servive is
+      span.Details Guardian servive is<!--
         -var gs = guardianstatus
         -if (gs === 'active')
-         h3 active
-         a(href=urlN target="_blank" rel="noopener") open API
-         a(href="/guardiand") 
+          h3 active
+          a(href=urlN target="_blank" rel="noopener") open API
+          a(href="/guardiand") 
           div.NavButton Deactivate
         -else
-         h4 Not Active
-         a(href="/guardiana")
+          h4 Not Active
+          a(href="/guardiana")
           div.NavButton Activate
     div.Message
       div.Title
@@ -31,7 +31,14 @@ block layout-content
          h4 Not Active
          a(href="/minera")
           div.NavButton Activate
+    div.Message
+      div.Title
+      a(href="https://wallet.conceal.network" target="_blank" rel="noopener")
+       h1 Wallet Access                
     div.NavButtons
       a(href="/logout")
-          div.NavButton Log Out
+        div.NavButton Log Out
+    div.NavButtons
+      form(method="POST" action="/logout?_method=DELETE")
+       button(type="submit") Delete User
           
