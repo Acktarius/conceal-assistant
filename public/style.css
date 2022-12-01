@@ -111,6 +111,7 @@ footer {
   align-items: center;
 
   width: 100%;
+  min-height: 40px;
 
   border-radius: 5px;
 
@@ -127,13 +128,15 @@ footer {
 
 .Message {
   background: #343A40;
-  padding: 30px;
+  padding: 15px;
+  margin: 5px;
+  width: auto;
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
 }
 
 .Message > .Title {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .Message > .Details {

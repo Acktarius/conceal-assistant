@@ -9,7 +9,7 @@ const minerStop = (req, res) => {
         minerStoppingP.then((stop) => {
         console.log('stopping Miner');
         console.log(stop);
-        res.redirect("/main");
+        res.redirect("/main"), { title: "Main" };
     })}
 
 //Miner Activation
@@ -18,7 +18,7 @@ const minerStart = (req, res) => {
     minerStartingP.then((start) => {
     console.log('starting miner');
     console.log(start);
-    res.redirect("/main");
+    res.redirect("/main", { title: "Main" });
     })}
 
 
@@ -28,7 +28,7 @@ const guardianStop = (req, res) => {
         guardianStoppingP.then((stop) => {
         console.log('stopping guardian node');
         console.log(stop);
-        res.redirect("/main");
+        res.redirect("/main", { title: "Main" });
     })}
 
 //Guardian Node Deactivation
@@ -37,7 +37,7 @@ const guardianStart = (req, res) => {
     guardianStartingP.then((start) => {
     console.log('starting guardian node');
     console.log(start);
-    res.redirect("/main");
+    res.redirect("/main", { title: "Main" });
     })}
 
 module.exports = { minerStop , minerStart , guardianStop , guardianStart }      

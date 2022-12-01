@@ -81,7 +81,8 @@ app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
 
 //logout
   app.get("/logout", logoutController.handleLogout, (req, res) => { res.redirect("/index") }); 
-
+//delete and logout User
+  app.delete("/logout", logoutController.handleDeleteLogout, (req, res) => { res.redirect("/index") }); 
 
 //Server Activation
 app.listen(port, () => {

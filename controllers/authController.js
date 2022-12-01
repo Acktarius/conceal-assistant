@@ -39,7 +39,7 @@ const handleLogin = async (req, res) => {
         //res.json({ accessToken });
         res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
         
-        res.status(201).redirect('main');
+        res.status(201).redirect('main', { title: "Main" });
    
    } else {
     res.status(401).render('login', { user: user, erreur: `wrong password` })
