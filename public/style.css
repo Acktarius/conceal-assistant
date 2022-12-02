@@ -69,7 +69,7 @@ a {
   cursor: pointer;
   user-select: none;
 }
-footer {
+#footer {
   position: relative;
   bottom: 0;
   z-index: 3;
@@ -185,9 +185,11 @@ footer {
   .WelcomeView {
     background: url("background.jpg") left bottom;
     background-size: cover;
+    background-attachment: fixed;
   }
   .UserView {
     background: url("backgrounduser.jpg") left
       bottom;
     background-size: cover;
+    background-attachment: fixed;
   }
