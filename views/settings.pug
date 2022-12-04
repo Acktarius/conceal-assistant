@@ -1,0 +1,14 @@
+extends layout
+
+block layout-content
+  div.View.WelcomeView
+    h1.Banner Conceal Assistant
+    div.Message
+      div.Title
+        h1 settings
+      span.Details Delete #{user} and Logout ?
+      form(method="POST" action="/logout?_method=DELETE")
+       button(type="submit") Delete User
+    div.NavButtons
+      a(href="/main")
+          div.NavButton Back

@@ -19,9 +19,6 @@ router.get("^/$|/index(.html)?", (req, res) => {
     } else {
       res.status(403).render('40x', { erreur: `Forbidden` });
     }
-    
   });
-
-
 
   module.exports = router

@@ -4,7 +4,7 @@ block layout-content
   div.View.WelcomeView
     h1.Banner Conceal Assistant
     form(action="/minerd" method="POST")
-      div.Message
+      div.MessageZero
        div.Title
         h1 Miner Assistant
         br
@@ -17,5 +17,7 @@ block layout-content
         -else
          h4 not active  
     div.NavButtons
-      a(href="/logout")
+        a(href="/main")
+          i(class="fa-solid fa-house fa-xl icon-colour")
+        a(href="/logout")
           div.NavButton Log Out

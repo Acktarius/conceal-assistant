@@ -13,7 +13,9 @@
 
 html,
 body,
-#root {
+#root,
+footer
+     {
   height: 100%;
   width: 100%;
 }
@@ -27,6 +29,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  background: #343A40;
 }
 h1,
 h2,
@@ -69,12 +72,13 @@ a {
   cursor: pointer;
   user-select: none;
 }
-#footer {
-  position: relative;
+footer {
+  position: fixed;
   bottom: 0;
   z-index: 3;
   background: #343A40;
-  padding: 10px;
+  height: min-content;
+  padding: 3px;
   
 }
 .h2 {
@@ -112,8 +116,10 @@ a {
 
   width: 100%;
   min-height: 40px;
-
-  border-radius: 5px;
+  position: fixed;
+  top: 2px;
+  z-index: 1;
+  border-radius: 8px;
 
   overflow: hidden;
   background: #343A40;
@@ -126,14 +132,31 @@ a {
   box-shadow: var(--ui-shadow);
 }
 
-.Message {
+.MessageZero {
   background: #343A40;
   padding: 15px;
   margin: 5px;
-  width: auto;
+  width: max-content;
+  border-radius: 5px;
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
+  position: relative;
+  Top: 80px;
+  z-index: 0;
 }
+
+.MessageSuite {
+  background: #343A40;
+  padding: 15px;
+  margin: 5px;
+  width: max-content;
+  border-radius: 5px;
+  border-bottom: var(--ui-shadow-border);
+  box-shadow: var(--ui-shadow);
+  position: relative;
+  Top: 80px;
+  z-index: 0;
+  }
 
 .Message > .Title {
   padding-bottom: 10px;
@@ -193,3 +216,6 @@ a {
     background-size: cover;
     background-attachment: fixed;
   }
+*.icon-colour {
+  color: #868BA1;
+}  

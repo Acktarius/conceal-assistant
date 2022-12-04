@@ -79,6 +79,10 @@ app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
   app.get("/guardiana", verifyJWT, renderG.guardianA); 
   app.post("/guardiana", verifyJWT, renderP.guardianStart);
 
+   //Settings
+   app.get("/settings", verifyJWT, logoutController.handleUser);
+
+
 //logout
   app.get("/logout", logoutController.handleLogout, (req, res) => { res.redirect("/index") }); 
 //delete and logout User

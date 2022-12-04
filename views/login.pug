@@ -2,10 +2,9 @@ extends layout
 
 block layout-content
   div.View.UserView
-    h1.Banner Welcome Back !{user} !
-    
+    h1.Banner Welcome Back #{user} !
     form(action="/login" method="POST") 
-      div.Message
+      div.MessageZero
         div.Title
           label(for="user")  Username : 
           input(type="text" id="user" name="user" required)

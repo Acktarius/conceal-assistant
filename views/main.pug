@@ -3,7 +3,7 @@ extends layout
 block layout-content
   div.View.WelcomeView
     h1.Banner Conceal Assistant
-    div.Message
+    div.MessageZero
       div.Title
         h1 Node Assistant
       span.Details Guardian servive is
@@ -17,7 +17,7 @@ block layout-content
           h4 Not Active
           a(href="/guardiana")
           div.NavButton Activate
-    div.Message
+    div.MessageSuite
       div.Title
         h1 Miner Assistant
       span.Details Miner is
@@ -31,14 +31,15 @@ block layout-content
          h4 Not Active
          a(href="/minera")
           div.NavButton Activate
-    div.Message
+    div.MessageSuite
       div.Title
       a(href="https://wallet.conceal.network" target="_blank" rel="noopener")
        h1 Wallet Access                
-    div.NavButtons
-      a(href="/logout")
-       div.NavButton Log Out
-    div.NavButtons
-      form(method="POST" action="/logout?_method=DELETE")
-       button(type="submit") Delete User
+    div.MessageSuite
+      div.NavButtons
+        a(href="/settings")
+         i(class="fa-solid fa-gear fa-xl icon-colour")
+         a(href="/logout")
+          div.NavButton Log Out
+      
           
