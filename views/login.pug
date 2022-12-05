@@ -2,7 +2,11 @@ extends layout
 
 block layout-content
   div.View.UserView
-    h1.Banner Welcome Back #{user} !
+    ul.Banner
+      li.h1 Welcome Back #{user} !
+      li
+      a(href="/index")
+       i(class="fa-solid fa-bullseye fa-xl icon-colour")
     form(action="/login" method="POST") 
       div.MessageZero
         div.Title
@@ -20,7 +24,4 @@ block layout-content
             -var e = erreur
             -if (e !== '')
              br
-             h4= e   
-    div.NavButtons
-      a(href="/index")
-        div.NavButton Back
+             h4= e

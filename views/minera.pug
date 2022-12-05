@@ -2,20 +2,23 @@ extends layout
 
 block layout-content
   div.View.WelcomeView
-    h1.Banner Conceal Assistant
+    ul.Banner
+      li.h1 Conceal Assistant
+      li
+      a(href="/main")
+          i(class="fa-solid fa-house fa-xl icon-colour")
+      li
+      a(href="/logout")
+       i(class="fa-solid fa-right-from-bracket fa-xl icon-colour")
     form(action="/minera" method="POST")
       div.MessageZero
        div.Title
         h1 Miner Assistant
-        br
-        span.Details Miner is
+       ul.Details Miner is
         -var ms = minerstatus
         -if (ms === 'active')
-         h3 Active
+         li.h3 Active
         -else
-         h4 Not Active
-         br
+         li.h4 Not Active
+         p
          button(type="submit") Activate
-    div.NavButtons
-      a(href="/logout")
-          div.NavButton Log Out

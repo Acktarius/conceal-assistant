@@ -3,10 +3,10 @@ const sys = require('sysctlx');
 const Promise = require('bluebird');
 const { urlNode , urlMiner } = require('./localIpUrl');
 
-  const guardianRunningP = sys.checkActive('ccx-guardian');
-  const minerRunningP = sys.checkActive('ccx-mining');
 //Main
 const main = (req, res) => {
+  const guardianRunningP = sys.checkActive('ccx-guardian');
+  const minerRunningP = sys.checkActive('ccx-mining');
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
@@ -15,6 +15,8 @@ const main = (req, res) => {
       }
 //Miner Deactivation
 const minerD = (req, res) => {
+  const guardianRunningP = sys.checkActive('ccx-guardian');
+  const minerRunningP = sys.checkActive('ccx-mining');
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
@@ -23,6 +25,8 @@ const minerD = (req, res) => {
       }
 //Miner activation
 const minerA = (req, res) => {
+  const guardianRunningP = sys.checkActive('ccx-guardian');
+  const minerRunningP = sys.checkActive('ccx-mining');
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
@@ -31,6 +35,8 @@ const minerA = (req, res) => {
       }
 //guardian Node Deactivation
 const guardianD = (req, res) => {
+  const guardianRunningP = sys.checkActive('ccx-guardian');
+  const minerRunningP = sys.checkActive('ccx-mining');
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
@@ -39,6 +45,8 @@ const guardianD = (req, res) => {
       }
 //guardian node activation
 const guardianA = (req, res) => {
+  const guardianRunningP = sys.checkActive('ccx-guardian');
+  const minerRunningP = sys.checkActive('ccx-mining');
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);

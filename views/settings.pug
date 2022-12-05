@@ -2,13 +2,18 @@ extends layout
 
 block layout-content
   div.View.WelcomeView
-    h1.Banner Conceal Assistant
-    div.Message
+    ul.Banner
+      li.h1 Conceal Assistant
+      li
+      a(href="/main")
+          i(class="fa-solid fa-house fa-xl icon-colour")
+      li
+      a(href="/logout")
+       i(class="fa-solid fa-right-from-bracket fa-xl icon-colour")
+    div.MessageZero
       div.Title
         h1 settings
       span.Details Delete #{user} and Logout ?
+      br
       form(method="POST" action="/logout?_method=DELETE")
-       button(type="submit") Delete User
-    div.NavButtons
-      a(href="/main")
-          div.NavButton Back
+       button(type="submit") Delete #{user}

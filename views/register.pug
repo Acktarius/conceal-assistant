@@ -2,7 +2,11 @@ extends layout
 
 block layout-content
   div.View.UserView
-    h1.Banner Register new user
+    ul.Banner
+      li.h1 Register New User
+      li
+      a(href="/index")
+       i(class="fa-solid fa-bullseye-arrow fa-xl icon-colour")
     form(action="/register" method="POST") 
         div.MessageZero
           div.Title
@@ -19,8 +23,5 @@ block layout-content
             -var e = erreur
             -if (e !== '')
              br
-             h4= e 
-    div.NavButtons
-      a(href="/index")
-        div.NavButton Back
+             h4= e
     

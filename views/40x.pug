@@ -2,11 +2,12 @@ extends layout
 
 block layout-content
   div.View.WelcomeView
-    h1.Banner Conceal Assistant
-    div.Message
+    ul.Banner
+      li.h1 Conceal Assistant
+      li
+      a(href="/index")
+       i(class="fa-solid fa-bullseye fa-xl icon-colour")
+    div.MessageZero
       div.Title
         h1 Error
       span.Details=erreur
-    div.NavButtons
-      a(href="/login")
-          div.NavButton Log in

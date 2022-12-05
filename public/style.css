@@ -32,9 +32,12 @@ body {
   background: #343A40;
 }
 h1,
+.h1,
 h2,
 h3,
-h4 {
+.h3,
+h4,
+.h4 {
   font-family: "Helvetica", sans-serif;
   text-transform: uppercase;
 
@@ -47,13 +50,17 @@ h1,
 h2 {
   color: #868BA1;
 }
-h3 {
+h3,
+.h3 {
   color: #23ec09;
 }
-h4 {
+h4,
+.h4 {
   color: #cf332a;
 }
-h1 {
+
+h1,
+.h1 {
   font-size: 40px;
 }
 h5,
@@ -109,13 +116,8 @@ footer {
 }
 
 .Banner {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
   width: 100%;
-  min-height: 40px;
+  min-height: 35px;
   position: fixed;
   top: 2px;
   z-index: 1;
@@ -123,13 +125,23 @@ footer {
 
   overflow: hidden;
   background: #343A40;
-  padding: 15px;
+  padding: 5px;
 
-  font-family: "Helvetica", monospace;
-    color: #F39917;
+  text-align: center;
+  color: #F39917;
+  font-size: 20px;
+  font-weight: 700;
 
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
+  list-style-type: none;
+}
+
+.Banner li {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .MessageZero {
@@ -141,7 +153,7 @@ footer {
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
   position: relative;
-  Top: 80px;
+  Top: 120px;
   z-index: 0;
 }
 
@@ -153,8 +165,8 @@ footer {
   border-radius: 5px;
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
-  position: relative;
-  Top: 80px;
+  position: absolute;
+  Top: 380px;
   z-index: 0;
   }
 
@@ -184,7 +196,7 @@ footer {
   height: 55px;
   width: 150px;
 
-  background: #343A40;
+  background: #252a2e;
 
   border-radius: 30px;
 
@@ -199,11 +211,18 @@ footer {
 }
 .Details {
     font-family: "Helvetica", sans-serif;
-  
+    font-size: large;
     padding: 0;
     margin: 0;
-  
     color: #868BA1;
+    list-style-type: none;
+  }
+  .Details li {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 700;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   .WelcomeView {
     background: url("background.jpg") left bottom;

@@ -1,4 +1,4 @@
-//Post to start or stop and prepare render
+//Post to start or stop and prepare redirect
 const sys = require('sysctlx');
 const Promise = require('bluebird');
 
@@ -9,7 +9,7 @@ const minerStop = (req, res) => {
         minerStoppingP.then((stop) => {
         console.log('stopping Miner');
         console.log(stop);
-        res.redirect("/main"), { title: "Main" };
+        res.status(200).redirect('/main');
     })}
 
 //Miner Activation
@@ -18,7 +18,7 @@ const minerStart = (req, res) => {
     minerStartingP.then((start) => {
     console.log('starting miner');
     console.log(start);
-    res.redirect("/main", { title: "Main" });
+    res.status(200).redirect('/main');
     })}
 
 
@@ -28,7 +28,7 @@ const guardianStop = (req, res) => {
         guardianStoppingP.then((stop) => {
         console.log('stopping guardian node');
         console.log(stop);
-        res.redirect("/main", { title: "Main" });
+        res.status(200).redirect('/main');
     })}
 
 //Guardian Node Deactivation
@@ -37,7 +37,7 @@ const guardianStart = (req, res) => {
     guardianStartingP.then((start) => {
     console.log('starting guardian node');
     console.log(start);
-    res.redirect("/main", { title: "Main" });
+    res.status(200).redirect('/main');
     })}
 
 module.exports = { minerStop , minerStart , guardianStop , guardianStart }      

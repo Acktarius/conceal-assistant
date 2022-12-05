@@ -2,44 +2,50 @@ extends layout
 
 block layout-content
   div.View.WelcomeView
-    h1.Banner Conceal Assistant
+    ul.Banner
+      li.h1 Conceal Assistant
+      li
+      a(href="/settings")
+       i(class="fa-solid fa-gear fa-xl icon-colour")
+      li
+      a(href="https://wallet.conceal.network" target="_blank" rel="noopener")
+       i(class="fa-solid fa-wallet fa-xl icon-colour")
+      li
+      a(href="/logout")
+       i(class="fa-solid fa-right-from-bracket fa-xl icon-colour")
     div.MessageZero
       div.Title
         h1 Node Assistant
-      span.Details Guardian servive is
+      ul.Details Guardian servive is
         -var gs = guardianstatus
         -if (gs === 'active')
-          h3 active
+          li.h3 active
+          p 
           a(href=urlN target="_blank" rel="noopener") open API
+          p
           a(href="/guardiand") 
-          div.NavButton Deactivate
+           div.NavButton Deactivate
         -else
-          h4 Not Active
+          li.h4 Not Active
+          p
           a(href="/guardiana")
-          div.NavButton Activate
+           div.NavButton Activate
     div.MessageSuite
       div.Title
         h1 Miner Assistant
-      span.Details Miner is
+      ul.Details Miner is
         -var ms = minerstatus
         -if (ms === 'active')
-         h3 Active
+         li.h3 Active
+         p
          a(href=urlM target="_blank" rel="noopener") open API
+         p
          a(href="/minerd") 
           div.NavButton Deactivate
         -else
-         h4 Not Active
+         li.h4 Not Active
+         p
          a(href="/minera")
           div.NavButton Activate
-    div.MessageSuite
-      div.Title
-      a(href="https://wallet.conceal.network" target="_blank" rel="noopener")
-       h1 Wallet Access                
-    div.MessageSuite
-      div.NavButtons
-        a(href="/settings")
-         i(class="fa-solid fa-gear fa-xl icon-colour")
-         a(href="/logout")
-          div.NavButton Log Out
       
           
