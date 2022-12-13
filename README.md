@@ -1,7 +1,11 @@
 # conceal-assistant
 
-## allows the user after authentification to check the status of node and mining service.
-## And to activate or deactivate those service
+## Allows the user after authentification to check the status of node and mining services,
+## and to activate or deactivate those services.
+
+## Node service shall be named: ccx-guardian.service
+## Mining service shall be named: ccx-mining.service
+
 
 Node.JS and NPM are required :
 
@@ -19,7 +23,7 @@ dependancies required are indicated in package.json
 npm i bcrypt bluebird cookie-parser express express-flash jsonwebtoken local-ip-url pug sysctlx
 ```
 
-### to run in devlopper mode
+### to run in devlopper mode (requires nodemon dependancie)
 ```
 npm run dev
 ```
@@ -31,10 +35,9 @@ npm run dev
 
 User admin is already created, contact @Acktarius for password
 
-To be done:
-- [ ] To regulate access to register page
-- [ ] To allow to have more than one user ? and option to delete some user? 
-- [ ] Delete user
+To do list:
+- [ ] remove the glitch which require to reload the page
+- [ ] when miner deactivated, option to change miner pool and wallet
 
 Exploring feature : 
 - [ ] Creating a separated FrontEnd using Reactjs by @Ki-ll

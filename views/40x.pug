@@ -7,6 +7,10 @@ block layout-content
       li
       a(href="/index")
        i(class="fa-solid fa-bullseye fa-xl icon-colour")
+      -if (erreur === 'NO Token')
+       li
+       a(href="/refresh")
+        i(class="fa-solid fa-arrows-rotate fa-xl icon-colour wrapper" Title="Refresh")
     div.MessageZero
       div.Title
         h1 Error

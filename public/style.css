@@ -237,4 +237,10 @@ footer {
   }
 *.icon-colour {
   color: #868BA1;
-}  
+} 
+.wrapper {
+  opacity: 0%;
+} 
+.wrapper:hover {
+  opacity: 100%;
+}
