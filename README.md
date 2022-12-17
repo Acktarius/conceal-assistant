@@ -34,7 +34,7 @@ npm install
 ```
 
 
-### Normal use (read the notes at the bottom of the page first before running first time)
+### Normal use (read the notes at the bottom of this page first, before running first time)
 ```
  nodemon server
 ```
