@@ -2,7 +2,7 @@
 
 ## Allows the user after authentification to check the status of node and mining services, and to activate or deactivate those services.
 Conceal-Assistant is designed for CCX-Box, therefore it's only supported to run on Linux,
-Nevertheless, since it's a web server type of software, it can be consulted from any other device on the same local network using other environment(windows, mac ...)
+nevertheless, since it's a web server type of software, it can be consulted from any other device on the same local network using other environment(windows, mac ...)
 ## Node service shall be named: ccx-guardian.service
 ## Mining service shall be named: ccx-mining.service
 
@@ -22,7 +22,7 @@ to download the file in the Conceal-assistant folder :
 ```
 git clone https://github.com/Acktarius/conceal-assistant.git
 ```
-and go to this folder:
+and go to the folder just created:
 ```
 cd conceal-assistant
 ```
@@ -34,7 +34,7 @@ npm install
 ```
 
 
-### Normal use
+### Normal use (read the notes at the bottom of the page first before running first time)
 ```
  nodemon server
 ```
