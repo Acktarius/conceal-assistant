@@ -18,7 +18,7 @@ sudo apt install npm
 
 sudo npm i -g nodemon
 ```
-to download the file in the Conceal-assistant folder :
+to download the file in the Conceal-assistant folder or download and unzip the zip file:
 ```
 git clone https://github.com/Acktarius/conceal-assistant.git
 ```
