@@ -12,7 +12,7 @@ router.get("^/$|/index(.html)?", (req, res) => {
     res.render("login", { title: "Login" });
   });
 
-  //Register Page
+//Register Page
   router.get("/register", (req, res) => {
     if (noUser) {
     res.render("register", { title: "Register" })

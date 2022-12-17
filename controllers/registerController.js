@@ -23,7 +23,7 @@ const handleNewUser = async (req, res) => {
             JSON.stringify(usersDB.users)
         )
             console.log(usersDB.users)
-            res.status(201).redirect('/login')
+            res.status(201).redirect('/index')
             console.log(`success! New user ${user} created`)
     } catch (err) {
         res.status(500).json({ 'message': err.message })

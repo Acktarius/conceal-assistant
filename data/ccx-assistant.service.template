@@ -1,0 +1,19 @@
+[Unit]
+Description=Conceal Assistant
+After=network-online.target
+Wants=network-online.target
+#Requires=ccx-guardian.service
+#Requires=ccx-mining.service
+
+[Service]
+Type=simple
+# Another Type option: forking
+User=root
+Group=root
+WorkingDirectory=/home/(your_user_name)/conceal-assistant
+ExecStart=/usr/bin/nodemon /home/(your_user_name)/conceal-assistant/server.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

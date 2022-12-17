@@ -3,11 +3,16 @@
   "version": "1.0.1",
   "description": "Assistant pour Conceal",
   "main": "server.js",
+  "nodemonConfig": {
+    "watch": [
+      "**/data/**"
+    ],
+    "ignore": [ "**/public/**" ],
+    "delay": 500
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
-    "ui": "browser-sync start --config bs-config.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "watch": "nodemon"
   },
   "keywords": [
     "Conceal"
@@ -17,11 +22,14 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "bluebird": "^3.7.2",
+    "connect-livereload": "^0.6.1",
     "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-flash": "0.0.2",
-    "express-session": "^1.17.3",
+    "forever": "^4.0.3",
     "jsonwebtoken": "^8.5.1",
+    "livereload": "^0.9.3",
     "local-ip-url": "^1.0.3",
     "method-override": "^3.0.0",
     "pug": "^3.0.2",
@@ -29,7 +37,6 @@
   },
   "devDependencies": {
     "browser-sync": "^2.27.10",
-    "dotenv": "^16.0.3",
     "nodemon": "^2.0.20"
   },
   "repository": {

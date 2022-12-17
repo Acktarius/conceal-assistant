@@ -1,10 +1,8 @@
+//Copyright © 2022, @Acktarius, All Rights Reserved
 // server.js
 
 //Load environment variable
-if (process.env.NODE_ENV !== 'production'){
-  require('dotenv').config()
-}
-
+require('dotenv').config()
 
 //Required External Modules
 const express = require("express");
@@ -15,8 +13,6 @@ const Promise = require('bluebird');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
-
-
 //Required Middlewares
 const { checkLinuxOs } = require('./middleware/checkOs.js')
 const registerController = require('./controllers/registerController');
@@ -26,21 +22,31 @@ const renderG = require('./middleware/serviceCheckRender');
 const renderP = require('./middleware/startstopRender');
 const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
+const livereload = require('livereload');
+const connectLivereload = require('connect-livereload');
 
 //App Variables
+const publicDirectory = path.join(__dirname, "public");
+const liveReloadServer = livereload.createServer();
+liveReloadServer.watch(publicDirectory);
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+  liveReloadServer.refresh("/");
+  }, 100);
+});
+
 const app = express();
 const port = process.env.PORT || "3500"; 
 
 const itinerary = require('./routes/routes');
 const { sign } = require('crypto');
 
-
 //App Configuration
+app.use(connectLivereload());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(publicDirectory));
 app.use(express.urlencoded({ extended: false }));
-
 
 app.use(methodOverride('_method'));
 app.use(express.json());
@@ -51,17 +57,14 @@ app.use(cookieParser());
 app.use('/', itinerary);
 app.use('/refresh', require('./routes/refresh')) //offers the option to recreate a token based on refresh token
 
-
 app.post("/register", registerController.handleNewUser);
 
 app.post("/login(.html)?", authController.handleLogin);
 //Any route below that will require access Token AND an OS check = Linux
 
-     
 //Main page handling
 app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
    
-  
   //miner Deactivation handling
   app.get("/minerd", verifyJWT, renderG.minerD);
   app.post("/minerd", verifyJWT, renderP.minerStop);
@@ -83,9 +86,9 @@ app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
    app.get("/settings", verifyJWT, logoutController.handleUser);
 
 //logout
-  app.get("/logout", logoutController.handleLogout, (req, res) => { res.redirect("/index") }); 
+  app.get("/logout", logoutController.handleLogout);
 //delete and logout User
-  app.delete("/logout", logoutController.handleDeleteLogout, (req, res) => { res.redirect("/index") }); 
+  app.delete("/logout", logoutController.handleDeleteLogout); 
 
 //Server Activation
 app.listen(port, () => {

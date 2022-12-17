@@ -2,11 +2,12 @@ extends layout
 
 block layout-content
   div.View.WelcomeView
+    img.logo(src="logo-256x256-033.png" alt="Logo")
     h1.Banner Conceal Assistant
     div.Message
       div.Title
         h1 Goodbye
       span.Details=erreur
+    form(action="/logout" method="POST")
     div.NavButtons
-      a(href="/login")
-          div.NavButton Log in
+      button(type="submit") Logout

@@ -7,11 +7,14 @@ block layout-content
       li
       a(href="/index")
        i(class="fa-solid fa-bullseye fa-xl icon-colour")
+      li 
+      a(href="https://conceal.network" target="blank" rel="noopener")
+       img.logo(src="logo-256x256-033.png" alt="Logo")
     form(action="/login" method="POST") 
       div.MessageZero
         div.Title
           label(for="user")  Username : 
-          input(type="text" id="user" name="user" required)
+          input(type="text" id="user" name="user" required autofocus)
           div
           br 
           label(for="pwd") Password : 

@@ -144,6 +144,13 @@ footer {
   padding-right: 20px;
 }
 
+.Banner .logo {
+  display: inline-block;
+  vertical-align: middle;
+  width: 35px;
+  height: 35px;
+}
+
 .MessageZero {
   background: #343A40;
   padding: 15px;

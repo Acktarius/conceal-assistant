@@ -7,7 +7,7 @@
 ## Mining service shall be named: ccx-mining.service
 
 
-Node.JS and NPM are required :
+Node.JS, NPM, and Nodemon are required :
 
 ```
 sudo apt update
@@ -15,28 +15,27 @@ sudo apt update
 sudo apt install nodejs
 
 sudo apt install npm
+
+sudo npm i -g nodemon
 ```
 
 dependancies required are indicated in package.json
+bcrypt bluebird cookie-parser express express-flash jsonwebtoken local-ip-url pug sysctlx livereload connect-livereload
 
 ```
-npm i bcrypt bluebird cookie-parser express express-flash jsonwebtoken local-ip-url pug sysctlx
+npm install 
 ```
 
-### to run in devlopper mode (requires nodemon dependancie)
-```
-npm run dev
-```
 
 ### Normal use
 ```
- node server
+ nodemon server
 ```
 
 User admin is already created, contact @Acktarius for password
 
 To do list:
-- [ ] remove the glitch which require to reload the page
+- [x] remove the glitch which require to reload the page
 - [ ] when miner deactivated, option to change miner pool and wallet
 
 Exploring feature : 
@@ -45,8 +44,6 @@ Exploring feature :
 Known Glitch
 - [ ] Some latency to load some pages, just a refresh page can solve it
 
-- [ ] Logout doesnt fall back on index page, nevertheless, token are correctly erased 
-
 
 ****NOTES****
-need to create a .env file with a password for session => contact @Acktarius for more info
+need to create a .env file with an access token and a refresh token => contact @Acktarius for more info
