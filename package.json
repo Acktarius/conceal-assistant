@@ -7,15 +7,19 @@
     "watch": [
       "**/data/**"
     ],
-    "ignore": [ "**/public/**" ],
+    "ignore": [
+      "**/public/**"
+    ],
     "delay": 500
   },
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon"
+    "watch": "nodemon",
+    "assistant": "nodemon server.js"
   },
   "keywords": [
-    "Conceal"
+    "Conceal",
+    "CCX"
   ],
   "author": "Acktarius",
   "license": "BSD-3-Clause",
@@ -27,7 +31,6 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-flash": "0.0.2",
-    "forever": "^4.0.3",
     "jsonwebtoken": "^8.5.1",
     "livereload": "^0.9.3",
     "local-ip-url": "^1.0.3",
