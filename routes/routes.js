@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const { noUser } = require('../middleware/usersEmpty')
-
+const { checkEnv } = require('../middleware/checkEnv')
 
 // main index page
-router.get("^/$|/index(.html)?", (req, res) => { 
+router.get("^/$|/index(.html)?", checkEnv, (req, res) => { 
   res.render("index", { noUser: noUser });
   });
 //Login Page

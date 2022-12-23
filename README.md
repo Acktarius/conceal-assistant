@@ -28,8 +28,8 @@ and go to the folder just created:
 cd conceal-assistant
 ```
 dependancies required are indicated in package.json
-bcrypt bluebird cookie-parser express express-flash jsonwebtoken local-ip-url pug sysctlx livereload connect-livereload
-
+bcrypt bluebird cookie-parser date-fns express express-flash jsonwebtoken local-ip-url pug sysctlx livereload connect-livereload
+to install just run :
 ```
 npm install 
 ```
@@ -50,6 +50,7 @@ or from an other device on the same local network: http://(ip_address_of_the_ccx
 User admin is already created, contact @Acktarius for password
 
 To do list:
+- [x] automatically create access token at first use if environmental are missing
 - [x] remove the glitch which require to reload the page
 - [ ] Automatic refresh of Main Page
 - [ ] when miner deactivated, option to change miner pool and wallet
@@ -59,7 +60,3 @@ Exploring feature :
 
 Known Glitch
 - [ ] Some latency to load some pages, just a refresh page can solve it
-
-
-****NOTES****
-need to create a .env file with an access token and a refresh token => contact @Acktarius for more info
