@@ -35,13 +35,17 @@ npm install
 ```
 
 
-### Normal use (read the notes at the bottom of this page first, before running first time)
+### Normal use
 ```
  nodemon server
 ```
 or
 ```
 npm run assistant
+```
+or if you want to access from other devices on the same local network without having to type password on CCX-BOX when you make a change :
+```
+sudo npm run assistant
 ```
 
 open your internet Browser, and go to http://localhost:3500/
