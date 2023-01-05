@@ -82,6 +82,7 @@ a {
   cursor: pointer;
   user-select: none;
   max-width: fit-content;
+  letter-spacing: 0.1rem;
 }
 footer {
   position: fixed;
@@ -220,7 +221,7 @@ span {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 7rem;
+  margin: 0.2rem auto;
 
   height: 3rem;
   width: 9rem;
@@ -232,8 +233,9 @@ span {
 
   font-size: 1.1rem;
   font-weight: lighter;
-  color: #868BA1;
-
+  color: #fff;
+  text-decoration: underline #252a2e;
+  letter-spacing: normal;
   margin-top: 0.25rem;
   box-shadow: var(--ui-shadow);
 }
@@ -242,7 +244,7 @@ button {
   display:flex;
   justify-content: center;
   align-items: center;
-  margin-left: 7rem;
+  margin: 0.2rem auto;
   height: 3rem;
   width: 9rem;
 
