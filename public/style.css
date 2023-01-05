@@ -160,7 +160,8 @@ footer {
   font-size: 0.8rem;
   padding: 0.8rem;
   margin: 0.2rem;
-  min-width: 400px;
+  min-width: 21.5rem;
+  max-width: 21.75rem;
   width: max-content;
   border-radius: 0.6rem;
   border-bottom: var(--ui-shadow-border);
@@ -174,7 +175,7 @@ footer {
   background: #343A40;
   padding: 0.8rem;
   margin: 0.2rem;
-  min-width: 400px;
+  min-width: 21.5rem;
   width: max-content;
   border-radius: 0.6rem;
   border-bottom: var(--ui-shadow-border);
