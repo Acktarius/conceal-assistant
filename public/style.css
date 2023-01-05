@@ -8,6 +8,8 @@
 }
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -23,7 +25,7 @@ footer
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica", "Segoe UI", "Roboto", "Oxygen",
+  font-family: -apple-system, BlinkMacSystemFont, "Poppins", "Helvetica", "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -38,7 +40,7 @@ h3,
 .h3,
 h4,
 .h4 {
-  font-family: "Helvetica", sans-serif;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   text-transform: uppercase;
 
   padding: 0;
@@ -52,22 +54,24 @@ h2 {
 }
 h3,
 .h3 {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   color: #23ec09;
 }
 h4,
 .h4 {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   color: #cf332a;
 }
 
 h1,
 .h1 {
-  font-size: 40px;
+  font-size: 2.5rem;
 }
 h5,
 h6,
 label {
   font-family: "Helvetica", sans-serif;
-  
+  font-size: 1.2rem;
   padding: 0;
   margin: 0;
 
@@ -75,9 +79,9 @@ label {
 }
 a {
   color: inherit;
-  text-decoration: none;
   cursor: pointer;
   user-select: none;
+  max-width: fit-content;
 }
 footer {
   position: fixed;
@@ -116,7 +120,7 @@ footer {
 }
 
 .Banner {
-  width: 100%;
+  width: auto;
   min-height: 35px;
   position: fixed;
   top: 2px;
@@ -129,7 +133,7 @@ footer {
 
   text-align: center;
   color: #F39917;
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: 700;
 
   border-bottom: var(--ui-shadow-border);
@@ -147,44 +151,60 @@ footer {
 .Banner .logo {
   display: inline-block;
   vertical-align: middle;
-  width: 35px;
-  height: 35px;
+  width: 2rem;
+  height: 2rem;
 }
 
 .MessageZero {
   background: #343A40;
-  padding: 15px;
-  margin: 5px;
+  font-size: 0.8rem;
+  padding: 0.8rem;
+  margin: 0.2rem;
+  min-width: 400px;
   width: max-content;
-  border-radius: 5px;
+  border-radius: 0.6rem;
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
   position: relative;
-  Top: 120px;
+  Top: 8rem;
   z-index: 0;
 }
 
 .MessageSuite {
   background: #343A40;
-  padding: 15px;
-  margin: 5px;
+  padding: 0.8rem;
+  margin: 0.2rem;
+  min-width: 400px;
   width: max-content;
-  border-radius: 5px;
+  border-radius: 0.6rem;
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
   position: absolute;
-  Top: 380px;
+  Top: 20.5rem;
   z-index: 0;
   }
 
-.Message > .Title {
-  padding-bottom: 10px;
+.MessageZero > .Title > h1 {
+  font-size: 2.2rem;
+  padding-bottom: 0.25rem;
+}
+
+.MessageSuite > .Title > h1 {
+  font-size: 2.2rem;
+  padding-bottom: 0.25rem;
 }
 
 .Message > .Details {
   display: flex;
   flex-direction: column;
   line-height: 1.5em;
+}
+
+span {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  
+  margin-left: 14rem;
+  text-decoration: none;
 }
 
 .NavButtons {
@@ -199,30 +219,56 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 7rem;
 
-  height: 55px;
-  width: 150px;
+  height: 3rem;
+  width: 9rem;
 
   background: #252a2e;
 
-  border-radius: 30px;
+  border-radius: 0.6rem;
+  border: 0.1rem solid #FA0;
 
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: lighter;
   color: #868BA1;
 
-  text-transform: capitalize;
-
-  border-bottom: var(--ui-shadow-border);
+  margin-top: 0.25rem;
   box-shadow: var(--ui-shadow);
 }
+
+button {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 7rem;
+  height: 3rem;
+  width: 9rem;
+
+  background: #FA0;
+
+  border-radius: 0.6rem;
+  border: 0.1rem solid #FFF;
+
+  font-size: 1.1rem;
+  font-weight: lighter;
+  text-decoration: none;
+  color: #000;
+
+  cursor: pointer;
+
+  text-transform: capitalize;
+  margin-top: 0.25rem;
+  box-shadow: var(--ui-shadow);
+}
+
 .Details {
-    font-family: "Helvetica", sans-serif;
-    font-size: large;
-    padding: 0;
-    margin: 0;
-    color: #868BA1;
-    list-style-type: none;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: large;
+  padding: 0;
+  margin: 0;
+  color: #868BA1;
+  list-style-type: none;
   }
   .Details li {
     display: inline-block;
