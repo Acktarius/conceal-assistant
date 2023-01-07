@@ -85,6 +85,11 @@ app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
    //Settings
    app.get("/settings", verifyJWT, logoutController.handleUser);
 
+   //Miner Settings
+   app.get("/msettings", verifyJWT, (req, res) => {
+    res.render("msettings", { title: "Login" });
+   });
+
 //logout
   app.get("/logout", logoutController.handleLogout);
 //delete and logout User

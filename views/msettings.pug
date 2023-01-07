@@ -15,19 +15,21 @@ block layout-content
        img.logo(src="logo-256x256-033.png" alt="Logo")
     div.MessageZero
       div.Title
-        h1 settings
-      span.Details Delete #{user} and Logout ?
+        h1 miner settings
+      span.Details your mining software 
       br
-      form(method="POST" action="/logout?_method=DELETE")
-       button(type="submit") Delete #{user}
+      span.Details your mining address
+      br
+      span.Details your mining pool
+      br
+      span.Details your mining pool port 
     div.MessageSuite
       div.Title
-        h1 Credits :
-        span.Details Conceal Lab project 
+        h1 To modify :
+        span.Details new mining address 
         br
-        span.Details by Conceal Network 
+        span.Details new mining pool
         br 
-        h2 images :
-        span.Details cryptunit.com
-        br
-        span.Details Conceal InfogGraphics
+        span.Details new mining pool port
+        form(method="POST" action="/logout?_method=DELETE")
+         button(type="submit") modify
