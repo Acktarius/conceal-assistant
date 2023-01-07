@@ -88,15 +88,15 @@ footer {
   position: fixed;
   bottom: 0;
   z-index: 3;
-  background: #343A40;
+  background: linear-gradient(to right, #343A40, #343a40be);
   height: min-content;
-  padding: 3px;
+  padding: 0.2rem;
   
 }
 .h2 {
   font-family: "Helvetica", sans-serif;
   color: #868BA1;
-  font-size: 16px;
+  font-size: 1rem;
 }
 #root {
   display: flex;
@@ -113,24 +113,25 @@ footer {
   height: 100%;
   width: 100%;
 
-  padding: 20px;
+  padding: 1rem;
 
   background-size: cover;
-  /*background: #414951d5; */
   font-family: "Helvetica", sans-serif;
 }
 
 .Banner {
   width: auto;
-  min-height: 35px;
+  min-height: 1.6rem;
   position: fixed;
-  top: 2px;
+  top: 0.2rem;
+  left: 1rem;
+  right: 1rem;
   z-index: 1;
-  border-radius: 8px;
+  border-radius: 0.6rem;
 
   overflow: hidden;
   background: #343A40;
-  padding: 5px;
+  padding: 0.25rem;
 
   text-align: center;
   color: #F39917;
@@ -145,8 +146,8 @@ footer {
 .Banner li {
   display: inline-block;
   vertical-align: middle;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .Banner .logo {
@@ -160,6 +161,7 @@ footer {
   background: #343A40;
   font-size: 0.8rem;
   padding: 0.8rem;
+  padding-bottom: 0.4rem;
   margin: 0.2rem;
   min-width: 21.5rem;
   max-width: 21.75rem;
@@ -175,6 +177,7 @@ footer {
 .MessageSuite {
   background: #343A40;
   padding: 0.8rem;
+  padding-bottom: 0.4rem;
   margin: 0.2rem;
   min-width: 21.5rem;
   width: max-content;
@@ -201,14 +204,16 @@ footer {
   flex-direction: column;
   line-height: 1.5em;
 }
-
+p {
+  padding: 0.15rem;
+}
 span {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   
   margin-left: 14rem;
   text-decoration: none;
 }
-
+/*
 .NavButtons {
   display: flex;
   width: 100%;
@@ -216,7 +221,7 @@ span {
   align-items: center;
   padding: 0 20px;
 }
-
+*/
 .NavButton {
   display: flex;
   justify-content: center;
