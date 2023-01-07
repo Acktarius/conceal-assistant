@@ -43,24 +43,27 @@ or
 ```
 npm run assistant
 ```
-or if you want to access from other devices on the same local network without having to type password on CCX-BOX when you make a change :
-```
-sudo npm run assistant
-```
-
 open your internet Browser, and go to http://localhost:3500/
-or from an other device on the same local network: http://(ip_address_of_the_ccx_box):3500/
+or from an other device on the same local network: http://(local_ip_address_of_the_ccx_box):3500/
 
 User admin is already created, contact @Acktarius for password
 
-To do list:
+you have the option to delete "admin" and create your own username and password via the setting page,
+and you'll be redirected to register page.
+
+Once logged in, session is active for 15minutes, nevertheless session can be refresh
+during a period up to 24h, if needed.
+
+### To do list:
 - [x] automatically create access token at first use if environmental are missing
 - [x] remove the glitch which require to reload the page
 - [ ] Automatic refresh of Main Page
 - [ ] when miner deactivated, option to change miner pool and wallet
 
-Exploring feature : 
+### Exploring feature : 
 - [ ] Creating a separated FrontEnd using Reactjs by @Ki-ll
 
-Known Glitch
+### Known Glitch
+- [ ] at very very first boot (therefore only happens once) the page needs to be manually
+refresh, it's because there are no environmental token yet and they are just being created.
 - [ ] Some latency to load some pages, just a refresh page can solve it
