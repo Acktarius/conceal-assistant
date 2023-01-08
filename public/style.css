@@ -270,6 +270,7 @@ span {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0.8rem;
   margin: 0.2rem auto;
 
   height: 3rem;
@@ -283,7 +284,7 @@ span {
   font-size: 1.1rem;
   font-weight: lighter;
   color: #fff;
-  text-decoration: underline #252a2e;
+  text-decoration: none;
   letter-spacing: normal;
   margin-top: 0.25rem;
   box-shadow: var(--ui-shadow);
@@ -293,14 +294,13 @@ span {
   background: #FA0;
   border: 0.1rem solid #fff;
   color: #000;
-  text-decoration: underline #FA0;
-
 }
 
 button {
   display:flex;
   justify-content: center;
   align-items: center;
+  
   margin: 0.2rem auto;
   height: 3rem;
   width: 9rem;
@@ -314,7 +314,7 @@ button {
   font-weight: lighter;
   text-decoration: none;
   color: #fff;
-
+  letter-spacing: normal;
   cursor: pointer;
 
   text-transform: capitalize;
@@ -324,7 +324,6 @@ button {
 button:hover {
   background: #FA0;
   border: 0.1rem solid #FFF;
-  text-decoration: none;
   color: #000;
   cursor: pointer;
 }
