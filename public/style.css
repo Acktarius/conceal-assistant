@@ -92,13 +92,18 @@ footer {
   z-index: 3;
   background: linear-gradient(to right, #343A40, #343a40be);
   height: min-content;
-  padding: 0.25rem;
+  padding: 0.1rem;
   
 }
-.h2 {
-  font-family: "Helvetica", sans-serif;
+h7, .h7 {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  white-space: nowrap;
   color: #868BA1;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+h7 {
+  color: #FFF;
 }
 #root {
   display: flex;
@@ -130,7 +135,7 @@ footer {
   right: 1rem;
   z-index: 1;
   border-radius: 0.6rem;
-
+  max-width: 96vw;
   overflow: hidden;
   background: #343A40;
   padding: 0.25rem;
@@ -258,15 +263,43 @@ footer {
   .Credits:hover span {
     color: #FFF; 
   }
+  .MessageLicence {
+    background: #343A40;
+    padding-top: 0.4rem;
+    padding-right: 0.6rem;
+    padding-bottom: 0.4rem;
+    padding-left: 0.6rem;
+    margin: 0.2rem;
+    min-width: 21.5rem;
+    max-width: 95vw;
+    border-radius: 0.6rem;
+    border-bottom: var(--ui-shadow-border);
+    box-shadow: var(--ui-shadow);
+    position: absolute;
+    Top: 8rem;
+    z-index: 0;
+    white-space: pre-line;
+    }
+ol {
+  margin-left: 2rem;
+}
+.MessageLicence li {
+  color: #868BA1;
+}
 
-p {
+.MessageLicence p {
+  margin: 0.2rem 0.2rem;
   padding: 0.15rem;
+  color: #868BA1;
 }
 span {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
-  
-  margin-left: 14rem;
   text-decoration: none;
+}
+.nowrap {
+  white-space: pre-wrap;
+  margin-left: 0.5rem;
+  color: #FFF;
 }
 
 .NavButton {

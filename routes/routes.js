@@ -21,4 +21,9 @@ router.get("^/$|/index(.html)?", checkEnv, (req, res) => {
     }
   });
 
+  //Login Page
+  router.get("/licence(.html)?", (req, res) => {
+    res.render("licence", { title: "Licence" });
+  });
+
   module.exports = router
