@@ -330,6 +330,7 @@ button:hover {
   color: #000;
   cursor: pointer;
 }
+
 .Details {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-size: large;
@@ -344,6 +345,9 @@ button:hover {
     font-weight: 700;
     padding-left: 20px;
     padding-right: 20px;
+  }
+  .MessageZero:hover .attention {
+    color: #cf332a; 
   }
   .WelcomeView {
     background: url("background.jpg") left bottom;

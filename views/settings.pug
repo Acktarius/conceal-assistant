@@ -16,7 +16,7 @@ block layout-content
     div.MessageZero
       div.Title
         h1 settings
-      span.Details Delete #{user} and Logout ?
+      span.Details.attention Delete #{user} and Logout ?
       br
       form(method="POST" action="/logout?_method=DELETE")
        button(type="submit") Delete #{user}
