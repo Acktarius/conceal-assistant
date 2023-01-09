@@ -64,7 +64,7 @@ during a period up to 24h, if needed.
 ### Known Glitch
 - [ ] Some latency to load some pages, just a refresh page can solve it
 
-### Solve Glitch
+### Solved Glitch
 - [x] at very very first boot (therefore only happens once) the page needs to be manually
 refresh, it's because there are no environmental token yet and they are just being created.
 - [x] automatically create access token at first use if environmental are missing
