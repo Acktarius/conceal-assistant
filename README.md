@@ -55,15 +55,17 @@ Once logged in, session is active for 15minutes, nevertheless session can be ref
 during a period up to 24h, if needed.
 
 ### To do list:
-- [x] automatically create access token at first use if environmental are missing
-- [x] remove the glitch which require to reload the page
-- [ ] Automatic refresh of Main Page
-- [ ] when miner deactivated, option to change miner pool and wallet
+- [ ] Automatic refresh of Main Page ... but is it really needed ?
+- [ ] when miner deactivated, option to change miner pool and wallet...in progress
 
 ### Exploring feature : 
-- [ ] Creating a separated FrontEnd using Reactjs by @Ki-ll
+- [ ] Creating a separated FrontEnd using Reactjs by @Ki-ll ?
 
 ### Known Glitch
-- [ ] at very very first boot (therefore only happens once) the page needs to be manually
-refresh, it's because there are no environmental token yet and they are just being created.
 - [ ] Some latency to load some pages, just a refresh page can solve it
+
+### Solve Glitch
+- [x] at very very first boot (therefore only happens once) the page needs to be manually
+refresh, it's because there are no environmental token yet and they are just being created.
+- [x] automatically create access token at first use if environmental are missing
+- [x] remove the glitch which require to reload the page

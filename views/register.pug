@@ -3,11 +3,13 @@ extends layout
 block layout-content
   div.View.UserView
     ul.Banner
-      img.logo(src="logo-256x256-033.png" alt="Logo")
       li.h1 Register New User
       li
       a(href="/index")
-       i(class="fa-solid fa-bullseye-arrow fa-xl icon-colour")
+       i(class="fa-solid fa-bullseye fa-xl icon-colour")
+      li 
+      a(href="https://conceal.network" target="blank" rel="noopener")
+       img.logo(src="logo-256x256-033.png" alt="Logo")
     form(action="/register" method="POST") 
         div.MessageZero
           div.Title
