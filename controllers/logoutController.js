@@ -6,6 +6,8 @@ const fsPromises = require('fs').promises
 const { appendFile } = require('fs')
 const path = require('path')
 
+const logEvents = require('../middleware/logEvents')
+
 const handleLogout = async (req, res) => {
     const cookies = req.cookies;
     //delete access_token cookie
@@ -60,6 +62,8 @@ const handleDeleteLogout = async (req, res, next) => {
         path.join(__dirname, '..', 'data', 'users.json'), "[]"
     )
     console.log('delete user and logging out');
+    var userToDelete = foundUser.username
+    logEvents(`${userToDelete} deleted`)
     res.clearCookie('jwt', { httpOnly: true });
     res.redirect('index');
    } 
