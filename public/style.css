@@ -15,8 +15,7 @@
 
 html,
 body,
-#root,
-footer
+#root
      {
   height: 100%;
   width: 100%;
@@ -86,20 +85,12 @@ a:hover {
     text-decoration: none;
   }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  z-index: 3;
-  background: linear-gradient(to right, #343A40, #343a40be);
-  height: min-content;
-  padding: 0.1rem;
-  
-}
 h7, .h7 {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   white-space: nowrap;
+  padding-left: 0.4rem;
   color: #868BA1;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   text-decoration: none;
 }
 h7 {
@@ -116,14 +107,25 @@ h7 {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-
-  height: 100%;
   width: 100%;
+  height: auto;
+  
 
   padding: 1rem;
 
   background-size: cover;
   font-family: "Helvetica", sans-serif;
+}
+.WelcomeView {
+  background: url("background.jpg") bottom center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: repeat
+}
+.UserView {
+  background: url("backgrounduser.jpg") top center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .Banner {
@@ -270,12 +272,16 @@ h7 {
     padding-bottom: 0.4rem;
     padding-left: 0.6rem;
     margin: 0.2rem;
+    left: 1rem;
+    right: 1rem;
     min-width: 21.5rem;
     max-width: 95vw;
+    max-height: 75vh;
     border-radius: 0.6rem;
     border-bottom: var(--ui-shadow-border);
     box-shadow: var(--ui-shadow);
     position: absolute;
+    overflow-y: auto;
     Top: 8rem;
     z-index: 0;
     white-space: pre-line;
@@ -382,17 +388,7 @@ button:hover {
   .MessageZero:hover .attention {
     color: #cf332a; 
   }
-  .WelcomeView {
-    background: url("background.jpg") left bottom;
-    background-size: cover;
-    background-attachment: fixed;
-  }
-  .UserView {
-    background: url("backgrounduser.jpg") left
-      bottom;
-    background-size: cover;
-    background-attachment: fixed;
-  }
+
 *.icon-colour {
   color: #868BA1;
 } 
@@ -401,4 +397,13 @@ button:hover {
 } 
 .wrapper:hover {
   opacity: 100%;
+}
+footer {
+  width: 100%;
+  max-height: max-content;
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+  background: linear-gradient(to right, #343A40, #343a40be);
+  height: min-content;  
 }
