@@ -8,7 +8,6 @@ require('dotenv').config()
 const fsPromises = require('fs').promises
 const path = require('path')
 
-
 const handleLogin = async (req, res) => {
     const { user, pwd } = req.body;
     if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are required.'})
@@ -39,8 +38,7 @@ const handleLogin = async (req, res) => {
         //res.json({ accessToken });
         res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
         
-        res.status(201).redirect('main');
-   
+        res.status(201).redirect('main');        
    } else {
     res.status(401).render('login', { user: user, erreur: `wrong password` })
    }

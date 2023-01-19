@@ -3,6 +3,7 @@ const sys = require('sysctlx');
 const Promise = require('bluebird');
 const { urlNode , urlMiner } = require('./localIpUrl');
 
+
 //Main
 const main = (req, res) => {
   const guardianRunningP = sys.checkActive('ccx-guardian');
@@ -33,6 +34,22 @@ const minerA = (req, res) => {
         res.render("minera", { minerstatus: mr });   
         });  
       }
+
+//Miner is not active so we can go next
+const minerDnext = (req, res, next) => {
+  const guardianRunningP = sys.checkActive('ccx-guardian');
+  const minerRunningP = sys.checkActive('ccx-mining');
+  Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
+         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
+         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+         if (mr != "active") {
+          return next();
+         } else {
+        res.status(403).render('40x', { erreur: 'unauthorized when miner is running' });
+         }
+        });  
+      }
+      
 //guardian Node Deactivation
 const guardianD = (req, res) => {
   const guardianRunningP = sys.checkActive('ccx-guardian');
@@ -54,4 +71,4 @@ const guardianA = (req, res) => {
         });  
       }
 
-module.exports = { main , minerD , minerA , guardianD , guardianA };
+module.exports = { main , minerD , minerA , minerDnext , guardianD , guardianA };

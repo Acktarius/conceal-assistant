@@ -20,6 +20,7 @@ const authController = require('./controllers/authController');
 const verifyJWT = require('./middleware/verifyJWT');
 const renderG = require('./middleware/serviceCheckRender');
 const renderP = require('./middleware/startstopRender');
+const minerRender = require('./middleware/forMiner/minerRender');
 const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
 const livereload = require('livereload');
@@ -86,9 +87,7 @@ app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
    app.get("/settings", verifyJWT, logoutController.handleUser);
 
    //Miner Settings
-   app.get("/msettings", verifyJWT, (req, res) => {
-    res.render("msettings", { title: "Login" });
-   });
+   app.get("/msettings", verifyJWT, renderG.minerDnext, minerRender.minerGet);
 
 //logout
   app.get("/logout", logoutController.handleLogout);

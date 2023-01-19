@@ -61,6 +61,9 @@ const handleDeleteLogout = async (req, res, next) => {
      await fsPromises.writeFile(
         path.join(__dirname, '..', 'data', 'users.json'), "[]"
     )
+    await fsPromises.writeFile(
+        path.join(__dirname, '..', 'data', 'miners.json'), "[]"
+    )
     console.log('delete user and logging out');
     var userToDelete = foundUser.username
     logEvents(`${userToDelete} deleted`)

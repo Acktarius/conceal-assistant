@@ -71,6 +71,37 @@ label {
 
   color: #868BA1;
 }
+input[type=text] {
+  font-family: "Helvetica", sans-serif;
+  min-width: 3rem;
+  color: #252a2e;
+  border: 0.1rem solid #868BA1;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-size: 0.9rem;
+  padding: 0.1rem;
+  margin: 0.1rem;
+  outline: none;
+}
+input[type=text]:focus {
+  outline: 0.05rem solid #FA0;
+}
+input[type=password] {
+  font-family: "Helvetica", sans-serif;
+  min-width: 3rem;
+  color: #252a2e;
+  border: 0.1rem solid #868BA1;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-size: 0.9rem;
+  padding: 0.1rem;
+  margin: 0.1rem;
+  outline: none;
+}
+input[type=password]:focus {
+  outline: 0.05rem solid #FA0;
+}
+
 a {
   color: #fa0;
   cursor: pointer;

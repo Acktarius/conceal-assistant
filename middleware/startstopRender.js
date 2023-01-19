@@ -2,6 +2,7 @@
 const sys = require('sysctlx');
 const Promise = require('bluebird');
 
+const { extractInfo } = require('./forMiner/extractInfo');
 
 //Miner Deactivation
 const minerStop = (req, res) => {
@@ -9,6 +10,7 @@ const minerStop = (req, res) => {
         minerStoppingP.then((stop) => {
         console.log('stopping Miner');
         console.log(stop);
+        extractInfo();  
         res.status(200).redirect('/main');
     })}
 
