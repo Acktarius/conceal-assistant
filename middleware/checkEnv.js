@@ -26,6 +26,7 @@ if (fs.existsSync(path.join(__dirname, '../', '.env'))) {
                 console.log('log appended');
         }})
         });
+        next();
     }      
 }
 
