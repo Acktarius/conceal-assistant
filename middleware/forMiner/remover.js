@@ -9,7 +9,6 @@ const minersDB = {
 
 const remover = async () => {  
 const lastMiner = minersDB.users.length;
-console.log(lastMiner);
 if (lastMiner >= 2 ) {
 const foundLastMiner = minersDB.users.find(person => person.miner === lastMiner)
 const foundPreviousMiner = minersDB.users.find(person => person.miner === lastMiner - 1)
