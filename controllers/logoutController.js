@@ -7,6 +7,7 @@ const { appendFile } = require('fs')
 const path = require('path')
 
 const logEvents = require('../middleware/logEvents')
+const { remover } = require('../middleware/forMiner/remover');
 
 const handleLogout = async (req, res) => {
     const cookies = req.cookies;
@@ -33,6 +34,7 @@ const handleLogout = async (req, res) => {
         JSON.stringify(usersDB.users)
         )
     res.clearCookie('jwt', { httpOnly: true });
+    remover();
     console.log('logging out');
     res.redirect('index');
         }
