@@ -4,7 +4,7 @@
 Conceal-Assistant is designed for CCX-Box, therefore it's only supported to run on Linux,
 nevertheless, since it's a web server type of software, it can be consulted from any other device on the same local network using other environment(windows, mac ...)
 ## Node service shall be named: ccx-guardian.service
-## Mining service shall be named: ccx-mining.service
+## Mining service shall be named: ccx-mining.service *
 
 
 Node.JS, NPM, and Nodemon are required :
@@ -27,9 +27,9 @@ and go to the folder just created:
 ```
 cd conceal-assistant
 ```
-dependancies required are indicated in package.json
-bcrypt bluebird cookie-parser date-fns express express-flash jsonwebtoken local-ip-url pug sysctlx livereload connect-livereload
-to install just run :
+dependancies required as indicated in package.json
+
+to install, just run :
 ```
 npm install 
 ```
@@ -57,9 +57,12 @@ during a period up to 24h, if needed.
 ### To do list:
 - [ ] Automatic refresh of Main Page ... but is it really needed ?
 - [ ] when miner deactivated, option to change miner pool and wallet...in progress
+- [ ] adding compatibility with Xmr-Stak and Cryptodredge...in progress
+- [ ] miner setting library, auto clean-up, and remove when user deleted ...in progress
 
 ### Exploring feature : 
 - [ ] Creating a separated FrontEnd using Reactjs by @Ki-ll ?
+- [ ] adding TLS/SSL option for miner
 
 ### Known Glitch
 - [ ] Some latency to load some pages, just a refresh page can solve it
@@ -69,3 +72,8 @@ during a period up to 24h, if needed.
 refresh, it's because there are no environmental token yet and they are just being created.
 - [x] automatically create access token at first use if environmental are missing
 - [x] remove the glitch which require to reload the page
+
+* assuming :
+- SRBMiner-Multi is launched with a .sh file including informations (--pool --wallet -p --api-enable --api-rig-name)
+- Xmr-Stak is launched with the executable xmr-stak, informations are in a pools.txt file store in the grand-parent folder ({"pool_address" "wallet_address" "rig_id" "pool_password" ) and in the config.txt file for the api ("httpd_port")
+- CryptoDredge is launched with a .sh file including informations (-o stratum+tcp:// -u -p -w --api-type ccminer-tcp -b)
