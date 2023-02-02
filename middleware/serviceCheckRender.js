@@ -11,7 +11,7 @@ const main = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-        res.render("main", { guardianstatus: gr , minerstatus: mr , urlN: urlNode , urlM: urlMiner });   
+         res.render("main", { guardianstatus: gr , minerstatus: mr , urlN: urlNode , urlM: urlMiner });   
         });
       }
 //Miner Deactivation

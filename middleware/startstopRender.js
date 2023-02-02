@@ -2,15 +2,12 @@
 const sys = require('sysctlx');
 const Promise = require('bluebird');
 
-const { extractInfo } = require('./forMiner/extractInfo');
-
 //Miner Deactivation
 const minerStop = (req, res) => {
         const minerStoppingP = sys.stop('ccx-mining');  
         minerStoppingP.then((stop) => {
         console.log('stopping Miner');
-        console.log(stop);
-        extractInfo();  
+        console.log(stop); 
         res.status(200).redirect('/main');
     })}
 

@@ -2,11 +2,14 @@ const usersDB = {
     users: require('../data/users.json'),
     setUsers: function (data) { this.users = data }
 }
+
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const fsPromises = require('fs').promises
 const path = require('path')
+
+const { extractInfo } = require('../middleware/forMiner/extractInfo');
 
 const handleLogin = async (req, res) => {
     const { user, pwd } = req.body;
@@ -37,7 +40,7 @@ const handleLogin = async (req, res) => {
         res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 15 * 60 * 1000});
         //res.json({ accessToken });
         res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
-        
+        extractInfo(); 
         res.status(201).redirect('main');        
    } else {
     res.status(401).render('login', { user: user, erreur: `wrong password` })

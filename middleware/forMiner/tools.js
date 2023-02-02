@@ -11,8 +11,7 @@ let strReverse = "";
 
 //find a string looking forward from data startingString until endSign    
 function afterUntil(data, debutString, endSign) {
-    let debutForward = data.search(debutString);
-    debutForward = debutForward + debutString.length;
+    let debutForward = data.search(debutString) + debutString.length;
     let forWardString = "";
        var i = 0;
     while (data.slice(debutForward + i, debutForward + i + 1) != endSign) {
@@ -35,25 +34,20 @@ function backWard(data, endString, endSign) {
 }
 
 function inBetween(data, debut, fin) {
-    var d = debut.length;        
-    d = d + data.search(debut);
+    var d = data.search(debut) + debut.length;        
     var f = data.search(fin);
     return data.slice(d,f);
 }
 
 
 function inBetweenLong(data, debut, l) {
-    var d = debut.length;        
-    d = d + data.search(debut);
-    var f = d + l;
-    return data.slice(d,f);
+    var d = data.search(debut) + debut.length;        
+    return data.slice(d, d+l);
 }
 
 function startWithLong(data, startWith, l) {
-    var d = startWith.length;        
-    d = d + data.search(startWith);
+    var d = data.search(startWith) + startWith.length;        
     var f = d + l;
-    
     return (startWith + data.slice(d,f));
 }
 

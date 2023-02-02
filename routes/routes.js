@@ -26,4 +26,9 @@ router.get("^/$|/index(.html)?", checkEnv, (req, res) => {
     res.render("licence", { title: "Licence" });
   });
 
+  //noAPI Page
+  router.get("/noapi(.html)?", (req, res) => {
+    res.render("noapi", { title: "Api ?" });
+  });
+
   module.exports = router

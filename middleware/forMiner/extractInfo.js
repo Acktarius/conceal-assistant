@@ -14,36 +14,76 @@ const extractInfo = async () => {
         try {
             const data = await fsPromises.readFile('/etc/systemd/system/ccx-mining.service', 'utf8');
                 let begin = data.search("ExecStart=");
-                let end = data.search(".sh");
-                if (!begin || !end) {
+                //let end = data.search(".sh");
+                if (!begin) {
                     console.log("can't find path");
                 } else {
                 const { reverser, afterUntil, backWard, inBetween, inBetweenLong, startWithLong } = require('./tools.js');
-                let minerNb = minersDB.users.length +1;
-                let mPath = data.slice(begin+10,end+3);
-                let softWare = (data.search("SRB") > 0) ? "SRBMiner-MULTI" : (data.search("xmr-stak") > 0) ? "XmrStak" : "unknown";
-                let executable = reverser(backWard(data,".sh","/"));
+                const minerNb = minersDB.users.length +1;
+                const mPath = afterUntil(data, "ExecStart=", "\n");
+                const softWare = (data.search("SRB") > 0) ? "SRBMiner-MULTI" : (data.search("xmr-stak") > 0) ? "XmrStak" : (data.search("cryptodredge") > 0) ? "CryptoDredge" : "unKnown";
+
+                //let executable = reverser(backWard(data,".sh","/"));
                 //now let's look at the miner
+                    if (softWare == "SRBMiner-Multi") {
                 const dataM = await fsPromises.readFile(mPath, 'utf8');
                 let pool = inBetween(dataM, "-pool ",":");
                 let poolPort = inBetweenLong(dataM, ":", 4);
                 let wallet = startWithLong(dataM, "ccx7", 94);
                 let rigName = (inBetweenLong(dataM, wallet, 1) == ".") ? afterUntil(dataM, (wallet + "."), " ") : "";
                 let pass = (dataM.search("-p ") > 0) ? afterUntil(dataM, "-p "," ") : "";
+                
                 //inject in miner.json    
-                const newMiner = { "miner": minerNb, "software":softWare, "mpath": mPath, "executable": executable, 
-                "pool":pool, "port":poolPort, "wallet":wallet, "rigName":rigName, "pass":pass}
+           
+                const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": poolPort, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": 21550};
                 minersDB.setUsers([...minersDB.users, newMiner])
                 await fsPromises.writeFile(
-                    path.join(__dirname, '..', '..', 'data', 'miners.json'),
-                    JSON.stringify(minersDB.users)
+                path.join(__dirname, '..', '..', 'data', 'miners.json'),
+                JSON.stringify(minersDB.users)
                 )
-                }
-            } catch (err) {
-            console.error(err);
-            }         
-        }
-  }
 
+                    } else {
+                    
+                    if (softWare == "XmrStak") { 
+                        let mxPath = "/" + inBetween(mPath, "/","/xmr-stak") + "/";
+                        const dataM = await fsPromises.readFile(`${mxPath}pools.txt`, 'utf8');
+                        let pool = afterUntil(dataM, '{"pool_address" : "', ':');
+                        let poolPort = inBetweenLong(dataM, `${pool}:`, 4);
+                        let wallet = startWithLong(dataM, "ccx7", 94);
+                        let rigName = afterUntil(dataM, 'rig_id" : "' , '"');
+                        let pass = afterUntil(dataM, 'pool_password" : "' , '"');
+                        const dataMC = await fsPromises.readFile(`${mxPath}config.txt`, 'utf8');
+                        let apiPort = (!afterUntil(dataMC, 'httpd_port" : ', ",") == "") ? afterUntil(dataMC, 'httpd_port" : ', ",") : "3500/noapi";
+                        
+                        
+                                //inject in miner.json    
+           
+                                const newMiner = { "miner": minerNb, "software": softWare, "mpath": mxPath, "pool": pool, "port": poolPort, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": apiPort};
+                                minersDB.setUsers([...minersDB.users, newMiner])
+                                await fsPromises.writeFile(
+                                path.join(__dirname, '..', '..', 'data', 'miners.json'),
+                                JSON.stringify(minersDB.users)
+                                )
+
+                    } else {
+                    
+                    if (softWare == "CryptoDredge") { 
+                    
+                    } else {
+                        console.log("no known software");
+                    }
+                }
+                
+            
+        }
+
+    }
+
+            } catch (err) {
+                console.error(err);
+            }         
+             
+  }
+}
 
 module.exports = { extractInfo };
