@@ -6,43 +6,19 @@ const minersDB = {
   const fs = require('fs');
   const fsPromises = require('fs').promises;
   const path = require('path');
+const deleteOFP = require('./deleteOFP');
+
 
 const remover = async () => {  
 const lastMiner = minersDB.users.length;
 if (lastMiner >= 2 ) {
-const foundLastMiner = minersDB.users.find(person => person.miner === lastMiner)
-const foundPreviousMiner = minersDB.users.find(person => person.miner === lastMiner - 1)
-    if (foundLastMiner.software == foundPreviousMiner.software) {
-        if (foundLastMiner.mpath == foundPreviousMiner.mpath) {
-            if (foundLastMiner.pool == foundPreviousMiner.pool) {
-                if (foundLastMiner.port == foundPreviousMiner.port) {
-                    if (foundLastMiner.wallet == foundPreviousMiner.wallet) {
-                        if (foundLastMiner.rigName == foundPreviousMiner.rigName) {
-                            if (foundLastMiner.pass == foundPreviousMiner.pass) {
-                                if (foundLastMiner.apiPort == foundPreviousMiner.apiPort) {
-                                    console.log("duplicate miner flight sheet will be removed !");
-                                    try {
-                                    const previousMiners = minersDB.users.filter(person => person.miner !== lastMiner);
-                                    minersDB.setUsers(previousMiners);
-                                    await fsPromises.writeFile(
-                                        path.join(__dirname, '..', '..' , 'data', 'miners.json'),
-                                        JSON.stringify(minersDB.users)
-                                        )
-                                   } catch (err) {
-                                        console.error(err);    
-                                   }
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+const flMiner = minersDB.users.find(person => person.miner === lastMiner)
+const fpMiner = minersDB.users.find(person => person.miner === lastMiner - 1)
 
+if ((flMiner.software == fpMiner.software) && (flMiner.mpath == fpMiner.mpath) && (flMiner.pool == fpMiner.pool) && (flMiner.port == fpMiner.port) && (flMiner.wallet == fpMiner.wallet) && (flMiner.rigName == fpMiner.rigName) && (flMiner.pass == fpMiner.pass) && (flMiner.apiPort == fpMiner.apiPort)) {
+     console.log("duplicate miner flight sheet will be removed !");
+     deleteOFP(lastMiner);                 
+     }
 }
 }
-
-
 module.exports = { remover };
