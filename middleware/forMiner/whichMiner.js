@@ -6,7 +6,7 @@ const minersDB = {
     const lastMiner = minersDB.users.length;
    
     const foundMiner = minersDB.users.find(person => person.miner === lastMiner)
-    const whichMiner = (lastMiner == 0) ? "unk" : (foundMiner.software == "SRBMiner-MULTI" ) ? "srb" : (foundMiner.software == "XmrStak" ) ? "xmr" : (foundMiner.software == "CryptoDredge" ) ? "crd" : "unk";
+    const whichMiner = (lastMiner == 0) ? "unk" : (foundMiner.software == "SRBMiner-Multi" ) ? "srb" : (foundMiner.software == "XmrStak" ) ? "xmr" : (foundMiner.software == "CryptoDredge" ) ? "crd" : "unk";
   
 
 module.exports = { whichMiner };

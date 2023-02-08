@@ -20,8 +20,8 @@ const extractInfo = async () => {
                 const { reverser, afterUntil, backWard, inBetween, inBetweenLong, startWithLong } = require('./tools.js');
                 const minerNb = minersDB.users.length +1;
                 const mPath = afterUntil(data, "ExecStart=", "\n");
-                const softWare = (data.search("SRB") > 0) ? "SRBMiner-MULTI" : (data.search("xmr-stak") > 0) ? "XmrStak" : (data.search("CryptoDredge") > 0) ? "CryptoDredge" : "unKnown";
-
+                const softWare = (data.search("SRB") > 0) ? "SRBMiner-Multi" : (data.search("xmr-stak") > 0) ? "XmrStak" : (data.search("CryptoDredge") > 0) ? "CryptoDredge" : "unKnown";
+                
                 //now let's look at the miner
                     if (softWare == "SRBMiner-Multi") {
                 const dataM = await fsPromises.readFile(mPath, 'utf8');

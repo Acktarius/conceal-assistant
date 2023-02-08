@@ -13,34 +13,38 @@ block layout-content
       li 
       a(href="https://conceal.network" target="blank" rel="noopener")
        img.logo(src="logo-256x256-033.png" alt="Logo")
-    div.MessageZero
-      div.Title
-        h1 miner settings
-      span.Details Software: #{software}
-      br
-      label(for="wallet")  Mining Address :
-      br
-      input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="wallet" name="wallet" value=wallet placeholder=wallet)
-      br
-      br
-      label(for="miningpool")  Mining Pool and
-      span
-        label(for="port")  port :
-      br
-      input(type="text" style="width: 15.5rem;" id="pool" name="pool" value=pool placeholder=pool)
-      span 
-        input(type="text" style="width: 1.4rem;" id="port" name="port" value=port placeholder=port)
-      br
-      br
-      label(for="rigname")  Miner Name :
-      span 
-        input(type="text" style="width: 11.4rem;" id="rigname" name="rigname" value=rigname placeholder=rigname)
-      br
-      br
-      label(for="password")  password :
-      span 
-        input(type="text" style="width: 12.8rem;" id="password" name="password" value=password placeholder=password)
-      br
-      br
-      h2 Beta Teaser
-      a.NavButton(href="/main") Modify
+    form(action="/msettings" method="POST")
+      div.MessageZero
+        div.Title
+          h1 miner settings
+        span.Details Software: #{software}
+        br
+        label(for="wallet")  Mining Address :
+        br
+        input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="wallet" name="wallet" value=wallet placeholder=wallet)
+        br
+        br
+        label(for="miningpool")  Mining Pool and
+        span
+          label(for="port")  port :
+        br
+        input(type="text" style="width: 15.5rem;" id="pool" name="pool" value=pool placeholder=pool)
+        span 
+          input(type="text" style="width: 1.4rem;" id="port" name="port" value=port placeholder=port)
+        br
+        br
+        label(for="rigname")  Miner Name :
+        span 
+          input(type="text" style="width: 11.4rem;" id="rigname" name="rigname" value=rigname placeholder=rigname)
+        br
+        br
+        label(for="password")  password :
+        span 
+          input(type="text" style="width: 12.8rem;" id="password" name="password" value=password placeholder=password)
+        br
+        br
+        -var e = message
+            -if (e !== '')
+             br
+             h4 #{message}
+        button(type="submit") Modify

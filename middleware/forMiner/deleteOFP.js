@@ -35,7 +35,4 @@ const fnMiner = minersDB.users.find(person => person.miner === N)
 }
 }
 
-//let N = 2;
-//deleteOFP(N);
-
 module.exports = deleteOFP;

@@ -88,6 +88,7 @@ app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
 
    //Miner Settings
    app.get("/msettings", verifyJWT, renderG.minerDnext, minerRender.minerGet);
+   app.post("/msettings", verifyJWT, renderG.minerDnext, minerRender.modifyPost);
 
 //logout
   app.get("/logout", logoutController.handleLogout);
