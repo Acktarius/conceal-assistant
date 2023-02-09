@@ -8,6 +8,7 @@ const fsPromises = require('fs').promises;
 const path = require('path');
 
 const deleteOFP = require('./deleteOFP');
+const injectOFP = require('./injectOFP');
 
 const minerGet = (req, res) => {
   const lastMiner = minersDB.users.length;
@@ -41,28 +42,44 @@ const modifyPost = async (req, res) => {
   try{
   const minerNb = lastMiner +1;
   const softWare = flMiner.software;
-  const mPath = flMiner.mPath;
-const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": port, "wallet": wallet, "rigName": rigname, "pass": password, "apiPort": port};
+  const mPath = flMiner.mpath;
+  let apiPort = flMiner.apiPort;
+const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": port, "wallet": wallet, "rigName": rigname, "pass": password, "apiPort": apiPort};
 minersDB.setUsers([...minersDB.users, newMiner])
 await fsPromises.writeFile(
 path.join(__dirname, '..', '..', 'data', 'miners.json'),
 JSON.stringify(minersDB.users)
 )
-const createdMiner = minersDB.users.find(person => person.miner === minerNb)
-  
-    res.render("msettingsc", { title: "Confirm Settings", 
+res.status(201).redirect('/msettingsc');
+    
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// Route do msettingsc
+const confirmGet = (req, res) => {
+  const lastMiner = minersDB.users.length;
+  const createdMiner = minersDB.users.find(person => person.miner === lastMiner);
+  res.render('msettingsc', { title: "Confirm ?", 
                             software: createdMiner.software,
                             pool: createdMiner.pool,
                             port: createdMiner.port,
                             wallet: createdMiner.wallet,
                             rigname: createdMiner.rigName,
                             password: createdMiner.pass
-                          });
-  } catch (err) {
-    console.error(err);
-  }
+                          })
+
 }
 
+//Inject last miner (which is the one just created)
+const minerInject = async (req, res) => {
+  const lastMiner = minersDB.users.length;
+  await injectOFP(lastMiner);  
+  res.status(200).redirect('/main');              
+  }
+
+//Cancel
 const minerCancel = async (req, res) => {
   const lastMiner = minersDB.users.length;
   await deleteOFP(lastMiner);  
@@ -71,4 +88,4 @@ const minerCancel = async (req, res) => {
   
   
 
-module.exports = { minerGet , modifyPost , minerCancel };        
+module.exports = { minerGet , modifyPost , minerCancel, confirmGet , minerInject };        

@@ -89,6 +89,8 @@ app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
    //Miner Settings
    app.get("/msettings", verifyJWT, renderG.minerDnext, minerRender.minerGet);
    app.post("/msettings", verifyJWT, renderG.minerDnext, minerRender.modifyPost);
+   app.get("/msettingsc", verifyJWT, renderG.minerDnext, minerRender.confirmGet);
+   app.post("/msettingsc", verifyJWT, renderG.minerDnext, minerRender.minerInject);
    app.delete("/msettingsc", verifyJWT, renderG.minerDnext, minerRender.minerCancel);
 
 //logout

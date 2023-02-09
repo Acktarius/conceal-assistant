@@ -20,24 +20,17 @@ block layout-content
             h1 miner settings
           span.Details Software: #{software}
           br
-          label(for="wallet")  Mining Address :
-          br
+          h5  Mining Address :
           h2 #{wallet}
           br
-          label(for="miningpool")  Mining Pool and
-          span
-            label(for="port")  port :
+          h5  Mining Pool and port :
+          h2 #{pool} #{port}
           br
-          span
-            h2 #{pool} #{port}
+          h5  Miner Name :
+          h2 #{rigname}
           br
-          label(for="rigname")  Miner Name :
-          span 
-            h2 #{rigname}
-          br
-          label(for="password")  password :
-          span 
-            h2 #{password}
+          h5  password :
+          h2 #{password}
           br
           button.inlinebutton(type="submit" form="cancel") Cancel
           button.inlinebutton(type="submit" form="inject") Confirm

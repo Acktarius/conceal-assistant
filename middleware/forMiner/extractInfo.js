@@ -28,7 +28,7 @@ const extractInfo = async () => {
                 let pool = afterUntil(dataM, "-pool ",":");
                 let poolPort = inBetweenLong(dataM, `${pool}:`, 4);
                 let wallet = startWithLong(dataM, "ccx7", 94);
-                let rigName = (inBetweenLong(dataM, wallet, 1) == ".") ? afterUntil(dataM, (wallet + "."), " ") : "";
+                let rigName = (inBetweenLong(dataM, wallet, 1) == ".") ? afterUntil(dataM, (wallet + "."), " ") : (dataM.search("rig-name ") > 0) ? afterUntil(dataM, "-rig-name ", ("/n" || " ")) : "";
                 let pass = (dataM.search("-p ") > 0) ? afterUntil(dataM, "-p "," ") : "";
                 
                 //inject in miner.json    
@@ -39,9 +39,7 @@ const extractInfo = async () => {
                 path.join(__dirname, '..', '..', 'data', 'miners.json'),
                 JSON.stringify(minersDB.users)
                 )
-
-                    } else {
-                    
+                    } else {                   
                     if (softWare == "XmrStak") { 
                         let mxPath = "/" + inBetween(mPath, "/","/xmr-stak") + "/";
                         const dataM = await fsPromises.readFile(`${mxPath}pools.txt`, 'utf8');
@@ -52,10 +50,8 @@ const extractInfo = async () => {
                         let pass = afterUntil(dataM, 'pool_password" : "' , '"');
                         const dataMC = await fsPromises.readFile(`${mxPath}config.txt`, 'utf8');
                         let apiPort = (!afterUntil(dataMC, 'httpd_port" : ', ",") == "") ? afterUntil(dataMC, 'httpd_port" : ', ",") : "3500/noapi";
-                        
-                        
-                            //inject in miner.json    
-        
+                                              
+                            //inject in miner.json           
                             const newMiner = { "miner": minerNb, "software": softWare, "mpath": mxPath, "pool": pool, "port": poolPort, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": apiPort};
                             minersDB.setUsers([...minersDB.users, newMiner])
                             await fsPromises.writeFile(
@@ -63,8 +59,7 @@ const extractInfo = async () => {
                             JSON.stringify(minersDB.users)
                             )
 
-                    } else {
-                    
+                    } else {                   
                     if (softWare == "CryptoDredge") { 
                             const dataM = await fsPromises.readFile(mPath, 'utf8');
                             let pool = afterUntil(dataM, "://", ":");
@@ -84,18 +79,13 @@ const extractInfo = async () => {
                     } else {
                         console.log("no known software");
                     }
-                }
-                
-            
+                }   
         }
-
     }
-
             } catch (err) {
                 console.error(err);
-            }         
-             
-  }
+            }                  
+  } 
 }
 
 module.exports = { extractInfo };
