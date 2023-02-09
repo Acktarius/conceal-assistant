@@ -24,13 +24,13 @@ block layout-content
           h2 #{wallet}
           br
           h5  Mining Pool and port :
-          h2 #{pool} #{port}
+          h2 #{pool}:#{port}
+          h5.inlineH  Miner Name :
+          h2.inlineH #{rigname}
           br
-          h5  Miner Name :
-          h2 #{rigname}
+          h5.inlineH  password :
+          h2.inlineH #{password}
           br
-          h5  password :
-          h2 #{password}
           br
           button.inlinebutton(type="submit" form="cancel") Cancel
           button.inlinebutton(type="submit" form="inject") Confirm

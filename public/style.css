@@ -127,6 +127,14 @@ h7, .h7 {
 h7 {
   color: #FFF;
 }
+.inlineH {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 0.5rem;
+  padding-left: auto;
+  padding-right: auto;
+  list-style-type: none;
+}
 #root {
   display: flex;
   flex-direction: column;
@@ -356,6 +364,7 @@ ol {
 .MessageConfirm h2 {
   word-break: break-word;
   color: #A50;
+  text-transform: none;
 }
 .MessageConfirm button {
   width: 7rem;
