@@ -329,6 +329,55 @@ ol {
   padding: 0.15rem;
   color: #868BA1;
 }
+
+.MessageConfirm {
+  background: #343A40;
+  font-size: 0.8rem;
+  padding-top: 0.4rem;
+  padding-left: 0.8rem;
+  padding-bottom: 0.4rem;
+  margin: 0.2rem;
+  min-width: 21.5rem;
+  max-width: 21.75rem;
+  width: max-content;
+  border-radius: 0.6rem;
+  border-bottom: var(--ui-shadow-border);
+  box-shadow: var(--ui-shadow);
+  position: absolute;
+  Top: 7.2rem;
+  z-index: 0;
+  white-space: pre-line;
+  opacity: 95%;
+}
+.MessageConfirm > .Title > h1 {
+  font-size: 2.2rem;
+  padding-bottom: 0.15rem;
+}
+.MessageConfirm h2 {
+  word-break: break-word;
+  color: #A50;
+}
+.MessageConfirm button {
+  width: 7rem;
+}
+.MessageConfirm:hover {
+  background: #2e5050;
+  opacity: 90%;
+}
+.MessageConfirm:hover h1 {
+  color: #FFF; 
+}
+.MessageConfirm:hover h2 {
+  color: #FFF; 
+}
+.inlinebutton {
+  display: inline-block;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-left: auto;
+  padding-right: auto;
+  list-style-type: none;
+}
 span {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   text-decoration: none;
@@ -373,7 +422,7 @@ button {
   display:flex;
   justify-content: center;
   align-items: center;
-  
+  text-align: center;
   margin: 0.2rem auto;
   height: 3rem;
   width: 9rem;
