@@ -10,7 +10,7 @@ const path = require('path');
 const logEvents = require('../logEvents');
 const deleteOFP = require('./deleteOFP');
 
-const injectOFP = async (N) => {  
+const injectOFP = async (N,C) => {  
 const previousMiner = minersDB.users.find(person => person.miner === N-1);
 const createdMiner = minersDB.users.find(person => person.miner === N);
 if (createdMiner.mpath != previousMiner.mpath) {
@@ -58,11 +58,15 @@ if (createdMiner.mpath != previousMiner.mpath) {
             }
         }
         //clean up, keep only the last 2 ofp
+        if ( C == true ) {
         if (N > 2) {
-            for(let z = 1; z <= N - 2; z++) {
-                await deleteOFP(z);
+            for(let z = 1; z < N - 1; z++) {
+                await deleteOFP(N-1-z);
             }
         }
+    }
+
+
         await logEvents(`Operating Flight Sheet for ${createdMiner.software} has been modified`);
     } catch (err) {
         console.error(err);    

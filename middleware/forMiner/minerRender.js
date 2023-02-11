@@ -75,7 +75,9 @@ const confirmGet = (req, res) => {
 //Inject last miner (which is the one just created)
 const minerInject = async (req, res) => {
   const lastMiner = minersDB.users.length;
-  await injectOFP(lastMiner);  
+  const { switchchecked } = req.body;
+  let C = (switchchecked == 'on') ? true : false;
+  await injectOFP(lastMiner,C);  
   res.status(200).redirect('/main');              
   }
 

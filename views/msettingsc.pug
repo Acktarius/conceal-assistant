@@ -32,6 +32,11 @@ block layout-content
           h2.inlineH #{password}
           br
           br
+          span.inlineH
+            input(type="checkbox" id="switch" name="switchchecked" checked=false form="inject")
+            label.toggle(for="switch") 
+          h7.inlineH keep only previous and new flight sheet
+          br
           button.inlinebutton(type="submit" form="cancel") Cancel
           button.inlinebutton(type="submit" form="inject") Confirm
             
