@@ -57,7 +57,7 @@ if (createdMiner.mpath != previousMiner.mpath) {
                 }
             }
         }
-        //clean up, keep only the last 2 ofp
+        //clean up: keeps only the last 2 ofp
         if ( C == true ) {
         if (N > 2) {
             for(let z = 1; z < N - 1; z++) {
@@ -67,7 +67,7 @@ if (createdMiner.mpath != previousMiner.mpath) {
     }
 
 
-        await logEvents(`Operating Flight Sheet for ${createdMiner.software} has been modified`);
+        await logEvents(`Operating Flight Sheet for ${createdMiner.software} has been modified; ${createdMiner.description}`);
     } catch (err) {
         console.error(err);    
     }

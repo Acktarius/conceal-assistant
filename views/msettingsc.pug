@@ -23,7 +23,7 @@ block layout-content
           h5  Mining Address :
           h2 #{wallet}
           br
-          h5  Mining Pool and port :
+          h5  Mining Pool port and TLS :
           h2 #{pool}:#{port}
           h5.inlineH  Miner Name :
           h2.inlineH #{rigname}
@@ -31,12 +31,14 @@ block layout-content
           h5.inlineH  password :
           h2.inlineH #{password}
           br
-          br
+          h7.inlineH keep only new and previous flight sheet
           span.inlineH
-            input(type="checkbox" id="switch" name="switchchecked" checked=false form="inject")
+            input(type="checkbox" id="switch" name="cleanswt" checked=false form="inject")
             label.toggle(for="switch") 
-          h7.inlineH keep only previous and new flight sheet
+          br
           br
           button.inlinebutton(type="submit" form="cancel") Cancel
           button.inlinebutton(type="submit" form="inject") Confirm
+          br
+          h7.center Description : #{description}
             

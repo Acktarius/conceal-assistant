@@ -75,6 +75,7 @@ input[type=text] {
   font-family: "Helvetica", sans-serif;
   min-width: 3rem;
   color: #252a2e;
+  background-color: #88837a;
   border: 0.1rem solid #868BA1;
   -webkit-transition: 0.3s;
   transition: 0.3s;
@@ -84,7 +85,7 @@ input[type=text] {
   outline: none;
 }
 input[type=text]:focus {
-  outline: 0.05rem solid #FA0;
+  outline: 0.05rem solid #A50;
 }
 input[type=password] {
   font-family: "Helvetica", sans-serif;
@@ -127,12 +128,19 @@ h7, .h7 {
 h7 {
   color: #FFF;
 }
+.center {
+  margin-left: 45%;
+  margin-right: 30%;
+  text-align: center;
+  display: inline-block;
+}
 .inlineH {
   display: inline-block;
+  height: 1.5rem;
   margin-left: auto;
   margin-right: 0.5rem;
-  padding-left: auto;
-  padding-right: auto;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
   list-style-type: none;
 }
 #root {
@@ -506,7 +514,7 @@ input[type=checkbox]{
   display: block;
   border-radius: 1.5rem;
   position: relative;
-  bottom: 1.2rem;
+  bottom: 1.5rem;
 }
 
 .toggle:after {

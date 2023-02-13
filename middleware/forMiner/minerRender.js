@@ -21,7 +21,8 @@ const minerGet = (req, res) => {
                             port: foundMiner.port,
                             wallet: foundMiner.wallet,
                             rigname: foundMiner.rigName,
-                            password: foundMiner.pass
+                            password: foundMiner.pass,
+                            description: foundMiner.description
                           });   
             
         }
@@ -30,9 +31,9 @@ const minerGet = (req, res) => {
 const modifyPost = async (req, res) => {
   const lastMiner = minersDB.users.length;
   const flMiner = minersDB.users.find(person => person.miner === lastMiner)
-  const { wallet, pool, port, rigname, password } = req.body; 
+  const { wallet, pool, port, rigname, password, description } = req.body; 
 //change at least one value
-  if ((wallet == flMiner.wallet) && (pool == flMiner.pool) && (port== flMiner.port) && (rigname == flMiner.rigName) && (password == flMiner.pass)) return res.status(401).render('msettings', { title: "Miner Settings", software: flMiner.software, pool: flMiner.pool, port: flMiner.port, wallet: flMiner.wallet, rigname: flMiner.rigName, password: flMiner.pass, message: "modify at least one value"});
+  if ((wallet == flMiner.wallet) && (pool == flMiner.pool) && (port== flMiner.port) && (rigname == flMiner.rigName) && (password == flMiner.pass) && (description == flMiner.description)) return res.status(401).render('msettings', { title: "Miner Settings", software: flMiner.software, pool: flMiner.pool, port: flMiner.port, wallet: flMiner.wallet, rigname: flMiner.rigName, password: flMiner.pass, description: flMiner.description, message: "modify at least one value"});
 //wallet check
   if ((wallet.length !== 98 || !(wallet.startsWith("ccx7")))) return res.status(401).render('msettings', { title: "Miner Settings", software: flMiner.software, pool: flMiner.pool, port: flMiner.port, wallet: flMiner.wallet, rigname: flMiner.rigName, password: flMiner.pass, message: "wallet address not valid"});
 //verif port as a number
@@ -44,7 +45,7 @@ const modifyPost = async (req, res) => {
   const softWare = flMiner.software;
   const mPath = flMiner.mpath;
   let apiPort = flMiner.apiPort;
-const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": port, "wallet": wallet, "rigName": rigname, "pass": password, "apiPort": apiPort};
+const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": port, "wallet": wallet, "rigName": rigname, "pass": password, "apiPort": apiPort, "description": description};
 minersDB.setUsers([...minersDB.users, newMiner])
 await fsPromises.writeFile(
 path.join(__dirname, '..', '..', 'data', 'miners.json'),
@@ -67,7 +68,8 @@ const confirmGet = (req, res) => {
                             port: createdMiner.port,
                             wallet: createdMiner.wallet,
                             rigname: createdMiner.rigName,
-                            password: createdMiner.pass
+                            password: createdMiner.pass,
+                            description: createdMiner.description
                           })
 
 }
@@ -75,8 +77,8 @@ const confirmGet = (req, res) => {
 //Inject last miner (which is the one just created)
 const minerInject = async (req, res) => {
   const lastMiner = minersDB.users.length;
-  const { switchchecked } = req.body;
-  let C = (switchchecked == 'on') ? true : false;
+  const { cleanswt } = req.body;
+  let C = (cleanswt == 'on') ? true : false;
   await injectOFP(lastMiner,C);  
   res.status(200).redirect('/main');              
   }

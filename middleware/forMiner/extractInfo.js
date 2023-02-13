@@ -33,7 +33,7 @@ const extractInfo = async () => {
                 
                 //inject in miner.json    
            
-                const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": poolPort, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": 21550};
+                const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": poolPort, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": 21550, "description": ""};
                 minersDB.setUsers([...minersDB.users, newMiner])
                 await fsPromises.writeFile(
                 path.join(__dirname, '..', '..', 'data', 'miners.json'),
@@ -52,7 +52,7 @@ const extractInfo = async () => {
                         let apiPort = (!afterUntil(dataMC, 'httpd_port" : ', ",") == "") ? afterUntil(dataMC, 'httpd_port" : ', ",") : "3500/noapi";
                                               
                             //inject in miner.json           
-                            const newMiner = { "miner": minerNb, "software": softWare, "mpath": mxPath, "pool": pool, "port": poolPort, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": apiPort};
+                            const newMiner = { "miner": minerNb, "software": softWare, "mpath": mxPath, "pool": pool, "port": poolPort, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": apiPort, "description": ""};
                             minersDB.setUsers([...minersDB.users, newMiner])
                             await fsPromises.writeFile(
                             path.join(__dirname, '..', '..', 'data', 'miners.json'),
@@ -70,7 +70,7 @@ const extractInfo = async () => {
                             let apiPort = (dataM.search("-b ") > 0) ? ((afterUntil(dataM, "-b ", " ")).length > 5) ? afterUntil(dataM, "-b ", "\n") : afterUntil(dataM, "-b ", " ") : "4068";
                                 //inject in miner.json    
                         
-                                const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": poolPort, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": apiPort};
+                                const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": poolPort, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": apiPort, "description": ""};
                                 minersDB.setUsers([...minersDB.users, newMiner])
                                 await fsPromises.writeFile(
                                 path.join(__dirname, '..', '..', 'data', 'miners.json'),

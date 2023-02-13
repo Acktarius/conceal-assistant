@@ -24,9 +24,14 @@ block layout-content
         input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="wallet" name="wallet" value=wallet placeholder=wallet)
         br
         br
-        label(for="miningpool")  Mining Pool and
-        span
-          label(for="port")  port :
+        span.inlineH
+          label(for="pool")  Mining Pool, 
+          label(for="port") port and
+          label(for="tls")  TLS
+        span.inlineH
+          input(type="checkbox" id="tlsswt" name="tlsswt" checked=false)
+          label.toggle(for="tlsswt")
+        br
         br
         input(type="text" style="width: 15.5rem;" id="pool" name="pool" value=pool placeholder=pool)
         span 
@@ -37,11 +42,13 @@ block layout-content
         span 
           input(type="text" style="width: 11.4rem;" id="rigname" name="rigname" value=rigname placeholder=rigname)
         br
-        br
-        label(for="password")  password :
+        label(for="password")  Password :
         span 
-          input(type="text" style="width: 12.8rem;" id="password" name="password" value=password placeholder=password)
+          input(type="text" style="width: 12.75rem;" id="password" name="password" value=password placeholder=password)
         br
+        label(for="description")  Description :
+        span 
+          input(type="text" style="width: 12rem;" id="description" name="description" value=description)
         br
         -var e = message
             -if (e !== '')
