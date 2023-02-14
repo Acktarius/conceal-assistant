@@ -73,7 +73,7 @@ label {
 }
 input[type=text] {
   font-family: "Helvetica", sans-serif;
-  min-width: 3rem;
+  min-width: 1rem;
   color: #252a2e;
   background-color: #88837a;
   border: 0.1rem solid #868BA1;
@@ -91,6 +91,7 @@ input[type=password] {
   font-family: "Helvetica", sans-serif;
   min-width: 3rem;
   color: #252a2e;
+  background-color: #88837a;
   border: 0.1rem solid #868BA1;
   -webkit-transition: 0.3s;
   transition: 0.3s;
@@ -128,11 +129,20 @@ h7, .h7 {
 h7 {
   color: #FFF;
 }
+.right {
+  margin-left: 30%;
+  margin-right: 5%;
+  text-align: right;
+  display: inline-block;
+}
 .center {
-  margin-left: 45%;
-  margin-right: 30%;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-top: auto;
   text-align: center;
   display: inline-block;
+  list-style-type: none;
+  align-items: center;
 }
 .inlineH {
   display: inline-block;

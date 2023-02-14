@@ -1,6 +1,7 @@
 extends layout
 
 block layout-content
+
   div.View.WelcomeView
     ul.Banner
       li.h1 Conceal Assistant
@@ -13,45 +14,56 @@ block layout-content
       li 
       a(href="https://conceal.network" target="blank" rel="noopener")
        img.logo(src="logo-256x256-033.png" alt="Logo")
-    form(action="/msettings" method="POST")
-      div.MessageZero
-        div.Title
-          h1 miner settings
-        span.Details Software: #{software}
-        br
-        label(for="wallet")  Mining Address :
-        br
-        input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="wallet" name="wallet" value=wallet placeholder=wallet)
-        br
-        br
-        span.inlineH
-          label(for="pool")  Mining Pool, 
-          label(for="port") port and
-          label(for="tls")  TLS
-        span.inlineH
-          input(type="checkbox" id="tlsswt" name="tlsswt" checked=false)
-          label.toggle(for="tlsswt")
-        br
-        br
-        input(type="text" style="width: 15.5rem;" id="pool" name="pool" value=pool placeholder=pool)
-        span 
-          input(type="text" style="width: 1.4rem;" id="port" name="port" value=port placeholder=port)
-        br
-        br
-        label(for="rigname")  Miner Name :
-        span 
-          input(type="text" style="width: 11.4rem;" id="rigname" name="rigname" value=rigname placeholder=rigname)
-        br
-        label(for="password")  Password :
-        span 
-          input(type="text" style="width: 12.75rem;" id="password" name="password" value=password placeholder=password)
-        br
-        label(for="description")  Description :
-        span 
-          input(type="text" style="width: 12rem;" id="description" name="description" value=description)
-        br
-        -var e = message
-            -if (e !== '')
-             br
-             h4 #{message}
-        button(type="submit") Modify
+    form(action="/msettings" method="POST" id="modify")
+        div.MessageConfirm
+          div.Title
+            h1 miner settings
+          span.Details Software: #{software}
+          br
+          label(for="wallet")  Mining Address :
+          br
+          input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="wallet" name="wallet" value=wallet placeholder=wallet)
+          br
+          br
+          span.inlineH
+            label(for="pool")  Mining Pool, 
+            label(for="port") port and
+            label(for="tls")  TLS
+          span.inlineH
+            input(type="checkbox" id="tlsswt" name="tlsswt" checked=false)
+            label.toggle(for="tlsswt")
+          br
+          br
+          input(type="text" style="width: 15.5rem;" id="pool" name="pool" value=pool placeholder=pool)
+          span 
+            input(type="text" style="width: 3rem;" id="port" name="port" value=port placeholder=port)
+          br
+          br
+          label(for="rigname")  Miner Name :
+          span 
+            input(type="text" style="width: 11.4rem;" id="rigname" name="rigname" value=rigname placeholder=rigname)
+          br
+          label(for="password")  Password :
+          span 
+            input(type="text" style="width: 12.75rem;" id="password" name="password" value=password placeholder=password)
+          br
+          label(for="description")  Description :
+          span 
+            input(type="text" style="width: 12rem;" id="description" name="description" value=description)
+          br
+          br
+          span.center
+            -let m = eval(shown) - 1
+            -let p = eval(shown) + 1
+            -let moins = "/msettings?toshow=" + m
+            -let plus = "/msettings?toshow=" + p
+            a(href=moins)
+             i.inlineH(class="fa-solid fa-caret-left fa-xl icon-colour") 
+            label.inlineH(for="shown")  - Flight Sheet # #{shown} 
+            -if (p <= last)
+              a(href=plus)
+               i.inlineH(class="fa-solid fa-caret-right fa-xl icon-colour")
+          br
+          button(type="submit" form="modify") Modify
+          -if (message != '')
+           h4 #{message}

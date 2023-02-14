@@ -10,34 +10,35 @@ const path = require('path');
 const deleteOFP = require('./deleteOFP');
 const injectOFP = require('./injectOFP');
 
-const minerGet = (req, res) => {
+
+const minerGet = async (req, res) => {
+  const toShowQuery = req.query.toshow;
   const lastMiner = minersDB.users.length;
-  if (!lastMiner > 0) return res.status(400).json({ 'message': 'No Operating Flight Plan'})
-  const foundMiner = minersDB.users.find(person => person.miner === lastMiner)
-  
-    res.render("msettings", { title: "Miner Settings", 
-                            software: foundMiner.software,
-                            pool: foundMiner.pool,
-                            port: foundMiner.port,
-                            wallet: foundMiner.wallet,
-                            rigname: foundMiner.rigName,
-                            password: foundMiner.pass,
-                            description: foundMiner.description
-                          });   
-            
-        }
-  
-      
+  const toShow = ((toShowQuery <= 0) || (toShowQuery > lastMiner)) ? lastMiner : toShowQuery;
+  const foundMiner = minersDB.users.find(person => person.miner == toShow);
+  res.render("msettings", { title: "Miner Settings", 
+                        software: foundMiner.software,
+                        pool: foundMiner.pool,
+                        port: foundMiner.port,
+                        wallet: foundMiner.wallet,
+                        rigname: foundMiner.rigName,
+                        password: foundMiner.pass,
+                        description: foundMiner.description,
+                        last: lastMiner,
+                        shown: toShow
+                      });
+    }
+
 const modifyPost = async (req, res) => {
   const lastMiner = minersDB.users.length;
   const flMiner = minersDB.users.find(person => person.miner === lastMiner)
   const { wallet, pool, port, rigname, password, description } = req.body; 
 //change at least one value
-  if ((wallet == flMiner.wallet) && (pool == flMiner.pool) && (port== flMiner.port) && (rigname == flMiner.rigName) && (password == flMiner.pass) && (description == flMiner.description)) return res.status(401).render('msettings', { title: "Miner Settings", software: flMiner.software, pool: flMiner.pool, port: flMiner.port, wallet: flMiner.wallet, rigname: flMiner.rigName, password: flMiner.pass, description: flMiner.description, message: "modify at least one value"});
+  if ((wallet == flMiner.wallet) && (pool == flMiner.pool) && (port== flMiner.port) && (rigname == flMiner.rigName) && (password == flMiner.pass) && (description == flMiner.description)) return res.status(401).render('msettings', { title: "Miner Settings", software: flMiner.software, pool: flMiner.pool, port: flMiner.port, wallet: flMiner.wallet, rigname: flMiner.rigName, password: flMiner.pass, shown: lastMiner , message: "modify at least one value"});
 //wallet check
-  if ((wallet.length !== 98 || !(wallet.startsWith("ccx7")))) return res.status(401).render('msettings', { title: "Miner Settings", software: flMiner.software, pool: flMiner.pool, port: flMiner.port, wallet: flMiner.wallet, rigname: flMiner.rigName, password: flMiner.pass, message: "wallet address not valid"});
+  if ((wallet.length !== 98 || !(wallet.startsWith("ccx7")))) return res.status(401).render('msettings', { title: "Miner Settings", software: flMiner.software, pool: flMiner.pool, port: flMiner.port, wallet: flMiner.wallet, rigname: flMiner.rigName, password: flMiner.pass, shown: lastMiner , message: "wallet address not valid"});
 //verif port as a number
-  if (isNaN(port)) return res.status(401).render('msettings', { title: "Miner Settings", software: flMiner.software, pool: flMiner.pool, port: flMiner.port, wallet: flMiner.wallet, rigname: flMiner.rigName, password: flMiner.pass, message: "port can't be a string"});
+  if (isNaN(port)) return res.status(401).render('msettings', { title: "Miner Settings", software: flMiner.software, pool: flMiner.pool, port: flMiner.port, wallet: flMiner.wallet, rigname: flMiner.rigName, password: flMiner.pass, shown: lastMiner , message: "port can't be a string"});
       
 //create the new flight sheet and inject in miner.json    
   try{
@@ -89,7 +90,6 @@ const minerCancel = async (req, res) => {
   await deleteOFP(lastMiner);  
   res.redirect('/main');              
   }
-  
   
 
 module.exports = { minerGet , modifyPost , minerCancel, confirmGet , minerInject };        
