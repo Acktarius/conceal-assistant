@@ -22,6 +22,7 @@ if (createdMiner.mpath != previousMiner.mpath) {
             let dataMnew = dataM.replace(previousMiner.wallet, createdMiner.wallet);
             dataMnew = dataMnew.replace(previousMiner.pool, createdMiner.pool);
             dataMnew = dataMnew.replace(previousMiner.port, createdMiner.port);
+            dataMnew = dataMnew.replace(`--tls ${previousMiner.tls}`, `--tls ${createdMiner.tls}`);
             dataMnew = dataMnew.replace(`-p ${previousMiner.pass}`, `-p ${createdMiner.pass}`);
             dataMnew = dataMnew.replace(`.${previousMiner.rigName}`, `.${createdMiner.rigName}`);
             dataMnew = dataMnew.replace(`rig-name ${previousMiner.rigName}`, `rig-name ${createdMiner.rigName}`);
@@ -35,6 +36,7 @@ if (createdMiner.mpath != previousMiner.mpath) {
                 dataMnew = dataMnew.replace(previousMiner.pool, createdMiner.pool);
                 dataMnew = dataMnew.replace(previousMiner.port, createdMiner.port);
                 dataMnew = dataMnew.replace(`"pool_password" : "${previousMiner.pass}`, `"pool_password" : "${createdMiner.pass}`);
+                dataMnew = dataMnew.replace(`use_tls" : ${previousMiner.tls}`, `use_tls" : ${createdMiner.tls}`);
                 dataMnew = dataMnew.replace(`.${previousMiner.rigName}`, `.${createdMiner.rigName}`);
                 dataMnew = dataMnew.replace(`"rig_id" : "${previousMiner.rigName}`, `"rig_id" : "${createdMiner.rigName}`);
 
@@ -46,6 +48,8 @@ if (createdMiner.mpath != previousMiner.mpath) {
                     let dataMnew = dataM.replace(previousMiner.wallet, createdMiner.wallet);
                     dataMnew = dataMnew.replace(previousMiner.pool, createdMiner.pool);
                     dataMnew = dataMnew.replace(previousMiner.port, createdMiner.port);
+                    if ((previousMiner.tls == "false") && (createdMiner.tls == "true")) dataMnew = dataMnew.replace("tcp://", "ssl://");
+                    if ((previousMiner.tls == "true") && (createdMiner.tls == "false")) dataMnew = dataMnew.replace("ssl://", "tcp://");
                     dataMnew = dataMnew.replace(`-p ${previousMiner.pass}`, `-p ${createdMiner.pass}`);
                     dataMnew = dataMnew.replace(`.${previousMiner.rigName}`, `.${createdMiner.rigName}`);
                     dataMnew = dataMnew.replace(`-w ${previousMiner.rigName}`, `-w ${createdMiner.rigName}`);
