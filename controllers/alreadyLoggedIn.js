@@ -9,7 +9,7 @@ const alreadyLoggedIn = async (req, res, next) => {
     const refreshToken = cookies.jwt;
     const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
     if (!foundUser) {
-        return next;
+        return next();
     } else {
     console.log("already logged in !")    
     return res.redirect('/main');
