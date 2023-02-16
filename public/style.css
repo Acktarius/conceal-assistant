@@ -401,6 +401,9 @@ ol {
 .MessageConfirm:hover h2 {
   color: #FFF; 
 }
+.MessageConfirm:hover td {
+  color: #FFF; 
+}
 .inlinebutton {
   display: inline-block;
   margin-left: 1rem;
@@ -409,6 +412,38 @@ ol {
   padding-right: auto;
   list-style-type: none;
 }
+
+table {
+  width: 90%;
+  
+}
+
+th {
+  height: 1.2rem;
+  text-align: left;
+  font-family: "Helvetica", sans-serif;
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0;
+  color: #868BA1;
+  border-bottom: 1px solid;
+
+}
+
+tr {
+  height: 1.2rem;
+}
+td {
+  height: 1.2rem;
+  vertical-align: middle;
+  word-break: break-word;
+  color: #A50;
+  font-size: 0.95rem;
+  text-transform: none;
+  border-bottom: 1px solid;
+  padding-top: 0.35rem;
+}
+
 span {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   text-decoration: none;

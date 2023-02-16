@@ -23,8 +23,16 @@ block layout-content
           h5  Mining Address :
           h2 #{wallet}
           br
-          h5  Mining Pool,port and TLS 
-          h2 #{pool}:#{port} - - #{tls}
+          table
+            tr
+              th Mining Pool
+              th Port
+              th TLS
+            tr
+              td #{pool}
+              td #{port}
+              td #{tls}
+          br
           h5.inlineH  Miner Name :
           h2.inlineH #{rigname}
           br
