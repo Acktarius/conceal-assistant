@@ -196,7 +196,7 @@ h7 {
   border-radius: 0.6rem;
   max-width: 96vw;
   overflow: hidden;
-  background: #343A40;
+  background-image: linear-gradient(165deg , #343A40, #121212);
   padding: 0.25rem;
 
   text-align: center;
@@ -231,7 +231,7 @@ h7 {
 }
 
 .MessageZero {
-  background: #343A40;
+  background-image: linear-gradient(165deg,#343A40, #121212);
   font-size: 0.8rem;
   padding-top: 0.4rem;
   padding-left: 0.8rem;
@@ -255,7 +255,7 @@ h7 {
   opacity: 90%;
 }
 .MessageSuite {
-  background: #343A40;
+  background-image: linear-gradient(165deg,#343A40, #121212);
   padding-top: 0.4rem;
   padding-right: 0.6rem;
   padding-bottom: 0.4rem;
@@ -280,7 +280,7 @@ h7 {
 }
 
 .Credits {
-    background: #42413f;
+  background-image: linear-gradient(165deg,#42413F, #121212);
     padding-top: 0.4rem;
     padding-right: 0.6rem;
     padding-bottom: 0.4rem;
@@ -323,7 +323,7 @@ h7 {
     color: #FFF; 
   }
   .MessageLicence {
-    background: #343A40;
+    background-image: linear-gradient(#343A40, #121212);
     padding-top: 0.4rem;
     padding-right: 0.6rem;
     padding-bottom: 0.4rem;
@@ -357,7 +357,7 @@ ol {
 }
 
 .MessageConfirm {
-  background: #343A40;
+  background-image: linear-gradient(170deg,#343A40, #121212);
   font-size: 0.8rem;
   padding-top: 0.4rem;
   padding-left: 0.8rem;
@@ -373,7 +373,7 @@ ol {
   Top: 7.5rem;
   z-index: 0;
   white-space: pre-line;
-  opacity: 95%;
+  opacity: 97%;
 }
 .MessageConfirm > .Title > h1 {
   font-size: 2.2rem;
@@ -393,12 +393,15 @@ ol {
 }
 .MessageConfirm:hover {
   background: #2e5050;
-  opacity: 90%;
+  opacity: 93%;
 }
 .MessageConfirm:hover h1 {
   color: #FFF; 
 }
 .MessageConfirm:hover h2 {
+  color: #FFF; 
+}
+.MessageConfirm:hover label {
   color: #FFF; 
 }
 .MessageConfirm:hover td {
@@ -593,6 +596,6 @@ footer {
   position: fixed;
   bottom: 0;
   z-index: 3;
-  background: linear-gradient(to right, #343A40, #343a40be);
+  background-image: linear-gradient(to bottom right , #343A40, #12121252);
   height: min-content;  
 }
