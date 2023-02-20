@@ -56,13 +56,13 @@ during a period up to 24h, if needed.
 
 ### To do list:
 - [ ] Automatic refresh of Main Page ... but is it really needed ?
-- [ ] when miner deactivated, option to change miner pool and wallet...in progress
-- [ ] adding compatibility with Xmr-Stak and Cryptodredge...in progress
-- [ ] miner setting library, auto clean-up, and remove when user deleted ...in progress
+- [x] when miner deactivated, option to change miner pool and wallet.
+- [x] adding compatibility with Xmr-Stak and Cryptodredge.
+- [x] miner setting library, auto clean-up, and remove when user deleted.
 
 ### Exploring feature : 
-- [ ] Creating a separated FrontEnd using Reactjs by @Ki-ll ?
-- [ ] adding TLS/SSL option for miner
+- [x] Creating a separated FrontEnd using Reactjs by @Ki-ll ?
+- [x] adding TLS/SSL option for miner
 
 ### Known Glitch
 - [ ] Some latency to load some pages, just a refresh page can solve it
@@ -72,6 +72,7 @@ during a period up to 24h, if needed.
 refresh, it's because there are no environmental token yet and they are just being created.
 - [x] automatically create access token at first use if environmental are missing
 - [x] remove the glitch which require to reload the page
+
 
 * assuming :
 - SRBMiner-Multi is launched with a .sh file including informations (--pool --wallet -p --api-enable --api-rig-name)
