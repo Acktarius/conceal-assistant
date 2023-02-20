@@ -196,7 +196,7 @@ h7 {
   border-radius: 0.6rem;
   max-width: 96vw;
   overflow: hidden;
-  background-image: linear-gradient(165deg , #343A40, #121212);
+  background-image: linear-gradient(165deg , #343A40, #222425);
   padding: 0.25rem;
 
   text-align: center;
@@ -231,7 +231,7 @@ h7 {
 }
 
 .MessageZero {
-  background-image: linear-gradient(165deg,#343A40, #121212);
+  background-image: linear-gradient(165deg,#343A40, #222425);
   font-size: 0.8rem;
   padding-top: 0.4rem;
   padding-left: 0.8rem;
@@ -255,7 +255,7 @@ h7 {
   opacity: 90%;
 }
 .MessageSuite {
-  background-image: linear-gradient(165deg,#343A40, #121212);
+  background-image: linear-gradient(165deg,#343A40, #222425);
   padding-top: 0.4rem;
   padding-right: 0.6rem;
   padding-bottom: 0.4rem;
@@ -280,7 +280,7 @@ h7 {
 }
 
 .Credits {
-  background-image: linear-gradient(165deg,#42413F, #121212);
+  background-image: linear-gradient(165deg,#42413F, #222425);
     padding-top: 0.4rem;
     padding-right: 0.6rem;
     padding-bottom: 0.4rem;
@@ -323,7 +323,7 @@ h7 {
     color: #FFF; 
   }
   .MessageLicence {
-    background-image: linear-gradient(#343A40, #121212);
+    background-image: linear-gradient(#343A40, #222425);
     padding-top: 0.4rem;
     padding-right: 0.6rem;
     padding-bottom: 0.4rem;
@@ -357,7 +357,7 @@ ol {
 }
 
 .MessageConfirm {
-  background-image: linear-gradient(170deg,#343A40, #121212);
+  background-image: linear-gradient(170deg,#343A40, #222425);
   font-size: 0.8rem;
   padding-top: 0.4rem;
   padding-left: 0.8rem;
@@ -596,6 +596,6 @@ footer {
   position: fixed;
   bottom: 0;
   z-index: 3;
-  background-image: linear-gradient(to bottom right , #343A40, #12121252);
+  background-image: linear-gradient(to bottom right , #343A40, #2224255b);
   height: min-content;  
 }
