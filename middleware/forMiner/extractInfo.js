@@ -17,7 +17,7 @@ const extractInfo = async () => {
                 if (!begin) {
                     console.log("can't find path");
                 } else {
-                const { reverser, afterUntil, backWard, inBetween, inBetweenLong, startWithLong } = require('./tools.js');
+                const { reverser, afterUntil, backWard, inBetween, inBetweenLong, startWithLong, beforeUntil } = require('./tools.js');
                 const minerNb = minersDB.users.length +1;
                 const mPath = afterUntil(data, "ExecStart=", "\n");
                 const softWare = (data.search("SRB") > 0) ? "SRBMiner-Multi" : (data.search("xmr-stak") > 0) ? "XmrStak" : (data.search("CryptoDredge") > 0) ? "CryptoDredge" : "unKnown";
@@ -42,7 +42,7 @@ const extractInfo = async () => {
                 )
                     } else {                   
                     if (softWare == "XmrStak") { 
-                        let mxPath = "/" + inBetween(mPath, "/","/xmr-stak") + "/";
+                        let mxPath = beforeUntil(mPath, "/");
                         const dataM = await fsPromises.readFile(`${mxPath}pools.txt`, 'utf8');
                         let pool = afterUntil(dataM, '{"pool_address" : "', ':');
                         let poolPort = inBetweenLong(dataM, `${pool}:`, 4);

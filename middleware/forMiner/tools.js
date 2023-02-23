@@ -51,4 +51,17 @@ function startWithLong(data, startWith, l) {
     return (startWith + data.slice(d,f));
 }
 
-module.exports = { reverser , afterUntil, backWard, inBetween, inBetweenLong, startWithLong };
+//cut a string, looking backward from data until endSign , and keeps what is before, end sign is included
+function beforeUntil(data, endSign) {
+    let totalLength = data.length;
+       var i = 0;
+    while (data.slice(totalLength - i - 1, totalLength - i) != endSign) {
+        beforeSign = data.slice(0, totalLength - i-1);
+        i++;
+    };
+    return beforeSign;
+}
+
+
+
+module.exports = { reverser , afterUntil, backWard, inBetween, inBetweenLong, startWithLong, beforeUntil };
