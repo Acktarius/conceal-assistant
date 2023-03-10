@@ -20,12 +20,13 @@ if (fs.existsSync(path.join(__dirname, '../', '.env'))) {
         '\nREFRESH_TOKEN_SECRET=' + r,
         (err) => {
             if (err) throw (err);
-                logEvents('Create .env with Tokens'),
+                logEvents('access and refresh Tokens written'),
                 (err) => {
                 if (err) throw (err);
                 console.log('log appended');
         }})
         });
+        logEvents('.env created');
         next();
     }      
 }
