@@ -2,6 +2,8 @@ const usersDB = {
     users: require('../data/users.json'),
     setUsers: function (data) { this.users = data }
 }
+require('dotenv').config()
+
 const fsPromises = require('fs').promises
 const { appendFile } = require('fs')
 const path = require('path')
@@ -60,11 +62,14 @@ const handleDeleteLogout = async (req, res, next) => {
     //const otherUsers = usersDB.users.filter(person => person.refreshToken !== foundUser.refreshToken);
     //const currentUser = {...foundUser, username: '', password: '', refreshToken: '' }
     //usersDB.setUsers([...otherUsers, currentUser])
-     await fsPromises.writeFile(
+    await fsPromises.writeFile(
         path.join(__dirname, '..', 'data', 'users.json'), "[]"
     )
     await fsPromises.writeFile(
         path.join(__dirname, '..', 'data', 'miners.json'), "[]"
+    )
+    await fsPromises.unlink(
+        path.join(__dirname, '..', '.env')
     )
     console.log('delete user and logging out');
     var userToDelete = foundUser.username
