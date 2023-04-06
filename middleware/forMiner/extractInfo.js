@@ -19,6 +19,7 @@ const extractInfo = async () => {
                 } else {
                 const { reverser, afterUntil, backWard, inBetween, inBetweenLong, startWithLong, beforeUntil } = require('./tools.js');
                 const minerNb = minersDB.users.length +1;
+                const wDir = afterUntil(data, "WorkingDirectory=", "\n");
                 const mPath = afterUntil(data, "ExecStart=", "\n");
                 const softWare = (data.search("SRB") > 0) ? "SRBMiner-Multi" : (data.search("xmr-stak") > 0) ? "XmrStak" : (data.search("CryptoDredge") > 0) ? "CryptoDredge" : "unKnown";
                 
@@ -34,7 +35,7 @@ const extractInfo = async () => {
                 
                 //inject in miner.json    
            
-                const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": poolPort, "tls": tls, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": 21550, "description": ""};
+                const newMiner = { "miner": minerNb, "software": softWare, "wdir": wDir, "mpath": mPath, "pool": pool, "port": poolPort, "tls": tls, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": 21550, "description": ""};
                 minersDB.setUsers([...minersDB.users, newMiner])
                 await fsPromises.writeFile(
                 path.join(__dirname, '..', '..', 'data', 'miners.json'),
@@ -42,19 +43,19 @@ const extractInfo = async () => {
                 )
                     } else {                   
                     if (softWare == "XmrStak") { 
-                        let mxPath = beforeUntil(mPath, "/");
-                        const dataM = await fsPromises.readFile(`${mxPath}pools.txt`, 'utf8');
+                        //let mxPath = beforeUntil(mPath, "/");
+                        const dataM = await fsPromises.readFile(`${wDir}pools.txt`, 'utf8');
                         let pool = afterUntil(dataM, '{"pool_address" : "', ':');
                         let poolPort = inBetweenLong(dataM, `${pool}:`, 4);
                         let tls = (dataM.search('use_tls" : ') > 0) ? (inBetweenLong(dataM, ('use_tls" : ') , 1) == "f") ? "false" : "true" : "false";
                         let wallet = startWithLong(dataM, "ccx7", 94);
                         let rigName = (inBetweenLong(dataM, wallet, 1) == ".") ? afterUntil(dataM, (wallet + "."), '"') : (dataM.search('rig_id" : "') > 0) ? afterUntil(dataM, 'rig_id" : "' , '"') : "";
                         let pass = afterUntil(dataM, 'pool_password" : "' , '"');
-                        const dataMC = await fsPromises.readFile(`${mxPath}config.txt`, 'utf8');
+                        const dataMC = await fsPromises.readFile(`${wDir}config.txt`, 'utf8');
                         let apiPort = (!afterUntil(dataMC, 'httpd_port" : ', ",") == "") ? afterUntil(dataMC, 'httpd_port" : ', ",") : "3500/noapi";
                                               
                             //inject in miner.json           
-                            const newMiner = { "miner": minerNb, "software": softWare, "mpath": mxPath, "pool": pool, "port": poolPort, "tls": tls, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": apiPort, "description": ""};
+                            const newMiner = { "miner": minerNb, "software": softWare, "wdir": wDir, "mpath": mPath, "pool": pool, "port": poolPort, "tls": tls, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": apiPort, "description": ""};
                             minersDB.setUsers([...minersDB.users, newMiner])
                             await fsPromises.writeFile(
                             path.join(__dirname, '..', '..', 'data', 'miners.json'),
@@ -74,7 +75,7 @@ const extractInfo = async () => {
                             
                                 //inject in miner.json    
                         
-                                const newMiner = { "miner": minerNb, "software": softWare, "mpath": mPath, "pool": pool, "port": poolPort, "tls": tls, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": apiPort, "description": ""};
+                                const newMiner = { "miner": minerNb, "software": softWare, "wdir": wDir, "mpath": mPath, "pool": pool, "port": poolPort, "tls": tls, "wallet": wallet, "rigName": rigName, "pass": pass, "apiPort": apiPort, "description": ""};
                                 minersDB.setUsers([...minersDB.users, newMiner])
                                 await fsPromises.writeFile(
                                 path.join(__dirname, '..', '..', 'data', 'miners.json'),

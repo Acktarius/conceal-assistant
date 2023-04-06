@@ -7,6 +7,7 @@ const minersDB = {
 const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
+const sys = require('sysctlx');
 const logEvents = require('../logEvents');
 const deleteOFP = require('./deleteOFP');
 
@@ -61,14 +62,14 @@ if (createdMiner.mpath != previousMiner.mpath) {
                 }
             }
         }
-        //clean up: keeps only the last 2 ofp
+        //clean up: keeps only the last 2 ofp and the first 2 template
         if ( C == true ) {
-        if (N > 2) {
-            for(let z = 1; z < N - 1; z++) {
-                await deleteOFP(N-1-z);
+            if (N > 4) {
+                for(let z = 1; z < N - 3; z++) {
+                    await deleteOFP(N-1-z);
+                }
             }
         }
-    }
 
 
         await logEvents(`Operating Flight Sheet for ${createdMiner.software} has been modified; ${createdMiner.description}`);
@@ -78,4 +79,40 @@ if (createdMiner.mpath != previousMiner.mpath) {
 }
 }
 
-module.exports = injectOFP;
+// modify mining Service
+const injectSoft = async (N,C) => {  
+    const previousMiner = minersDB.users.find(person => person.miner === N-1);
+    const createdMiner = minersDB.users.find(person => person.miner === N);
+    if (createdMiner.mpath == previousMiner.mpath) {
+        console.log(`software is the same new:${createdMiner.mpath} old:${previousMiner.mpath} `);
+        await deleteOFP(N);
+        } else {
+        try {
+            //await fsPromises.chmod("/etc/systemd/system/ccx-mining.service", 666 );
+            const dataS = await fsPromises.readFile("/etc/systemd/system/ccx-mining.service", 'utf8');
+            
+            let dataSnew = dataS.replace(previousMiner.wdir, createdMiner.wdir);
+            dataSnew = dataSnew.replace(previousMiner.mpath, createdMiner.mpath);
+            
+            await fsPromises.writeFile("/etc/systemd/system/ccx-mining.service", dataSnew, 'utf8');
+            
+            sys.reload('ccx-mining');
+            await logEvents(`${createdMiner.software} is now in service`);
+
+            //clean up: keeps only the last 2 ofp and the 2 first template
+            if ( C == true ) {
+            if (N > 4) {
+                for(let z = 1; z < N - 3; z++) {
+                    await deleteOFP(N-1-z);
+                }
+            }
+        }
+            
+        } catch (err) {
+            console.error(err);    
+        }
+    }
+    }
+
+
+module.exports = { injectOFP , injectSoft };

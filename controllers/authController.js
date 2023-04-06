@@ -27,8 +27,8 @@ const handleLogin = async (req, res) => {
     const refreshToken = jwt.sign(
         { "username": foundUser.username }, 
         process.env.REFRESH_TOKEN_SECRET, 
-        { expiresIn: '1d' })
-        //Saving refresh Token with current user
+        { expiresIn: '3h' })
+        //Saving refresh Token with current user valid for 3 hours
         const otherUsers = usersDB.users.filter(person => person.username !== foundUser.username)
         const currentUser = {...foundUser, refreshToken }
         usersDB.setUsers([...otherUsers, currentUser])
@@ -39,7 +39,7 @@ const handleLogin = async (req, res) => {
         
         res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 15 * 60 * 1000});
         //res.json({ accessToken });
-        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 3 * 60 * 60 * 1000});
         extractInfo(); 
         res.status(201).redirect('main');        
    } else {

@@ -1,0 +1,37 @@
+extends layout
+
+block layout-content
+  div.View.WelcomeView
+    ul.Banner
+      li.h1 Conceal Assistant
+      li
+      a(href="/main")
+          i(class="fa-solid fa-house fa-xl icon-colour")
+      li
+      a(href="/logout")
+       i(class="fa-solid fa-right-from-bracket fa-xl icon-colour")
+      li 
+      a(href="https://conceal.network" target="blank" rel="noopener")
+       img.logo(src="logo-256x256-033.png" alt="Logo")
+    form(action="/msoftwarec" method="POST" id="inject")
+    form(method="POST" action="/msoftwarec?_method=DELETE" id="cancel")
+        div.MessageConfirm
+          div.Title
+            h1 miner settings
+          span.Details Software: #{software}
+          br
+          h5  Working Directory :
+          h2 #{wdir}
+          br
+          h5  Miner Path :
+          h2 #{mpath}
+          br
+          h7.inlineH keep only new and previous flight sheet
+          span.inlineH
+            input(type="checkbox" id="switch" name="cleanswt" checked=false form="inject")
+            label.toggle(for="switch") 
+          br
+          br
+          button.inlinebutton(type="submit" form="cancel") Cancel
+          button.inlinebutton(type="submit" form="inject") Confirm
+          

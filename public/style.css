@@ -219,8 +219,18 @@ h7 {
 .Banner li {
   display: inline-block;
   vertical-align: middle;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: .8rem;
+  padding-right: .8rem;
+}
+.Banner .h7 {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: bottom;
+  padding-left: 0.1rem;
+  color: #FFF;
+  font-size: 0.7rem;
+  text-decoration: none;
 }
 
 .Banner .logo {
@@ -399,7 +409,6 @@ ol {
   width: 7rem;
 }
 .MessageConfirm:hover {
-  background: #2e5050;
   opacity: 93%;
 }
 .MessageConfirm:hover h1, 
@@ -407,9 +416,6 @@ ol {
     .MessageConfirm:hover label,
       .MessageConfirm:hover td {
   color: #FFF; 
-}
-.MessageConfirm:hover .Details {
-  color: #222425; 
 }
 
 .inlinebutton {

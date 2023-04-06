@@ -1,0 +1,47 @@
+extends layout
+
+block layout-content
+
+  div.View.WelcomeView
+    ul.Banner
+      li.h1 Conceal Assistant
+      li
+      a(href="/main")
+          i(class="fa-solid fa-house fa-xl icon-colour")
+      li
+      a(href="/logout")
+       i(class="fa-solid fa-right-from-bracket fa-xl icon-colour")
+      li 
+      a(href="https://conceal.network" target="blank" rel="noopener")
+       img.logo(src="logo-256x256-033.png" alt="Logo")
+    form(action="/msoftware" method="POST" id="modify")
+        div.MessageConfirm
+          div.Title
+            h1 mining software
+          span.Details Software: #{software}
+          br
+          label(for="wdir")  Working Directory :
+          br
+          input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="wdir" name="wdir" value=wdir placeholder=wdir)
+          br
+          br
+          label(for="mpath")  Miner Path :
+          br
+          input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="mpath" name="mpath" value=mpath placeholder=mpath)
+          br
+          br
+          span.center
+            -let m = eval(shown) - 1
+            -let p = eval(shown) + 1
+            -let moins = "/msoftware?toshow=" + m
+            -let plus = "/msoftware?toshow=" + p
+            a(href=moins)
+             i.inlineH(class="fa-solid fa-caret-left fa-xl icon-colour") 
+            label.inlineH(for="shown")  - Flight Sheet # #{shown} 
+            -if (p <= last)
+              a(href=plus)
+               i.inlineH(class="fa-solid fa-caret-right fa-xl icon-colour")
+          br
+          button(type="submit" form="modify") Modify
+          -if (message != '')
+           h4 #{message}
