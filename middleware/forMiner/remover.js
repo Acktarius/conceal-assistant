@@ -11,7 +11,7 @@ const deleteOFP = require('./deleteOFP');
 
 const remover = async () => {  
 const lastMiner = minersDB.users.length;
-if (lastMiner >= 2 ) {
+if (lastMiner > 4 ) {
 const flMiner = minersDB.users.find(person => person.miner === lastMiner)
 const fpMiner = minersDB.users.find(person => person.miner === lastMiner - 1)
 

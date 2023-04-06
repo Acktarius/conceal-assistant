@@ -10,6 +10,7 @@ const path = require('path')
 
 const logEvents = require('../middleware/logEvents')
 const { remover } = require('../middleware/forMiner/remover');
+const { infoCpu, infoLoad, infoGpu, tempGpu, wattGpu } = require('../middleware/sysInfo')
 
 const handleLogout = async (req, res) => {
     const cookies = req.cookies;
@@ -88,7 +89,7 @@ const handleUser = async (req, res) => {
    if (!foundUser) {
         return res.sendStatus(204);
    } else {
-    res.render(('settings'), { user: foundUser.username });
+    res.render(('settings'), { user: foundUser.username, cpu: infoCpu , load: infoLoad , gpu: infoGpu , tgpu: tempGpu , wgpu: wattGpu });
    } 
 }
 

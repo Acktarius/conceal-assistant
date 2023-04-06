@@ -5,6 +5,7 @@
     0 4px 5px 0 rgba(0, 0, 0, 0.06), 0 1px 10px 0 rgba(0, 0, 0, 0.08);
   fill: rgba(0, 0, 0, 0.54);
   --ui-shadow-border: 1px solid rgba(0, 0, 0, 0.14);
+  --padding: 0.5rem;
 }
 
 * {
@@ -222,15 +223,17 @@ h7 {
   padding-left: .8rem;
   padding-right: .8rem;
 }
-.Banner .h7 {
+.Banner .version {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   white-space: nowrap;
   display: inline-block;
-  vertical-align: bottom;
   padding-left: 0.1rem;
   color: #FFF;
   font-size: 0.7rem;
   text-decoration: none;
+  position: absolute;
+  bottom: 0.1rem;
+  right: 0.3rem;
 }
 
 .Banner .logo {
@@ -272,7 +275,7 @@ h7 {
   padding-left: 0.6rem;
   margin: 0.2rem;
   min-width: 21.5rem;
-  width: max-content;
+  width: 21.75rem;
   border-radius: 0.6rem;
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
@@ -288,53 +291,6 @@ h7 {
   font-size: 2.2rem;
   padding-bottom: 0.15rem;
 }
-
-.Credits {
-  background-image: linear-gradient(165deg,#42413F, #383230);
-    padding-top: 0.4rem;
-    padding-right: 0.6rem;
-    padding-bottom: 0.4rem;
-    padding-left: 0.6rem;
-    margin: 0.2rem;
-    min-width: 21.5rem;
-    width: max-content;
-    border-radius: 0.6rem;
-    border-bottom: var(--ui-shadow-border);
-    box-shadow: var(--ui-shadow);
-    position: absolute;
-    top: 17.5rem;
-    z-index: 0;
-    color: #868BA1;
-  }
-  .Credits h1 {
-    font-size: 1.8rem;
-    padding-bottom: 0rem;
-    font-weight: 100;
-  }
-  .Credits h2 {
-    margin-top: 0.2rem;
-    padding-bottom: 0rem;
-    font-size: 1.4rem;
-    font-weight: 100;
-  }
-  .Credits span {
-    font-style: oblique;
-  }
-  .Credits h6 {
-    font-weight: 100;
-    color: #FFF;
-  }
-  .Credits:hover {
-      background: #2e5050;
-      opacity: 98%;
-      font-style: oblique;
-  }
-
-  .Credits:hover h1,
-    .Credits:hover h2,
-      .Credits:hover span {
-        font-weight: 200;
-  }
 
   .MessageLicence {
     background-image: linear-gradient(#343A40, #222425);
@@ -545,9 +501,60 @@ button:hover {
     padding-left: 20px;
     padding-right: 20px;
   }
-  .MessageZero:hover .attention {
-    color: #cf332a; 
+details {
+    background-image: linear-gradient(165deg,#42413F, #383230);
+    padding: 0 var(--padding);
+    margin: 0.2rem;
+    min-width: 21.5rem;
+    width: max-content;
+    border-radius: 0.6rem;
+    border-bottom: var(--ui-shadow-border);
+    box-shadow: var(--ui-shadow);
+    position: absolute;
+    bottom: 2rem;
+    z-index: 0;
+    color: #868BA1;
+
   }
+details[open] {
+  padding-bottom: var(--padding);
+  background: #2e5050;
+  opacity: 98%;
+   
+}
+details[open] h2 , details[open] .h1 {
+  color: #FFF;
+  font-style: oblique;
+}
+details > summary {
+  display: flex;
+  padding: var(--padding);
+  margin: 0 calc(var(--padding) * -1);
+  border-radius: 4px;
+  font-size: 24px;
+  cursor: pointer;
+  justify-content: space-between;
+  list-style: none; /* Hides the default arrow */
+}
+details[open] > summary {
+  box-shadow: 0rem 0.05rem;
+}
+/* Adds an icon when the <details> is closed... */
+details > summary::after {
+  content: "+";
+}
+/* ...and switches it when <details> is open */
+details[open] > summary::after {
+  content: "-";
+}
+/* Removes the ugly default arrow on Chrome */
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.MessageZero:hover .attention {
+    color: #cf332a; 
+}
 
 *.icon-colour {
   color: #868BA1;

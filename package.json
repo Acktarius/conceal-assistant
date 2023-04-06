@@ -38,6 +38,7 @@
     "local-ip-url": "^1.0.3",
     "method-override": "^3.0.0",
     "pug": "^3.0.2",
+    "shelljs": "^0.8.5",
     "sysctlx": "^0.0.7"
   },
   "devDependencies": {

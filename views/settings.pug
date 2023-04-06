@@ -20,19 +20,31 @@ block layout-content
       br
       form(method="POST" action="/logout?_method=DELETE")
        button(type="submit") Delete #{user}
-    div.Credits
-        h1 Credits :
-        span.Details 
-          h6 Conceal Lab project 
-          h6 by Conceal Network 
-        h2 Images :
-        span.Details
-          h6 Cryptunit.com 
-            a(href="https://www.cryptunit.com/promo/CCX" target="blank" rel="noopener")
-              i(class="fa-solid fa-link icon-colour")
-          h6 Conceal InfoGraphics
-        h2 Special Thanks to: 
-        span.Details 
-          h6 Dave GRAY and his 
-            a(href="https://www.youtube.com/@DaveGrayTeachesCode/featured" target="blank" rel="noopener") YouTube
-            h6  tutorials
+    div.MessageSuite 
+      .Title
+        h1 System info 
+        br
+        table
+            tr
+              th Cpu
+              th Gpu
+            tr
+              td #{cpu}
+              td #{gpu}
+            tr 
+              td Load : #{load}
+              td temp edge : #{tgpu}, #{wgpu} Watt
+         
+    details
+      summary.h1 Credits
+      br
+      p Conceal Lab project by Conceal Network
+      h2 Images
+      p Cryptunit.com
+        a(href="https://www.cryptunit.com/promo/CCX" target="blank" rel="noopener")
+         i(class="fa-solid fa-link icon-colour")
+      p Conceal InfoGraphics
+      h2 Special Thanks to: 
+      p Dave GRAY and his 
+        a(href="https://www.youtube.com/@DaveGrayTeachesCode/featured" target="blank" rel="noopener") YouTube
+        p  tutorials

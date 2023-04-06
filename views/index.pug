@@ -4,7 +4,6 @@ block layout-content
   div.View.WelcomeView
     ul.Banner
       li.h1 Conceal Assistant
-      li.h7 v1.0.4
       -if (noUser === false)
        a(href="/login")
         i(class="fa-solid fa-right-to-bracket fa-xl icon-colour" Title="Login")
@@ -14,6 +13,7 @@ block layout-content
       li 
       a(href="https://conceal.network" target="blank" rel="noopener")
        img.logo(src="logo-256x256-033.png" alt="Logo")
+      .version v1.0.4
     div.MessageZero
       div.Title
         h3 Making the Best
