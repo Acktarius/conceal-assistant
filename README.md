@@ -6,8 +6,10 @@ nevertheless, since it's a web server type of software, it can be consulted from
 ## Node service shall be named: ccx-guardian.service
 ## Mining service shall be named: ccx-mining.service (1)
 
+* 2 miner template are available for purpose of guidance , and if used, would be mining to Conceal Network donation address *
 
-Node.JS, NPM, and Nodemon are required :
+
+Node.JS, NPM, and Nodemon are required, sensors is needed to get Gpu temp and power info :
 
 ```
 sudo apt update
@@ -17,6 +19,8 @@ sudo apt install nodejs
 sudo apt install npm
 
 sudo npm i -g nodemon
+
+sudo apt install lm-sensors
 ```
 to download the file in the Conceal-assistant folder :
 (or download and unzip the zip file)
