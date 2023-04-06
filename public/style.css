@@ -257,7 +257,7 @@ h7 {
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
   position: relative;
-  Top: 7.2rem;
+  Top: 7.3rem;
   z-index: 0;
 }
 .MessageZero > .Title > h1 {
@@ -280,7 +280,7 @@ h7 {
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
   position: absolute;
-  Top: 19.6rem;
+  Top: 19.4rem;
   z-index: 0;
   }
 
@@ -511,7 +511,7 @@ details {
     border-bottom: var(--ui-shadow-border);
     box-shadow: var(--ui-shadow);
     position: absolute;
-    bottom: 2rem;
+    top: 33rem;
     z-index: 0;
     color: #868BA1;
 
