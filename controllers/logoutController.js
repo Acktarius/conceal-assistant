@@ -15,7 +15,7 @@ const path = require('path')
 const logEvents = require('../middleware/logEvents')
 const { remover } = require('../middleware/forMiner/remover');
 const deleteOFP = require('../middleware/forMiner/deleteOFP');
-const { mapSI, sysInfo } = require('../middleware/sysInfo')
+const { sysInfo , mapSI } = require('../middleware/sysInfo')
 
 const handleLogout = async (req, res) => {
     const cookies = req.cookies;
@@ -71,7 +71,7 @@ const handleDeleteLogout = async (req, res, next) => {
     await fsPromises.writeFile(
         path.join(__dirname, '..', 'data', 'users.json'), "[]"
     )
-    /*
+/*
     await fsPromises.writeFile(
         path.join(__dirname, '..', 'data', 'miners.json'), "[]"
     )
@@ -83,7 +83,7 @@ const handleDeleteLogout = async (req, res, next) => {
             deleteOFP(i);    
             } 
     }
-
+//delete .env
     fs.unlink(path.join(__dirname, '..', '.env'), (err) => {
         if (err) {
           res.status(500).send({

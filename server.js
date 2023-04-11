@@ -33,7 +33,7 @@ liveReloadServer.watch(publicDirectory);
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
   liveReloadServer.refresh("/");
-  }, 100);
+  }, 50);
 });
 
 const app = express();

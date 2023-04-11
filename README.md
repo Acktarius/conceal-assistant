@@ -6,7 +6,7 @@ nevertheless, since it's a web server type of software, it can be consulted from
 ## Node service shall be named: ccx-guardian.service
 ## Mining service shall be named: ccx-mining.service (1)
 
-* 2 miner template are available for purpose of guidance , and if used, would be mining to Conceal Network donation address *
+** 2 miner templates are available for purpose of guidance , and if used, would be mining to Conceal Network donation address **
 
 
 Node.JS, NPM, and Nodemon are required, sensors is needed to get Gpu temp and power info :
@@ -45,11 +45,11 @@ npm run assistant
 ```
 or
 ```
-nodemon server
+nodemon server.js
 ```
 ### Superior permission are needed to modify mining service
 ```
-sudo nodemon server
+sudo nodemon server.js
 ```
 open your internet Browser, and go to http://localhost:3500/
 or from an other device on the same local network: http://(local_ip_address_of_the_ccx_box):3500/
@@ -73,6 +73,7 @@ during a period up to 3h, if needed.
 - [x] adding TLS/SSL option for miner
 
 ### Known Glitch
+- [ ] Gpu name doesn't show when launch as a service
 - [x] Some latency to load some pages, just a refresh page can solve it
 
 ### Solved Glitch
@@ -80,7 +81,7 @@ during a period up to 3h, if needed.
 refresh, it's because there are no environmental token yet and they are just being created.
 - [x] automatically create access token at first use if environmental are missing
 - [x] remove the glitch which require to reload the page
-
+- [x] Credits are now in a collapssible box preventing overlapping
 
 (1) assuming :
 - SRBMiner-Multi is launched with a .sh file including informations (--pool --wallet -p --api-enable --api-rig-name)

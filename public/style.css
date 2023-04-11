@@ -267,7 +267,8 @@ h7 {
 .MessageZero:hover {
   opacity: 90%;
 }
-.MessageSuite {
+.MessageSuite,
+  .MessageSys {
   background-image: linear-gradient(165deg,#343a40, #222425);
   padding-top: 0.4rem;
   padding-right: 0.6rem;
@@ -283,11 +284,15 @@ h7 {
   Top: 19.4rem;
   z-index: 0;
   }
-
-.MessageSuite:hover {
+.MessageSys td {
+  color: #FFA500
+}
+.MessageSuite:hover,
+  .MessageSys:hover {
   opacity: 90%;
 }
-.MessageSuite > .Title > h1 {
+.MessageSuite > .Title > h1,
+  .MessageSys > .Title > h1  {
   font-size: 2.2rem;
   padding-bottom: 0.15rem;
 }
