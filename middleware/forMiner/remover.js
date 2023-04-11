@@ -8,7 +8,7 @@ const minersDB = {
   const path = require('path');
 const deleteOFP = require('./deleteOFP');
 
-
+//remove duplicate
 const remover = async () => {  
 const lastMiner = minersDB.users.length;
 if (lastMiner > 4 ) {

@@ -11,6 +11,8 @@ if (fs.existsSync(path.join(__dirname, '../', '.env'))) {
 } else {
     const a = crypto.randomBytes(64).toString('hex');
     const r = crypto.randomBytes(64).toString('hex');
+    const s = Math.floor(Math.random() *4)+10;
+
 
     fs.writeFile(path.join(__dirname, '../', '.env'),
     'ACCESS_TOKEN_SECRET=' + a,
@@ -20,16 +22,17 @@ if (fs.existsSync(path.join(__dirname, '../', '.env'))) {
         '\nREFRESH_TOKEN_SECRET=' + r,
         (err) => {
             if (err) throw (err);
-                logEvents('access and refresh Tokens written'),
-                (err) => {
+            fs.appendFile(path.join(__dirname, '../', '.env'),
+            '\nsalt=' + s,
+            (err) => {
                 if (err) throw (err);
+                logEvents('.env created');
                 console.log('log appended');
-        }})
-        });
-        logEvents('.env created');
-        next();
-    }      
-}
-
+                next();
+                });
+        })
+    })
+}}  
+          
 
 module.exports = { checkEnv };

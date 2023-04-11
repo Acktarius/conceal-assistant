@@ -2,14 +2,19 @@ const usersDB = {
     users: require('../data/users.json'),
     setUsers: function (data) { this.users = data }
 }
+const minersDB = {
+    users: require('../data/miners.json'),
+    setUsers: function (data) { this.users = data }
+  }
 require('dotenv').config()
-
+const fs = require('fs');
 const fsPromises = require('fs').promises
-const { appendFile } = require('fs')
+//const { appendFile } = require('fs')
 const path = require('path')
 
 const logEvents = require('../middleware/logEvents')
 const { remover } = require('../middleware/forMiner/remover');
+const deleteOFP = require('../middleware/forMiner/deleteOFP');
 const { mapSI } = require('../middleware/sysInfo')
 
 const handleLogout = async (req, res) => {
@@ -66,15 +71,29 @@ const handleDeleteLogout = async (req, res, next) => {
     await fsPromises.writeFile(
         path.join(__dirname, '..', 'data', 'users.json'), "[]"
     )
+    /*
     await fsPromises.writeFile(
         path.join(__dirname, '..', 'data', 'miners.json'), "[]"
     )
-    await fsPromises.unlink(
-        path.join(__dirname, '..', '.env')
-    )
+*/
+//keeping the first two template miners
+    const lastMiner = minersDB.users.length;
+    if (lastMiner > 2 ) {
+        for (let i = 3; i <= lastMiner; i++) {
+            deleteOFP(i);    
+            } 
+    }
+
+    fs.unlink(path.join(__dirname, '..', '.env'), (err) => {
+        if (err) {
+          res.status(500).send({
+            message: "Could not delete the .env" + err,
+          });
+        }})
+
     console.log('delete user and logging out');
     var userToDelete = foundUser.username
-    logEvents(`${userToDelete} deleted`)
+    logEvents(`${userToDelete} deleted`);
     res.clearCookie('jwt', { httpOnly: true });
     res.redirect('index');
    } 

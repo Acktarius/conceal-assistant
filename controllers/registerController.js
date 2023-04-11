@@ -2,6 +2,7 @@ const usersDB = {
     users: require('../data/users.json'),
     setUsers: function (data) { this.users = data }
 }
+require('dotenv').config()
 const fsPromises = require('fs').promises
 const path = require('path')
 const bcrypt = require('bcrypt')
@@ -16,7 +17,8 @@ const handleNewUser = async (req, res) => {
     if (duplicate) return res.status(409).render('register', { erreur: `conflict: ${user} already exist` }) //conflict
     try {
         //encrypt pwd
-        const hashedPwd = await bcrypt.hash(pwd, 12)
+        const salt = parseInt(process.env.salt)
+        const hashedPwd = await bcrypt.hash(pwd, salt)
         //store new user
         const newUser = { "username": user, "password": hashedPwd }
         usersDB.setUsers([...usersDB.users, newUser])
