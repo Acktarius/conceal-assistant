@@ -92,7 +92,7 @@ const handleDeleteLogout = async (req, res, next) => {
         }})
 
     console.log('delete user and logging out');
-    var userToDelete = foundUser.username
+    var userToDelete = foundUser.username;
     logEvents(`${userToDelete} deleted`);
     res.clearCookie('jwt', { httpOnly: true });
     res.redirect('index');
