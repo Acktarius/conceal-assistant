@@ -10,8 +10,8 @@
     "ignore": [
       "**/public/**"
     ],
-    "ext": "js,json,txt",
-    "delay": 100
+    "ext": "js,json,txt,pug,html",
+    "delay": 1000
   },
   "scripts": {
     "start": "node server.js",

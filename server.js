@@ -24,17 +24,17 @@ const minerRender = require('./middleware/forMiner/minerRender');
 const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
 const livereload = require('livereload');
-const connectLivereload = require('connect-livereload');
+const connectLiveReload = require('connect-livereload');
 
 //App Variables
 
 const publicDirectory = path.join(__dirname, "public");
 const liveReloadServer = livereload.createServer();
-liveReloadServer.watch(publicDirectory, __dirname + "/data/log.txt");
+liveReloadServer.watch(publicDirectory);
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
   liveReloadServer.refresh("/");
-  }, 200);
+  }, 100);
 });
 
 const app = express();
@@ -44,7 +44,7 @@ const itinerary = require('./routes/routes');
 const { sign } = require('crypto');
 
 //App Configuration
-app.use(connectLivereload());
+app.use(connectLiveReload());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 app.use(express.static(publicDirectory));
