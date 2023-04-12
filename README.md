@@ -71,16 +71,18 @@ during a period up to 3h, if needed.
 ### Exploring feature : 
 - [x] Creating a separated FrontEnd using Reactjs by @Ki-ll ?
 - [x] adding TLS/SSL option for miner
+- [ ] assistance to upgrade node or miner
 
 ### Known Glitch
 - [ ] Gpu name doesn't show when launch as a service
 - [x] Some latency to load some pages, just a refresh page can solve it
+- [ ] remove the glitch which require to reload the page
 
 ### Solved Glitch
 - [x] at very very first boot (therefore only happens once) the page needs to be manually
 refresh, it's because there are no environmental token yet and they are just being created.
 - [x] automatically create access token at first use if environmental are missing
-- [x] remove the glitch which require to reload the page
+- [ ] remove the glitch which require to reload the page
 - [x] Credits are now in a collapssible box preventing overlapping
 
 (1) assuming :

@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-//const { noUser } = require('../middleware/usersEmpty')
 const { checkEnv } = require('../middleware/checkEnv')
 const { alreadyLoggedIn } = require('../controllers/alreadyLoggedIn')
 

@@ -11,7 +11,7 @@ const main = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-         res.render("main", { guardianstatus: gr , minerstatus: mr , urlN: urlNode , urlM: urlMiner });   
+         res.render("main", { title: "Main", guardianstatus: gr , minerstatus: mr , urlN: urlNode , urlM: urlMiner });   
         });
       }
 //Miner Deactivation
@@ -21,7 +21,7 @@ const minerD = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-        res.render("minerd", { minerstatus: mr });   
+        res.render("minerd", { title: "Miner", minerstatus: mr });   
         }); 
       }
 //Miner activation
@@ -31,7 +31,7 @@ const minerA = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-        res.render("minera", { minerstatus: mr });   
+        res.render("minera", { title: "Miner", minerstatus: mr });   
         });  
       }
 
@@ -57,7 +57,7 @@ const guardianD = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-        res.render("guardiand", { guardianstatus: gr });   
+        res.render("guardiand", { title: "Node", guardianstatus: gr });   
         }); 
       }
 //guardian node activation
@@ -67,7 +67,7 @@ const guardianA = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-        res.render("guardiana", { guardianstatus: gr });   
+        res.render("guardiana", { title: "Node", guardianstatus: gr });   
         });  
       }
 
