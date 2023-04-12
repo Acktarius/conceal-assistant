@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
 //Required Middlewares
-const { checkLinuxOs } = require('./middleware/checkOs.js')
+const { checkLinuxOs } = require('./middleware/checkOs.js');
 const registerController = require('./controllers/registerController');
 const authController = require('./controllers/authController');
 const verifyJWT = require('./middleware/verifyJWT');
@@ -27,9 +27,10 @@ const livereload = require('livereload');
 const connectLivereload = require('connect-livereload');
 
 //App Variables
+
 const publicDirectory = path.join(__dirname, "public");
 const liveReloadServer = livereload.createServer();
-liveReloadServer.watch(publicDirectory);
+liveReloadServer.watch(publicDirectory, __dirname + "/data/log.txt");
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
   liveReloadServer.refresh("/");
@@ -55,6 +56,7 @@ app.use(cookieParser());
 
 //Routes Definitions
 // access via routes.js in routes folder
+
 app.use('/', itinerary);
 app.use('/refresh', require('./routes/refresh')) //offers the option to recreate a token based on refresh token
 

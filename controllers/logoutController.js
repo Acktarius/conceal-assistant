@@ -15,7 +15,7 @@ const path = require('path')
 const logEvents = require('../middleware/logEvents')
 const { remover } = require('../middleware/forMiner/remover');
 const deleteOFP = require('../middleware/forMiner/deleteOFP');
-const { sysInfo , mapSI } = require('../middleware/sysInfo')
+const { sysInfo , mapSI } = require('../middleware/sysInfo');
 
 const handleLogout = async (req, res) => {
     const cookies = req.cookies;
@@ -94,8 +94,8 @@ const handleDeleteLogout = async (req, res, next) => {
     console.log('delete user and logging out');
     var userToDelete = foundUser.username;
     logEvents(`${userToDelete} deleted`);
-    res.clearCookie('jwt', { httpOnly: true });
-    res.redirect('index');
+    await res.clearCookie('jwt', { httpOnly: true });
+        res.redirect('index');
    } 
 }
 
