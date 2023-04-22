@@ -27,13 +27,18 @@ const guardianGet = async (req, res) => {
                 console.log("issue reading config.json file")
                 } else {
                 const config = JSON.parse(contents);
+                  let concealDpath = (config.node.path != "") ? config.node.path : "";
+                  let nameD = (config.node.name != "") ? config.node.name : "";
+                  let feeAddr = (config.node.feeAddr != "") ? config.node.feeAddr : "";
+                  let apiPort = (config.api.port != "") ? config.api.port : "";
+                  let discordUrl = (config.error.notify.discord.url != "") ? config.error.notify.discord.url : "";
                 res.render("nsettings", { title: "Guardian Settings",
                   version: pjson.version,
-                  conceald: config.node.path, 
-                  name: config.node.name , 
-                  feeaddr: config.node.feeAddr,
-                  apiport: config.api.port,
-                  discordurl: config.error.notify.discord.url
+                  conceald: concealDpath, 
+                  name: nameD , 
+                  feeaddr: feeAddr,
+                  apiport: apiPort,
+                  discordurl: discordUrl
                   })
                 }});
               } else {
@@ -49,7 +54,7 @@ const guardianGet = async (req, res) => {
 
 const guardianPost = async (req, res) => {
   const { conceald, name, feeaddr, apiport, discordurl } = req.body;
-
+try {
   const data = await fsPromises.readFile('/etc/systemd/system/ccx-guardian.service', 'utf8');
   let begin = data.search("WorkingDirectory=");
   if (!begin) {
@@ -64,13 +69,12 @@ const guardianPost = async (req, res) => {
       console.log("issue reading config.json file")
       } else {
       const config = JSON.parse(contents);
-        let concealdOg = config.node.path; 
-        let nameOg = config.node.name; 
-        let feeaddrOg = config.node.feeAddr;
-        let apiportOg = config.api.port;
-        let discordurlOg = config.error.notify.discord.url;
-
-   
+        let concealdOg = (config.node.path != "") ? config.node.path : "";
+        let nameOg = (config.node.name != "") ? config.node.name : "";
+        let feeaddrOg = (config.node.feeAddr != "") ? config.node.feeAddr : "";
+        let apiportOg = (config.api.port != "") ? config.api.port : "";
+        let discordurlOg = (config.error.notify.discord.url != "") ? config.error.notify.discord.url : "";
+  
 //Path Check  
 if (!(fs.existsSync(conceald)) || !(conceald.endsWith("conceald"))) return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'improper path or file' });
 //wallet check
@@ -80,11 +84,11 @@ if (!(fs.existsSync(conceald)) || !(conceald.endsWith("conceald"))) return res.s
 //verif url
 if (!(discordurl.startsWith("https://discord.com/"))) return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: "doesn't look like a Discord web hook"});
 
-        config.node.path = (conceald != concealdOg)? conceald : config.node.path;
-        config.node.name = (name != nameOg)? name : config.node.name;
-        config.node.feeAddr = (feeaddr != feeaddrOg)? feeaddr : config.node.feeAddr;
-        config.api.port = (apiport != apiportOg)? apiport : config.api.port;  
-        config.error.notify.discord.url = (discordurl != discordurlOg) ? discordurl : config.error.notify.discord.url;
+        config.node.path = (concealdOg != "") ? conceald : "";
+        config.node.name = (nameOg != "") ? name : "";
+        config.node.feeAddr = (feeaddrOg != "" ) ? feeaddr : "";
+        config.api.port = (apiportOg != "" ) ? apiport : "";  
+        config.error.notify.discord.url = (discordurlOg != "") ? discordurl : "";
 
 fs.writeFileSync(`${gwd}config.json`, JSON.stringify(config, null, 2));
 logEvents('guardian config.json file modified');
@@ -96,6 +100,11 @@ res.redirect('/main');
 console.log("can't reach guardian working directory")
 }
 }
+} catch (err) {
+  console.error(err);
+}
+
+
 }
 
 const concealdGet = async (req, res) => {

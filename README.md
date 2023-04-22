@@ -33,7 +33,7 @@ cd conceal-assistant
 ```
 dependancies required as indicated in package.json
 
-to install, just run :
+to install, just run (you might need sudo, depending where your folder is located):
 ```
 npm install 
 ```
