@@ -31,7 +31,7 @@ const guardianGet = async (req, res) => {
                   let nameD = (config.node.name) ? config.node.name : "";
                   let feeAddr = (config.node.feeAddr) ? config.node.feeAddr : "";
                   let apiPort = (config.api.port) ? config.api.port : "";
-                  let discordUrl = (config.error.notify.discord.url) ? config.error.notify.discord.url : "";
+                  let discordUrl = (("error" && "notify" && "discord") in config) ? config.error.notify.discord.url : "";
                 res.render("nsettings", { title: "Guardian Settings",
                   version: pjson.version,
                   conceald: concealDpath, 
