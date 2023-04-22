@@ -27,11 +27,11 @@ const guardianGet = async (req, res) => {
                 console.log("issue reading config.json file")
                 } else {
                 const config = JSON.parse(contents);
-                  let concealDpath = (config.node.path != "") ? config.node.path : "";
-                  let nameD = (config.node.name != "") ? config.node.name : "";
-                  let feeAddr = (config.node.feeAddr != "") ? config.node.feeAddr : "";
-                  let apiPort = (config.api.port != "") ? config.api.port : "";
-                  let discordUrl = (config.error.notify.discord.url != "") ? config.error.notify.discord.url : "";
+                  let concealDpath = (config.node.path) ? config.node.path : "";
+                  let nameD = (config.node.name) ? config.node.name : "";
+                  let feeAddr = (config.node.feeAddr) ? config.node.feeAddr : "";
+                  let apiPort = (config.api.port) ? config.api.port : "";
+                  let discordUrl = (config.error.notify.discord.url) ? config.error.notify.discord.url : "";
                 res.render("nsettings", { title: "Guardian Settings",
                   version: pjson.version,
                   conceald: concealDpath, 
@@ -69,11 +69,11 @@ try {
       console.log("issue reading config.json file")
       } else {
       const config = JSON.parse(contents);
-        let concealdOg = (config.node.path != "") ? config.node.path : "";
-        let nameOg = (config.node.name != "") ? config.node.name : "";
-        let feeaddrOg = (config.node.feeAddr != "") ? config.node.feeAddr : "";
-        let apiportOg = (config.api.port != "") ? config.api.port : "";
-        let discordurlOg = (config.error.notify.discord.url != "") ? config.error.notify.discord.url : "";
+        let concealdOg = (config.node.path) ? config.node.path : "";
+        let nameOg = (config.node.name) ? config.node.name : "";
+        let feeaddrOg = (config.node.feeAddr) ? config.node.feeAddr : "";
+        let apiportOg = (config.api.port) ? config.api.port : "";
+        let discordurlOg = (config.error.notify.discord.url) ? config.error.notify.discord.url : "";
   
 //Path Check  
 if (!(fs.existsSync(conceald)) || !(conceald.endsWith("conceald"))) return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'improper path or file' });
