@@ -1,0 +1,37 @@
+extends layout
+
+block layout-content
+
+  div.View.WelcomeView
+    ul.Banner
+      li.h1 Conceal Assistant
+      li
+      a(href="/main")
+          i(class="fa-solid fa-house fa-xl icon-colour")
+      li
+      a(href="/logout")
+       i(class="fa-solid fa-right-from-bracket fa-xl icon-colour")
+      li 
+      a(href="https://conceal.network" target="blank" rel="noopener")
+       img.logo(src="logo-256x256-033.png" alt="Logo")
+      .version v#{version}
+    form(action="/csettings" method="POST" id="update")
+      div.MessageConfirm
+          div.Title
+            h1 Conceal Core
+            label(for="concealdpath")  path to Conceal Core :
+            br
+            input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="concealdpath" name="concealdpath" value=concealdpath placeholder=concealdpath)
+            br
+            h2 installed version : #{version_inst}
+            -if (upgrade === true)
+             h3 latest version available : #{version_avail}
+             br
+             button(type="submit" form="update") Upgrade
+            -else
+             h2 latest version available : #{version_avail}
+             br
+             .NavButton.disabled(disabled="true") Upgrade
+            br
+            -if (message != '')
+            h4 #{message}

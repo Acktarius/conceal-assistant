@@ -21,6 +21,7 @@ const verifyJWT = require('./middleware/verifyJWT');
 const renderG = require('./middleware/serviceCheckRender');
 const renderP = require('./middleware/startstopRender');
 const minerRender = require('./middleware/forMiner/minerRender');
+const guardianRender = require('./middleware/forNode/guardianRender.js');
 const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
 const livereload = require('livereload');
@@ -84,6 +85,12 @@ app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
    //guardian node Activation handling
   app.get("/guardiana", verifyJWT, renderG.guardianA); 
   app.post("/guardiana", verifyJWT, renderP.guardianStart);
+
+  //Node Settings
+  app.get("/nsettings", verifyJWT, renderG.guardianDnext, guardianRender.guardianGet);
+  app.post("/nsettings", verifyJWT, renderG.guardianDnext, guardianRender.guardianPost);
+  app.get("/csettings", verifyJWT, renderG.guardianDnext, guardianRender.concealdGet);
+  app.post("/csettings", verifyJWT, renderG.guardianDnext, guardianRender.concealdPost);
 
    //Settings
    app.get("/settings", verifyJWT, logoutController.handleUser);

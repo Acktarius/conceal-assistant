@@ -6,7 +6,7 @@ nevertheless, since it's a web server type of software, it can be consulted from
 ## Node service shall be named: ccx-guardian.service
 ## Mining service shall be named: ccx-mining.service (1)
 
-** 2 miner templates are available for purpose of guidance , and if used, would be mining to Conceal Network donation address **
+**2 miner templates are available for purpose of guidance , and if used, would be mining to Conceal Network donation address**
 
 
 Node.JS, NPM, and Nodemon are required, sensors is needed to get Gpu temp and power info :
@@ -71,7 +71,7 @@ during a period up to 3h, if needed.
 ### Exploring feature : 
 - [x] Creating a separated FrontEnd using Reactjs by @Ki-ll ?
 - [x] adding TLS/SSL option for miner
-- [ ] assistance to upgrade node or miner
+- [/] assistance to upgrade node or miner
 
 ### Known Glitch
 - [ ] Gpu name doesn't show when launch as a service

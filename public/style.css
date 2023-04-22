@@ -372,8 +372,7 @@ ol {
 .MessageConfirm:hover {
   opacity: 93%;
 }
-.MessageConfirm:hover h1, 
-  .MessageConfirm:hover h2,
+.MessageConfirm:hover h2,
     .MessageConfirm:hover label,
       .MessageConfirm:hover td {
   color: #FFF; 
@@ -457,6 +456,11 @@ span {
   background: #FFA500;
   border: 0.1rem solid #fff;
   color: #000;
+}
+
+.disabled {
+  pointer-events: none;
+  text-decoration: line-through;  
 }
 
 button {

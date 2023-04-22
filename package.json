@@ -1,6 +1,6 @@
 {
   "name": "conceal-assistant",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Assistant pour Conceal",
   "main": "server.js",
   "nodemonConfig": {
@@ -37,7 +37,10 @@
     "livereload": "^0.9.3",
     "local-ip-url": "^1.0.3",
     "method-override": "^3.0.0",
+    "node-fetch": "^2.6.9",
+    "pjson": "^1.0.9",
     "pug": "^3.0.2",
+    "semver": "^7.5.0",
     "shelljs": "^0.8.5",
     "sysctlx": "^0.0.7"
   },

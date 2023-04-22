@@ -1,0 +1,45 @@
+extends layout
+
+block layout-content
+
+  div.View.WelcomeView
+    ul.Banner
+      li.h1 Conceal Assistant
+      li
+      a(href="/main")
+          i(class="fa-solid fa-house fa-xl icon-colour")
+      li
+      a(href="/logout")
+       i(class="fa-solid fa-right-from-bracket fa-xl icon-colour")
+      li 
+      a(href="https://conceal.network" target="blank" rel="noopener")
+       img.logo(src="logo-256x256-033.png" alt="Logo")
+      .version v#{version}
+    form(action="/nsettings" method="POST" id="modify")
+      div.MessageConfirm
+          div.Title
+            h1 node settings
+            label(for="conceald")  Conceald path :
+            br
+            input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="conceald" name="conceald" value=conceald placeholder=conceald)
+            br
+            label(for="name")  Name :
+            br
+            input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="name" name="name" value=name placeholder=name)
+            br
+            label(for="feeaddr")  fee Address :
+            br
+            input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="feeaddr" name="feeaddr" value=feeaddr placeholder=feeaddr)
+            br
+            label(for="apiport")  Api Port :
+            br
+            input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="apiport" name="apiport" value=apiport placeholder=apiport)
+            br
+            label(for="discordurl")  Discord Web Hook :
+            br
+            input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="discordurl" name="discordurl" value=discordurl placeholder=discordurl)
+            br
+            br
+            button(type="submit" form="modify") Modify
+            -if (message != '')
+            h4 #{message}

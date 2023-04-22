@@ -15,7 +15,7 @@ block layout-content
       li 
       a(href="https://conceal.network" target="blank" rel="noopener")
        img.logo(src="logo-256x256-033.png" alt="Logo")
-      .version v1.0.4
+      .version v#{version}
     div.MessageZero
       div.Title
         h1 Node Assistant
@@ -29,6 +29,10 @@ block layout-content
           a.NavButton(href="/guardiand") Deactivate
         -else
           li.h4 Not Active
+          p
+          a(href="/nsettings") Modify Node Settings
+          p
+          a(href="/csettings") Update Conceal-core
           p
           a.NavButton(href="/guardiana") Activate
     div.MessageSuite
