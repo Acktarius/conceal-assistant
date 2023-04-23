@@ -71,32 +71,40 @@ try {
       let discordurlOg = ("error" in config) ? config.error.notify.discord.url : "";
 
 //Path Check  
+if (concealdOg != "") {
 if (!(fs.existsSync(conceald)) || !(conceald.endsWith("conceald"))) {
   return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'improper path or file' });
 } else {
-  config.node.path = (concealdOg != "") ? conceald : "";
+  config.node.path = conceald;
+}
 }
 //wallet check
+if (feeaddrOg != "") {
   if ((feeaddr.length !== 98 || !(feeaddr.startsWith("ccx7")))) {
     return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: "wallet address not valid"});
   } else {
-    config.node.feeAddr = (feeaddrOg != "" ) ? feeaddr : "";
+    config.node.feeAddr = feeaddr;
   }
+}
 //verif port as a number
+if (apiportOg != "") {
  if (isNaN(apiport)) {
   return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'apiport has to be a number' });
  } else {
-  config.api.port = (apiportOg != "" ) ? apiport : "";  
+  config.api.port = apiport;  
  }
-//verif url
-if (!(discordurl.startsWith("https://discord.com/"))) {
-  return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: "doesn't look like a Discord web hook"});
-} else {
-  config.error.notify.discord.url = (discordurlOg != "") ? discordurl : "";
 }
-
-  config.node.name = (nameOg != "") ? name : "";
-        
+//verif discord url
+if (discordurlOg != "") {
+  if (!(discordurl.startsWith("https://discord.com/"))) {
+  return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: "not a Discord web hook or not set"});
+  } else {
+  config.error.notify.discord.url = discordurl;
+  }
+  }
+if (nameOg != "") {
+  config.node.name = name
+}
               
 
 fs.writeFileSync(`${gwd}config.json`, JSON.stringify(config, null, 2));
@@ -112,8 +120,6 @@ console.log("can't reach guardian working directory")
 } catch (err) {
   console.error(err);
 }
-
-
 }
 
 const concealdGet = async (req, res) => {
