@@ -27,19 +27,13 @@ const guardianGet = async (req, res) => {
                 console.log("issue reading config.json file")
                 } else {
                 const config = JSON.parse(contents);
-                  let concealDpath = (config.node.path) ? config.node.path : "";
-                  let nameD = (config.node.name) ? config.node.name : "";
-                  let feeAddr = (config.node.feeAddr) ? config.node.feeAddr : "";
-                  let apiPort = (config.api.port) ? config.api.port : "";
+                  let concealDpath = (("node" && "path") in config) ? config.node.path : "";
+                  let nameD = (("node" && "name") in config) ? config.node.name : "";
+                  let feeAddr = (("node" && "feeAddr") in config) ? config.node.feeAddr : "";
+                  let apiPort = (("api" && "port") in config) ? config.api.port : "";
                   let discordUrl = (("error" && "notify" && "discord") in config) ? config.error.notify.discord.url : "";
-                res.render("nsettings", { title: "Guardian Settings",
-                  version: pjson.version,
-                  conceald: concealDpath, 
-                  name: nameD , 
-                  feeaddr: feeAddr,
-                  apiport: apiPort,
-                  discordurl: discordUrl
-                  })
+                res.render("nsettings", { title: "Guardian Settings", version: pjson.version, conceald: concealDpath, name: nameD, feeaddr: feeAddr, apiport: apiPort, discordurl: discordUrl
+                  });
                 }});
               } else {
             console.log("can't reach guardian working directory")
@@ -69,26 +63,41 @@ try {
       console.log("issue reading config.json file")
       } else {
       const config = JSON.parse(contents);
-        let concealdOg = (config.node.path) ? config.node.path : "";
-        let nameOg = (config.node.name) ? config.node.name : "";
-        let feeaddrOg = (config.node.feeAddr) ? config.node.feeAddr : "";
-        let apiportOg = (config.api.port) ? config.api.port : "";
-        let discordurlOg = (config.error.notify.discord.url) ? config.error.notify.discord.url : "";
-  
-//Path Check  
-if (!(fs.existsSync(conceald)) || !(conceald.endsWith("conceald"))) return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'improper path or file' });
-//wallet check
-  if ((feeaddr.length !== 98 || !(feeaddr.startsWith("ccx7")))) return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: "wallet address not valid"});
-//verif port as a number
- if (isNaN(apiport)) return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'apiport has to be a number' });
-//verif url
-if (!(discordurl.startsWith("https://discord.com/"))) return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: "doesn't look like a Discord web hook"});
 
-        config.node.path = (concealdOg != "") ? conceald : "";
-        config.node.name = (nameOg != "") ? name : "";
-        config.node.feeAddr = (feeaddrOg != "" ) ? feeaddr : "";
-        config.api.port = (apiportOg != "" ) ? apiport : "";  
-        config.error.notify.discord.url = (discordurlOg != "") ? discordurl : "";
+      let concealdOg = (("node" && "path") in config) ? config.node.path : "";
+      let nameOg = (("node" && "name") in config) ? config.node.name : "";
+      let feeaddrOg = (("node" && "feeAddr") in config) ? config.node.feeAddr : "";
+      let apiportOg = (("api" && "port") in config) ? config.api.port : "";
+      let discordurlOg = (("error" && "notify" && "discord") in config) ? config.error.notify.discord.url : "";
+
+//Path Check  
+if (!(fs.existsSync(conceald)) || !(conceald.endsWith("conceald"))) {
+  return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'improper path or file' });
+} else {
+  config.node.path = (concealdOg != "") ? conceald : "";
+}
+//wallet check
+  if ((feeaddr.length !== 98 || !(feeaddr.startsWith("ccx7")))) {
+    return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: "wallet address not valid"});
+  } else {
+    config.node.feeAddr = (feeaddrOg != "" ) ? feeaddr : "";
+  }
+//verif port as a number
+ if (isNaN(apiport)) {
+  return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'apiport has to be a number' });
+ } else {
+  config.api.port = (apiportOg != "" ) ? apiport : "";  
+ }
+//verif url
+if (!(discordurl.startsWith("https://discord.com/"))) {
+  return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: "doesn't look like a Discord web hook"});
+} else {
+  config.error.notify.discord.url = (discordurlOg != "") ? discordurl : "";
+}
+
+  config.node.name = (nameOg != "") ? name : "";
+        
+              
 
 fs.writeFileSync(`${gwd}config.json`, JSON.stringify(config, null, 2));
 logEvents('guardian config.json file modified');
