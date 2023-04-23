@@ -8,6 +8,8 @@
       "**/data/**"
     ],
     "ignore": [
+      "**/data/infoS.json",
+      "**/data/coreV.json",
       "**/public/**"
     ],
     "ext": "js,json,txt,pug,html",

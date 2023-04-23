@@ -35,6 +35,8 @@ block layout-content
           a(href="/csettings") Update Conceal-core
           p
           a.NavButton(href="/guardiana") Activate
+        -if (upgrade == true)
+         h8 Conceal Core upgrade available   
     div.MessageSuite
       div.Title
         h1 Miner Assistant
@@ -54,5 +56,6 @@ block layout-content
          a(href="/msoftware?toshow=0") Modify Mining Software
          p
          a.NavButton(href="/minera") Activate
+
       
           

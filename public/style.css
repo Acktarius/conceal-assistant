@@ -38,8 +38,9 @@ h1,.h1, h2, h3,.h3, h4,.h4 {
   padding: 0;
   margin: 0;
 
-  
 }
+
+
 h1,
 h2 {
   color: #868BA1;
@@ -53,7 +54,7 @@ h3,
   color: #23ec09;
 }
 h4,
-.h4 {
+.h4, h8 {
   color: #cf332a;
 }
 
@@ -71,6 +72,12 @@ label {
   margin: 0;
 
   color: #868BA1;
+}
+h8 {
+  font-family: "Helvetica", sans-serif;
+  font-size: 0.9rem;
+  padding: 0;
+  margin: 0;
 }
 input[type=text] {
   font-family: "Helvetica", sans-serif;

@@ -9,13 +9,12 @@ const minersDB = {
 require('dotenv').config()
 const fs = require('fs');
 const fsPromises = require('fs').promises
-//const { appendFile } = require('fs')
 const path = require('path')
 
 const logEvents = require('../middleware/logEvents')
 const { remover } = require('../middleware/forMiner/remover');
 const deleteOFP = require('../middleware/forMiner/deleteOFP');
-const { sysInfo , mapSI } = require('../middleware/sysInfo');
+const { sysInfo } = require('../middleware/sysInfo');
 
 const handleLogout = async (req, res) => {
     const cookies = req.cookies;
@@ -109,8 +108,14 @@ const handleUser = async (req, res) => {
         return res.sendStatus(204);
    } else {
     sysInfo();
-    res.render(('settings'), { user: foundUser.username, cpu: mapSI.get('cpu') , load: mapSI.get('load') , gpu: mapSI.get('gpu') , tgpu: mapSI.get('temp') , wgpu: mapSI.get('watt') });
-
+    fs.readFile(path.join(__dirname, ".." , "data" , "infoS.json"), 'utf8', function(err, contents) {
+        if (err) {
+        console.log("issue reading infoS.json file")
+        } else {
+        const infoS = JSON.parse(contents);
+        res.render(('settings'), { user: foundUser.username, cpu: infoS.cpu , load: infoS.load , gpu: infoS.gpu , tgpu: infoS.temp , wgpu: infoS.watt });
+        }
+    });   
    } 
 }
 

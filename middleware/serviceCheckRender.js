@@ -1,7 +1,10 @@
 //get service status and prepare render
 const sys = require('sysctlx');
+const fs = require('fs');
+const path = require('path');
 const Promise = require('bluebird');
 const pjson = require('pjson');
+const { coreVersion } = require('./coreVersion.js')
 const { urlNode , urlMiner } = require('./localIpUrl');
 
 
@@ -12,7 +15,16 @@ const main = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-         res.render("main", { title: "Main", guardianstatus: gr , minerstatus: mr , urlN: urlNode , urlM: urlMiner , version: pjson.version });   
+         coreVersion();
+         fs.readFile(path.join(__dirname, ".." , "data" , "coreV.json"), 'utf8', function(err, contents) {
+          if (err) {
+          console.log("issue reading coreV.json file")
+          } else {
+          const coreV = JSON.parse(contents);
+          res.render("main", { title: "Main", guardianstatus: gr , minerstatus: mr , urlN: urlNode , urlM: urlMiner , version: pjson.version , upgrade: coreV.upgrade});
+          }
+      });
+       
         });
       }
 //Miner Deactivation

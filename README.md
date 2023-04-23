@@ -47,20 +47,18 @@ or
 ```
 nodemon server.js
 ```
-### Superior permission are needed to modify mining service
+### Superior permission are needed to modify mining service or node upgrade
 ```
 sudo nodemon server.js
 ```
 open your internet Browser, and go to http://localhost:3500/
 or from an other device on the same local network: http://(local_ip_address_of_the_ccx_box):3500/
 
-User admin is already created, contact @Acktarius for password
-
-you have the option to delete "admin" and create your own username and password via the setting page,
-and you'll be redirected to register page.
+you have to register a new user at first use, this will create unique random environmental variables.
+the setting page gives you the option to delete a user and then  you'll be redirected to register page.
 
 Once logged in, session is active for 15minutes, nevertheless session can be refresh
-during a period up to 3h, if needed.
+during a period up to 3h, if needed. (the refresh button appears on 'mouse-over' effect in the banner)
 
 ### To do list:
 - [ ] Automatic refresh of Main Page ... but is it really needed ?
@@ -71,12 +69,12 @@ during a period up to 3h, if needed.
 ### Exploring feature : 
 - [x] Creating a separated FrontEnd using Reactjs by @Ki-ll ?
 - [x] adding TLS/SSL option for miner
-- [/] assistance to upgrade node or miner
+- [x] assistance to upgrade node or miner
 
 ### Known Glitch
 - [ ] Gpu name doesn't show when launch as a service
 - [x] Some latency to load some pages, just a refresh page can solve it
-- [ ] automatic refresh doesn't work if using a Firewall
+- [ ] automatic refresh doesn't work if using a Firewall ?
 
 ### Solved Glitch
 - [x] at very very first boot (therefore only happens once) the page needs to be manually

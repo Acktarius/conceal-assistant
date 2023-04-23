@@ -7,6 +7,7 @@ const fetch = require('node-fetch');
 const logEvents = require('../logEvents.js');
 const daemonUpdate = require('./daemonUpdate.js')
 const { afterUntil } = require('../forMiner/tools.js');
+const { coreVersion } = require('../coreVersion.js')
 
 const guardianGet = async (req, res) => {
       if (!fs.existsSync('/etc/systemd/system/ccx-guardian.service')) {
@@ -124,51 +125,22 @@ console.log("can't reach guardian working directory")
 
 const concealdGet = async (req, res) => {
   try {
-  const response = await fetch('https://github.com/ConcealNetwork/conceal-core/releases');
-  const body = await response.text();
-  
-  let versionLatest = afterUntil(body, "Conceal Core CLI v", "<");
-  versionLatest = semver.valid(versionLatest) ? versionLatest : "unknown";
+    coreVersion();
+    fs.readFile(path.join(__dirname, ".." , ".." , "data" , "coreV.json"), 'utf8', function(err, contents) {
+     if (err) {
+     console.log("issue reading coreV.json file")
+     } else {
+     const coreV = JSON.parse(contents);
+     let upgrade = ((coreV.Inst == "unknown") || (coreV.latest == "unknown")) ? false : (semver.gt(coreV.latest, coreV.Inst)) ?  true : false;
+     if (upgrade == true ) { 
+      console.log("node is due for an update");
+     }
+    let message = (upgrade === false) ? "cannot upgrade" : "";
 
-
-  if (!fs.existsSync('/etc/systemd/system/ccx-guardian.service')) {
-  console.log("guardian service doesn't exist or not named properly");
-  } else {
-    try {
-      const data = await fsPromises.readFile('/etc/systemd/system/ccx-guardian.service', 'utf8');
-          let begin = data.search("WorkingDirectory=");
-          if (!begin) {
-              console.log("can't find path");
-          } else {
-          
-          let gwd = afterUntil(data, "WorkingDirectory=", "\n");
-          gwd = (gwd.charAt(gwd.length-1) != "/") ? (gwd + "/") : gwd;
-          if (fs.existsSync(gwd)) {
-            
-            fs.readFile(`${gwd}config.json`, 'utf8', function(err, contents) {
-              if (err) {
-              console.log("issue reading config.json file")
-              } else {
-              const config = JSON.parse(contents);
-                let concealDpath = (config.node.path).slice(0, (config.node.path).search("conceal-core"));
-                let versionInst = fs.readFileSync(concealDpath+"conceal-core/build/version/version.h", 'utf8');
-                versionInst = afterUntil(versionInst, 'PROJECT_VERSION "', '"');
-                versionInst = (semver.valid(versionInst)) ? versionInst : "unknown"
-                
-                let upgrade = ((versionInst == "unknown") || (versionLatest == "unknown")) ? false : (semver.gt(versionLatest, versionInst)) ?  true : false;
-
-                let message = (upgrade === false) ? "cannot upgrade" : "";
-              
-                res.render("csettings", { title: "Daemon Settings", version: pjson.version , concealdpath: concealDpath , upgrade: upgrade , version_inst: versionInst , version_avail: versionLatest ,  message: message });
-              }}); 
-          } else {
-            console.log("something is wrong")
-          }
-        }
-      } catch (err) {
-            console.error(err);
-      }
+    res.render("csettings", { title: "Daemon Settings", version: pjson.version , concealdpath: coreV.Dpath , upgrade: upgrade , version_inst: coreV.Inst , version_avail: coreV.latest ,  message: message });
+    
     }
+ });
   } catch (err) {
     console.error(err);
   }
