@@ -26,7 +26,7 @@ const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
 const livereload = require('livereload');
 const connectLiveReload = require('connect-livereload');
-
+const { coreVersion } = require('./middleware/coreVersion.js')
 //App Variables
 
 const publicDirectory = path.join(__dirname, "public");
@@ -54,6 +54,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(cookieParser());
+
+coreVersion();
 
 //Routes Definitions
 // access via routes.js in routes folder

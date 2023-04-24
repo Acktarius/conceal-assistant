@@ -2,11 +2,12 @@
 const os = require('os');
 const shell = require('shelljs');
 const fs = require('fs');
+const fsPromises = require('fs').promises;
 const path = require('path');
 
 const mapSI = new Map();
 
-const sysInfo = () => {
+const sysInfo = async () => {
 
   function taskGpu () {
     let gpu = shell.exec('glxinfo -B | grep "Device" | tr -s " " | cut -d " " -f 3,4,5,6', {silent:true}).stdout.slice(0,20);
@@ -26,7 +27,7 @@ const sysInfo = () => {
   }
   try {
     taskGpu ();
-    fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infoS.json'), JSON.stringify(Object.fromEntries(mapSI), null, 2));
+    fsPromises.writeFile(path.join(__dirname, '..' , 'data' , 'infoS.json'), JSON.stringify(Object.fromEntries(mapSI), null, 2));
 } catch (err) {
     console.error(err);
   }

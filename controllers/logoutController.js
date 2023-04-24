@@ -70,11 +70,18 @@ const handleDeleteLogout = async (req, res, next) => {
     await fsPromises.writeFile(
         path.join(__dirname, '..', 'data', 'users.json'), "[]"
     )
-/*
-    await fsPromises.writeFile(
-        path.join(__dirname, '..', 'data', 'miners.json'), "[]"
-    )
-*/
+    fs.unlink(path.join(__dirname, '..', 'data', 'coreV.json'), (err) => {
+        if (err) {
+            res.status(500).send({
+            message: "Could not delete coreV" + err,
+            });
+        }});    
+    fs.unlink(path.join(__dirname, '..', 'data', 'infoS.json'), (err) => {
+        if (err) {
+            res.status(500).send({
+            message: "Could not delete infoS" + err,
+            });
+        }});
 //keeping the first two template miners
     const lastMiner = minersDB.users.length;
     if (lastMiner > 2 ) {
@@ -82,14 +89,25 @@ const handleDeleteLogout = async (req, res, next) => {
             deleteOFP(i);    
             } 
     }
-//delete .env
+//delete .env and coreV amd infoS
     fs.unlink(path.join(__dirname, '..', '.env'), (err) => {
         if (err) {
           res.status(500).send({
             message: "Could not delete the .env" + err,
           });
         }})
-
+    fs.unlink(path.join(__dirname, '..', 'data', 'coreV.json'), (err) => {
+        if (err) {
+            res.status(500).send({
+            message: "Could not delete coreV" + err,
+            });
+        }})    
+    fs.unlink(path.join(__dirname, '..', 'data', 'infoS.json'), (err) => {
+        if (err) {
+            res.status(500).send({
+            message: "Could not delete infoS" + err,
+            });
+        }})          
     console.log('delete user and logging out');
     var userToDelete = foundUser.username;
     logEvents(`${userToDelete} deleted`);
@@ -100,14 +118,14 @@ const handleDeleteLogout = async (req, res, next) => {
 
 const handleUser = async (req, res) => {
     const cookies = req.cookies;
-    
+    await sysInfo();
     if (!cookies.jwt) return res.sendStatus(204); // no content to sendback
     const refreshToken = cookies.jwt;
     const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
    if (!foundUser) {
         return res.sendStatus(204);
    } else {
-    sysInfo();
+    
     fs.readFile(path.join(__dirname, ".." , "data" , "infoS.json"), 'utf8', function(err, contents) {
         if (err) {
         console.log("issue reading infoS.json file")

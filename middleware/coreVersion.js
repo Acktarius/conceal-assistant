@@ -18,7 +18,6 @@ const coreVersion = async () => {
         
         let versionLatest = afterUntil(body, "Conceal Core CLI v", "<");
         versionLatest = semver.valid(versionLatest) ? versionLatest : "unknown";
-        
         mapV.set('latest', versionLatest);
         if (!fs.existsSync('/etc/systemd/system/ccx-guardian.service')) {
         console.log("guardian service doesn't exist or not named properly");
@@ -48,6 +47,7 @@ const coreVersion = async () => {
                       let upgrade = ((versionInst == "unknown") || (versionLatest == "unknown")) ? false : (semver.gt(versionLatest, versionInst)) ?  true : false;
                       mapV.set('upgrade', upgrade);
                       let message = (upgrade === false) ? "cannot upgrade" : "";
+                      
                       fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'coreV.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));  
                     }}); 
                 } else {
