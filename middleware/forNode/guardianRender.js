@@ -125,7 +125,6 @@ console.log("can't reach guardian working directory")
 
 const concealdGet = async (req, res) => {
   try {
-    coreVersion();
     fs.readFile(path.join(__dirname, ".." , ".." , "data" , "coreV.json"), 'utf8', function(err, contents) {
      if (err) {
      console.log("issue reading coreV.json file")

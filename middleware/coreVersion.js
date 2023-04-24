@@ -10,7 +10,7 @@ const { afterUntil } = require('./forMiner/tools.js');
 
 const mapV = new Map();
 
-const coreVersion = async () => {
+const coreVersion = async (req, res, next) => {
 
     try {
         const response = await fetch('https://github.com/ConcealNetwork/conceal-core/releases');
@@ -48,7 +48,8 @@ const coreVersion = async () => {
                       mapV.set('upgrade', upgrade);
                       let message = (upgrade === false) ? "cannot upgrade" : "";
                       
-                      fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'coreV.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));  
+                      fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'coreV.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
+                      return next();  
                     }}); 
                 } else {
                   console.log("something is wrong")

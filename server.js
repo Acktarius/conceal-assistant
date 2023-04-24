@@ -55,7 +55,6 @@ app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(cookieParser());
 
-coreVersion();
 
 //Routes Definitions
 // access via routes.js in routes folder
@@ -69,7 +68,7 @@ app.post("/login(.html)?", authController.handleLogin);
 //Any route below that will require access Token AND an OS check = Linux
 
 //Main page handling
-app.get("/main", verifyJWT, checkLinuxOs, renderG.main);
+app.get("/main", verifyJWT, checkLinuxOs, coreVersion, renderG.main);
    
   //miner Deactivation handling
   app.get("/minerd", verifyJWT, renderG.minerD);
