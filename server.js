@@ -26,7 +26,8 @@ const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
 const livereload = require('livereload');
 const connectLiveReload = require('connect-livereload');
-const { coreVersion } = require('./middleware/coreVersion.js')
+const { coreVersion } = require('./middleware/coreVersion.js');
+const { sysInfo } = require('./middleware/sysInfo.js');
 //App Variables
 
 const publicDirectory = path.join(__dirname, "public");
@@ -94,7 +95,7 @@ app.get("/main", verifyJWT, checkLinuxOs, coreVersion, renderG.main);
   app.post("/csettings", verifyJWT, renderG.guardianDnext, guardianRender.concealdPost);
 
    //Settings
-   app.get("/settings", verifyJWT, logoutController.handleUser);
+   app.get("/settings", verifyJWT, sysInfo, logoutController.handleUser);
 
    //Miner Settings
    app.get("/msettings", verifyJWT, renderG.minerDnext, minerRender.minerGet);

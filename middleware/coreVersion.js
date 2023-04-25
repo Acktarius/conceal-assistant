@@ -52,15 +52,18 @@ const coreVersion = async (req, res, next) => {
                       return next();  
                     }}); 
                 } else {
-                  console.log("something is wrong")
+                  console.log("something is wrong");
+                  return next();
                 }
               }
             } catch (err) {
-                  console.error(err);
+                console.error(err);
+                return next();
             }
           }
         } catch (err) {
           console.error(err);
+          return next();
         }
 
 }

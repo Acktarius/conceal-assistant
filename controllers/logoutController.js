@@ -39,8 +39,24 @@ const handleLogout = async (req, res) => {
     await fsPromises.writeFile(
         path.join(__dirname, '..', 'data', 'users.json'),
         JSON.stringify(usersDB.users)
-        )
-    res.clearCookie('jwt', { httpOnly: true });
+        );
+        if (fs.existsSync(path.join(__dirname, '..', 'data', 'coreV.json')) == true ) {
+        fs.unlink(path.join(__dirname, '..', 'data', 'coreV.json'), (err) => {
+            if (err) {
+                res.status(500).send({
+                message: "Could not delete coreV" + err,
+                });
+            }});    
+        };
+        if (fs.existsSync(path.join(__dirname, '..', 'data', 'infoS.json')) == true ) {
+        fs.unlink(path.join(__dirname, '..', 'data', 'infoS.json'), (err) => {
+            if (err) {
+                res.status(500).send({
+                message: "Could not delete infoS" + err,
+                });
+            }});
+        };    
+    await res.clearCookie('jwt', { httpOnly: true });
     remover();
     console.log('logging out');
     res.redirect('index');
@@ -67,58 +83,50 @@ const handleDeleteLogout = async (req, res, next) => {
     //const otherUsers = usersDB.users.filter(person => person.refreshToken !== foundUser.refreshToken);
     //const currentUser = {...foundUser, username: '', password: '', refreshToken: '' }
     //usersDB.setUsers([...otherUsers, currentUser])
-    await fsPromises.writeFile(
-        path.join(__dirname, '..', 'data', 'users.json'), "[]"
-    )
-    fs.unlink(path.join(__dirname, '..', 'data', 'coreV.json'), (err) => {
-        if (err) {
-            res.status(500).send({
-            message: "Could not delete coreV" + err,
-            });
-        }});    
-    fs.unlink(path.join(__dirname, '..', 'data', 'infoS.json'), (err) => {
-        if (err) {
-            res.status(500).send({
-            message: "Could not delete infoS" + err,
-            });
-        }});
-//keeping the first two template miners
+    //keeping the first two template miners
     const lastMiner = minersDB.users.length;
     if (lastMiner > 2 ) {
         for (let i = 3; i <= lastMiner; i++) {
             deleteOFP(i);    
             } 
     }
+    var userToDelete = foundUser.username;
+    console.log(`deleting ${userToDelete} and logging out`);
+//delete all users
+    await fsPromises.writeFile(
+        path.join(__dirname, '..', 'data', 'users.json'), "[]"
+    )
 //delete .env and coreV amd infoS
     fs.unlink(path.join(__dirname, '..', '.env'), (err) => {
         if (err) {
           res.status(500).send({
             message: "Could not delete the .env" + err,
           });
-        }})
-    fs.unlink(path.join(__dirname, '..', 'data', 'coreV.json'), (err) => {
-        if (err) {
-            res.status(500).send({
-            message: "Could not delete coreV" + err,
-            });
-        }})    
-    fs.unlink(path.join(__dirname, '..', 'data', 'infoS.json'), (err) => {
-        if (err) {
-            res.status(500).send({
-            message: "Could not delete infoS" + err,
-            });
-        }})          
-    console.log('delete user and logging out');
-    var userToDelete = foundUser.username;
-    logEvents(`${userToDelete} deleted`);
+        }});
+        if (fs.existsSync(path.join(__dirname, '..', 'data', 'coreV.json')) == true ) {
+            fs.unlink(path.join(__dirname, '..', 'data', 'coreV.json'), (err) => {
+                if (err) {
+                    res.status(500).send({
+                    message: "Could not delete coreV" + err,
+                    });
+                }});    
+            }
+        if (fs.existsSync(path.join(__dirname, '..', 'data', 'infoS.json')) == true ) {
+            fs.unlink(path.join(__dirname, '..', 'data', 'infoS.json'), (err) => {
+                if (err) {
+                    res.status(500).send({
+                    message: "Could not delete infoS" + err,
+                    });
+                }});
+            }        
     await res.clearCookie('jwt', { httpOnly: true });
+    logEvents(`${userToDelete} deleted`);
         res.redirect('index');
    } 
 }
 
 const handleUser = async (req, res) => {
     const cookies = req.cookies;
-    await sysInfo();
     if (!cookies.jwt) return res.sendStatus(204); // no content to sendback
     const refreshToken = cookies.jwt;
     const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
@@ -128,7 +136,8 @@ const handleUser = async (req, res) => {
     
     fs.readFile(path.join(__dirname, ".." , "data" , "infoS.json"), 'utf8', function(err, contents) {
         if (err) {
-        console.log("issue reading infoS.json file")
+        console.log("issue reading infoS.json file");
+        res.render(('settings'), { user: foundUser.username, cpu: "???" , load: "???" , gpu: "???" , tgpu: "???" , wgpu: "???" });
         } else {
         const infoS = JSON.parse(contents);
         res.render(('settings'), { user: foundUser.username, cpu: infoS.cpu , load: infoS.load , gpu: infoS.gpu , tgpu: infoS.temp , wgpu: infoS.watt });

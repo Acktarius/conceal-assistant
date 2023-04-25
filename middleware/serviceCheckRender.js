@@ -13,7 +13,15 @@ const { urlNode , urlMiner } = require('./localIpUrl');
 const main = (req, res) => {
   fs.readFile(path.join(__dirname, ".." , "data" , "coreV.json"), 'utf8', function(err, contents) {
     if (err) {
-    console.log("issue reading coreV.json file")
+    console.log("issue reading coreV.json file");
+    const guardianRunningP = sys.checkActive('ccx-guardian');
+    const minerRunningP = sys.checkActive('ccx-mining');
+    Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
+           const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
+           const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+           let upgrade = false; 
+        res.render("main", { title: "Main", guardianstatus: gr , minerstatus: mr , urlN: urlNode , urlM: urlMiner , version: pjson.version , upgrade: upgrade});
+      });
     } else {
   const coreV = JSON.parse(contents);
   const guardianRunningP = sys.checkActive('ccx-guardian');

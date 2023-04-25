@@ -7,7 +7,7 @@ const path = require('path');
 
 const mapSI = new Map();
 
-const sysInfo = async () => {
+const sysInfo = async (req, res, next) => {
 
   function taskGpu () {
     let gpu = shell.exec('glxinfo -B | grep "Device" | tr -s " " | cut -d " " -f 3,4,5,6', {silent:true}).stdout.slice(0,20);
@@ -28,6 +28,7 @@ const sysInfo = async () => {
   try {
     taskGpu ();
     fsPromises.writeFile(path.join(__dirname, '..' , 'data' , 'infoS.json'), JSON.stringify(Object.fromEntries(mapSI), null, 2));
+    return next();
 } catch (err) {
     console.error(err);
   }
