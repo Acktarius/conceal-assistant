@@ -39,7 +39,7 @@ const extractInfo = async () => {
                 minersDB.setUsers([...minersDB.users, newMiner])
                 await fsPromises.writeFile(
                 path.join(__dirname, '..', '..', 'data', 'miners.json'),
-                JSON.stringify(minersDB.users)
+                JSON.stringify(minersDB.users, null, 2)
                 )
                     } else {                   
                     if (softWare == "XmrStak") { 
@@ -59,7 +59,7 @@ const extractInfo = async () => {
                             minersDB.setUsers([...minersDB.users, newMiner])
                             await fsPromises.writeFile(
                             path.join(__dirname, '..', '..', 'data', 'miners.json'),
-                            JSON.stringify(minersDB.users)
+                            JSON.stringify(minersDB.users, null, 2)
                             )
 
                     } else {                   
@@ -79,7 +79,7 @@ const extractInfo = async () => {
                                 minersDB.setUsers([...minersDB.users, newMiner])
                                 await fsPromises.writeFile(
                                 path.join(__dirname, '..', '..', 'data', 'miners.json'),
-                                JSON.stringify(minersDB.users)
+                                JSON.stringify(minersDB.users, null, 2)
                                 )
                     } else {
                         console.log("no known software");

@@ -21,6 +21,9 @@ body,
   height: 100%;
   width: 100%;
 }
+html {
+  scroll-snap-type: y mandatory;
+}
 
 body {
   margin: 0;
@@ -31,15 +34,30 @@ body {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   background: #343A40;
 }
+section,
+  sectionM {
+  height: 100vh;
+  width: 21.5rem;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  /*scroll-margin-top: 1rem;*/
+  border-top: 1px solid rgba(255,255,255,0.25);
+}
+
+sectionM {
+  height: 50vh;
+}
+section {
+  height: 100vh;
+  }
+
 h1,.h1, h2, h3,.h3, h4,.h4 {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   text-transform: uppercase;
-
   padding: 0;
   margin: 0;
-
 }
-
 
 h1,
 h2 {
@@ -250,23 +268,30 @@ h7 {
   height: 2rem;
 }
 
-.MessageZero {
+.MessageZero,
+  .MessageSuite {
   background-image: linear-gradient(165deg,#343A40, #222425);
   font-size: 0.8rem;
   padding-top: 0.4rem;
   padding-left: 0.8rem;
   padding-bottom: 0.4rem;
-  margin: 0.2rem;
   min-width: 21.5rem;
   max-width: 21.75rem;
   width: max-content;
   border-radius: 0.6rem;
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
-  position: relative;
-  Top: 7.3rem;
+/*  position: relative;
+  Top: 7.3rem;*/
   z-index: 0;
 }
+.MessageZero {
+  margin: 9rem 0.2rem 0.2rem 0.2rem;
+}
+.MessageSuite {
+  margin: 2rem 0.2rem 0.2rem 0.2rem;
+}
+
 .MessageZero > .Title > h1 {
   font-size: 2.2rem;
   padding-bottom: 0.15rem;
@@ -274,28 +299,27 @@ h7 {
 .MessageZero:hover {
   opacity: 90%;
 }
-.MessageSuite,
-  .MessageSys {
-  background-image: linear-gradient(165deg,#343a40, #222425);
-  padding-top: 0.4rem;
-  padding-right: 0.6rem;
-  padding-bottom: 0.4rem;
-  padding-left: 0.6rem;
-  margin: 0.2rem;
-  min-width: 21.5rem;
-  width: 21.75rem;
-  border-radius: 0.6rem;
-  border-bottom: var(--ui-shadow-border);
-  box-shadow: var(--ui-shadow);
-  position: absolute;
-  Top: 21.2rem;
-  z-index: 0;
+
+.MessageSys {
+    background-image: linear-gradient(165deg,#343a40, #222425);
+    padding-top: 0.4rem;
+    padding-right: 0.6rem;
+    padding-bottom: 0.4rem;
+    padding-left: 0.6rem;
+    margin: 0.2rem ;
+    min-width: 21.5rem;
+    width: 21.75rem;
+    border-radius: 0.6rem;
+    border-bottom: var(--ui-shadow-border);
+    box-shadow: var(--ui-shadow);
+    position: relative;
+    Top: 1.5rem;
+    z-index: 0;
   }
 .MessageSys td {
   color: #FFA500
 }
-.MessageSuite:hover,
-  .MessageSys:hover {
+.MessageSys:hover {
   opacity: 90%;
 }
 .MessageSuite > .Title > h1,
@@ -518,29 +542,29 @@ button:hover {
     padding-right: 20px;
   }
 details {
-    background-image: linear-gradient(165deg,#42413F, #383230);
+    background-image: linear-gradient(170deg,#343A40, #222425);
     padding: 0 var(--padding);
-    margin: 0.2rem;
+    margin: 9rem 0.2rem 0.2rem 0.2rem;
     min-width: 21.5rem;
     width: max-content;
     border-radius: 0.6rem;
     border-bottom: var(--ui-shadow-border);
     box-shadow: var(--ui-shadow);
-    position: absolute;
-    top: 34rem;
+    /*position: absolute;
+    top: 34rem;*/
     z-index: 0;
     color: #868BA1;
 
   }
 details[open] {
   padding-bottom: var(--padding);
-  background: #2e5050;
+  /*background: #2e5050;*/
   opacity: 98%;
    
 }
 details[open] h2 , details[open] .h1 {
   color: #FFF;
-  font-style: oblique;
+  /*font-style: oblique;*/
 }
 details > summary {
   display: flex;

@@ -13,17 +13,18 @@ block layout-content
       li 
       a(href="https://conceal.network" target="blank" rel="noopener")
        img.logo(src="logo-256x256-033.png" alt="Logo")
-    div.MessageZero
-      div.Title
-        h1 settings
-      span.Details.attention Delete #{user} and Logout ?
-      br
-      form(method="POST" action="/logout?_method=DELETE")
-       button(type="submit") Delete #{user}
-    div.MessageSys 
-      .Title
-        h1 System info 
+    section
+      .MessageZero 
+        .Title
+          h1 settings
+        span.Details.attention Delete #{user} and Logout ?
         br
+        form(method="POST" action="/logout?_method=DELETE")
+         button(type="submit") Delete #{user}
+      .MessageSys 
+        .Title
+          h1 System info 
+          br
         table
             tr
               th Cpu
@@ -34,17 +35,26 @@ block layout-content
             tr 
               td Load : #{load}
               td temp edge : #{tgpu}, #{wgpu} Watt
-         
-    details
-      summary.h1 Credits
-      br
-      p Conceal Lab project by Conceal Network
-      h2 Images
-      p Cryptunit.com
-        a(href="https://www.cryptunit.com/promo/CCX" target="blank" rel="noopener")
-         i(class="fa-solid fa-link icon-colour")
-      p Conceal InfoGraphics
-      h2 Special Thanks to: 
-      p Dave GRAY and his 
-        a(href="https://www.youtube.com/@DaveGrayTeachesCode/featured" target="blank" rel="noopener") YouTube
-        p  tutorials
+    section     
+      details
+        summary.h1 Credits
+        br
+        p Conceal Lab project by Conceal Network
+        br
+        h2 Images
+        br
+        p Cryptunit.com
+          a(href="https://www.cryptunit.com/promo/CCX" target="blank" rel="noopener")
+           i(class="fa-solid fa-link icon-colour")
+        p Conceal InfoGraphics
+        br
+        h2 Special Thanks to:
+        br 
+        p _Dave GRAY for his 
+          span 
+            a(href="https://www.youtube.com/@DaveGrayTeachesCode/featured" target="blank" rel="noopener") YouTube 
+            p tutorials
+        br
+        p _Kyle (Web Dev Simplified) for his 
+          a(href="https://www.youtube.com/WebDevSimplified" target="blank" rel="noopener") YouTube
+          p  videos
