@@ -1,4 +1,4 @@
-//Copyright © 2022, @Acktarius, All Rights Reserved
+//Copyright © 2022-2023, @Acktarius, All Rights Reserved
 // server.js
 
 //Load environment variable

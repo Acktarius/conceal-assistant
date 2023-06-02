@@ -66,21 +66,22 @@ during a period up to 3h, if needed. (the refresh button appears on 'mouse-over'
 - [x] adding compatibility with Xmr-Stak and Cryptodredge.
 - [x] miner setting library, auto clean-up, and remove when user deleted.
 
-### Exploring feature : 
-- [x] Creating a separated FrontEnd using Reactjs by @Ki-ll ?
+### Recently added feature :
 - [x] adding TLS/SSL option for miner
 - [x] assistance to upgrade node or miner
+- [x] improve scroll through section in main and settings pages
 
 ### Known Glitch
-- [ ] Gpu name doesn't show when launch as a service
+- [ ] Gpu name doesn't show in 'System info' when launch via a service
 - [x] Some latency to load some pages, just a refresh page can solve it
-- [ ] automatic refresh doesn't work if using a Firewall ?
+- [ ] automatic refresh doesn't work if using a Firewall or router prevailing access to the liveReload server?
 
 ### Solved Glitch
 - [x] at very very first boot (therefore only happens once) the page needs to be manually
 refresh, it's because there are no environmental token yet and they are just being created.
 - [x] automatically create access token at first use if environmental are missing
 - [x] Credits are now in a collapssible box preventing overlapping
+- [x] Bug correction when deleting user and his flight sheet.
 
 (1) assuming :
 - SRBMiner-Multi is launched with a .sh file including informations (--pool --wallet -p --api-enable --api-rig-name)
