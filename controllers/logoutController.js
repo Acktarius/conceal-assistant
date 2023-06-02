@@ -7,11 +7,13 @@ const minersDB = {
     setUsers: function (data) { this.users = data }
   }
 require('dotenv').config()
-const fs = require('fs');
-const fsPromises = require('fs').promises
-const path = require('path')
 
-const logEvents = require('../middleware/logEvents')
+const fs = require('fs');
+const fsPromises = require('fs').promises;
+const path = require('path');
+const pjson = require('pjson');
+
+const logEvents = require('../middleware/logEvents');
 const { remover } = require('../middleware/forMiner/remover');
 const deleteOFP = require('../middleware/forMiner/deleteOFP');
 const { sysInfo } = require('../middleware/sysInfo');
@@ -154,7 +156,7 @@ const handleUser = async (req, res) => {
         res.render(('settings'), { user: foundUser.username, cpu: "???" , load: "???" , gpu: "???" , tgpu: "???" , wgpu: "???" });
         } else {
         const infoS = JSON.parse(contents);
-        res.render(('settings'), { user: foundUser.username, cpu: infoS.cpu , load: infoS.load , gpu: infoS.gpu , tgpu: infoS.temp , wgpu: infoS.watt });
+        res.render(('settings'), { user: foundUser.username, cpu: infoS.cpu , load: infoS.load , gpu: infoS.gpu , tgpu: infoS.temp , wgpu: infoS.watt, version: pjson.version });
         }
     });   
    } 

@@ -42,7 +42,7 @@ const minerD = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-        res.render("minerd", { title: "Miner", minerstatus: mr });   
+        res.render("minerd", { title: "Miner", minerstatus: mr, version: pjson.version });   
         }); 
       }
 //Miner activation
@@ -52,7 +52,7 @@ const minerA = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-        res.render("minera", { title: "Miner", minerstatus: mr });   
+        res.render("minera", { title: "Miner", minerstatus: mr, version: pjson.version });   
         });  
       }
 
@@ -66,7 +66,7 @@ const minerDnext = (req, res, next) => {
          if (mr != "active") {
           return next();
          } else {
-        res.status(403).render('40x', { erreur: 'unauthorized when miner is running' });
+        res.status(403).render('40x', { erreur: 'unauthorized when miner is running', version: pjson.version });
          }
         });  
       }
@@ -78,7 +78,7 @@ const guardianD = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-        res.render("guardiand", { title: "Node", guardianstatus: gr });   
+        res.render("guardiand", { title: "Node", guardianstatus: gr, version: pjson.version });   
         }); 
       }
 //guardian node activation
@@ -88,7 +88,7 @@ const guardianA = (req, res) => {
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
          const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-        res.render("guardiana", { title: "Node", guardianstatus: gr });   
+        res.render("guardiana", { title: "Node", guardianstatus: gr, version: pjson.version });   
         });  
       }
 
@@ -102,7 +102,7 @@ const guardianDnext = (req, res, next) => {
          if (gr != "active") {
           return next();
          } else {
-        res.status(403).render('40x', { erreur: 'unauthorized when guardian is running' });
+        res.status(403).render('40x', { erreur: 'unauthorized when guardian is running', version: pjson.version });
          }
         });  
       }
