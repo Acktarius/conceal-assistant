@@ -69,7 +69,7 @@ try {
       let nameOg = ("node"in config) ? config.node.name : "";
       let feeaddrOg = ("node" in config) ? config.node.feeAddr : "";
       let apiportOg = ("api" in config) ? config.api.port : "";
-      let discordurlOg = ("error" in config) ? config.error.notify.discord.url : "";
+      let discordurlOg = ("error.notify.discord.url" in config) ? config.error.notify.discord.url : "";
 
 //Path Check  
 if (concealdOg != "") {

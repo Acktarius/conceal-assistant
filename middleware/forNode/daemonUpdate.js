@@ -7,6 +7,7 @@ const { execFileSync } = require('child_process');
 const daemonUpdate = (ccpath) => { 
   console.log("upgrade Conceal Core");
   shell.chmod(755, path.join(__dirname, '..', 'forNode', 'daemonUpdate.sh'));
+  shell.chmod(755, path.join(__dirname, '..', 'forNode', 'displayUpdate.sh'));
 
 const options = {
   detached: true,
@@ -18,7 +19,7 @@ const options = {
   shell: true,
 };
 
-execFileSync(path.join(__dirname, '..', 'forNode', 'daemonUpdate.sh'), null, options, (error, stdout, stderr) => {
+execFileSync(path.join(__dirname, '..', 'forNode', 'displayUpdate.sh'), null, options, (error, stdout, stderr) => {
       if (error) {
         console.error(`error: ${error.message}`);
         return;

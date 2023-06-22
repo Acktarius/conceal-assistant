@@ -24,5 +24,4 @@ cmake .. || { echo 'command failed' ; exit 1; }
 echo "running make"
 make || { echo 'command failed' ; exit 1; }
 fi
-
-exit 0
+exit
