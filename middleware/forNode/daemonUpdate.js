@@ -8,18 +8,19 @@ const daemonUpdate = (ccpath) => {
   console.log("upgrade Conceal Core");
   shell.chmod(755, path.join(__dirname, '..', 'forNode', 'daemonUpdate.sh'));
   shell.chmod(755, path.join(__dirname, '..', 'forNode', 'displayUpdate.sh'));
+const argPath = path.normalize(__dirname, '..', 'forNode');
 
 const options = {
   detached: true,
   encoding: 'utf-8',
   cwd: ccpath,
   stdio: 'inherit',
-  timeout: 300000,
+  timeout: 1000000,
   killSignal: 'SIGTERM',
-  shell: true,
+  shell: false,
 };
 
-execFileSync(path.join(__dirname, '..', 'forNode', 'displayUpdate.sh'), null, options, (error, stdout, stderr) => {
+execFileSync(path.join(__dirname, '..', 'forNode', 'displayUpdate.sh'), [`${argPath}`], options, (error, stdout, stderr) => {
       if (error) {
         console.error(`error: ${error.message}`);
         return;
