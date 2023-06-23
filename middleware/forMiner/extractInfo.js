@@ -20,7 +20,7 @@ const extractInfo = async () => {
                 const { reverser, afterUntil, backWard, inBetween, inBetweenLong, startWithLong, beforeUntil } = require('./tools.js');
                 const minerNb = minersDB.users.length +1;
                 let wDir = afterUntil(data, "WorkingDirectory=", "\n");
-                wDir = (! (wDir.slice((wDir.length - 1), (wDir.length)) == "/")) ? wDir + "/" : wDir;
+                wDir = (wDir.charAt(wDir.length - 1) != "/") ? wDir + "/" : wDir;
                 const mPath = afterUntil(data, "ExecStart=", "\n");
                 const softWare = (data.search("SRB") > 0) ? "SRBMiner-Multi" : (data.search("xmr-stak") > 0) ? "XmrStak" : (data.search("CryptoDredge") > 0) ? "CryptoDredge" : "unKnown";
                 
