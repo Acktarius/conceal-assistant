@@ -20,7 +20,9 @@ sudo apt install npm
 
 sudo npm i -g nodemon
 
-sudo apt install lm-sensors
+sudo apt install dbus-x11
+
+sudo apt-get -y install lm-sensors
 ```
 to download the file in the Conceal-assistant folder :
 (or download and unzip the zip file)
