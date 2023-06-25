@@ -32,7 +32,7 @@ if (createdMiner.mpath != previousMiner.mpath) {
 
         } else {
             if (createdMiner.software == "XmrStak") {
-                const dataM = await fsPromises.readFile(`${previousMiner.mpath}pools.txt`, 'utf8');
+                const dataM = await fsPromises.readFile(`${previousMiner.wdir}pools.txt`, 'utf8');
                 let dataMnew = dataM.replace(previousMiner.wallet, createdMiner.wallet);
                 dataMnew = dataMnew.replace(previousMiner.pool, createdMiner.pool);
                 dataMnew = dataMnew.replace(previousMiner.port, createdMiner.port);
@@ -41,7 +41,7 @@ if (createdMiner.mpath != previousMiner.mpath) {
                 dataMnew = dataMnew.replace(`.${previousMiner.rigName}`, `.${createdMiner.rigName}`);
                 dataMnew = dataMnew.replace(`"rig_id" : "${previousMiner.rigName}`, `"rig_id" : "${createdMiner.rigName}`);
 
-                await fsPromises.writeFile(`${createdMiner.mpath}pools.txt`, dataMnew, 'utf8');
+                await fsPromises.writeFile(`${createdMiner.wdir}pools.txt`, dataMnew, 'utf8');
                 
             } else {
                 if (createdMiner.software == "CryptoDredge") {
