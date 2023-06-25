@@ -3,14 +3,13 @@ Description=Conceal Assistant
 After=network-online.target 
 Wants=ccx-guardian.service
 
-
 [Service]
 Type=simple
 # Another Type option: forking
 User=root
 Group=root
 WorkingDirectory=/opt/conceal-assistant
-ExecStart=/usr/local/bin/nodemon /opt/conceal-assistant/server.js
+ExecStart=/bin/nodemon /opt/conceal-assistant/server.js
 Restart=always
 RestartSec=5
 
