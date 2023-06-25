@@ -2,7 +2,7 @@
   {
     "miner": 1,
     "software": "SRBMiner-Multi",
-    "wdir": "/opt/SRBMiner-Multi-2-2-0",
+    "wdir": "/opt/SRBMiner-Multi-2-2-0/",
     "mpath": "/opt/SRBMiner-Multi-2-2-0/start_CCX.sh",
     "pool": "conceal.cedric-crispin.com",
     "port": "3364",
