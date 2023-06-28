@@ -6,6 +6,7 @@ const minersDB = {
 const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
+const pjson = require('pjson');
 
 const deleteOFP = require('./deleteOFP');
 const inject = require('./inject');
@@ -26,7 +27,8 @@ const minerGet = async (req, res) => {
                         password: foundMiner.pass,
                         description: foundMiner.description,
                         last: lastMiner,
-                        shown: toShow
+                        shown: toShow,
+                        version: pjson.version
                       });
     }
 
@@ -74,7 +76,8 @@ const confirmGet = (req, res) => {
                             wallet: createdMiner.wallet,
                             rigname: createdMiner.rigName,
                             password: createdMiner.pass,
-                            description: createdMiner.description
+                            description: createdMiner.description,
+                            version: pjson.version
                           })
 
 }
@@ -106,7 +109,8 @@ const minerCancel = async (req, res) => {
                           wdir: foundMiner.wdir,
                           mpath: foundMiner.mpath,
                           last: lastMiner,
-                          shown: toShow
+                          shown: toShow,
+                          version: pjson.version
                         });
       }
 //Mining Software Post modification
@@ -205,7 +209,8 @@ const confirmSoftGet = (req, res) => {
   res.render('msoftwarec', { title: "Confirm ?", 
                             software: createdMiner.software,
                             wdir: createdMiner.wdir,
-                            mpath: createdMiner.mpath
+                            mpath: createdMiner.mpath,
+                            version: pjson.version
                           })
 
 }
