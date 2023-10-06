@@ -7,14 +7,14 @@ block layout-content
       li.h1 Conceal Assistant
       li
       a(href="/main")
-          i(class="fa-solid fa-house fa-xl icon-colour")
-      li
-      a(href="/logout")
-       i(class="fa-solid fa-right-from-bracket fa-xl icon-colour")
+        img.logo(src="house-solid.svg"  alt="Main")
       li 
       a(href="https://conceal.network" target="blank" rel="noopener")
-       img.logo(src="logo-256x256-033.png" alt="Logo")
-      .version v#{version} 
+       img.logo(src="logo-256x256-033.png" alt="C")
+      li
+      a(href="/logout")
+       img.logo(src="right-from-bracket-solid.svg" Title="Logout") 
+      .version v#{version}
     form(action="/msoftware" method="POST" id="modify")
         div.MessageConfirm
           div.Title

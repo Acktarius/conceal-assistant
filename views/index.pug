@@ -6,23 +6,24 @@ block layout-content
       li.h1 Conceal Assistant
       -if (noUser === false)
        a(href="/login")
-        i(class="fa-solid fa-right-to-bracket fa-xl icon-colour" Title="Login")
+        img.logo(src="right-to-bracket-solid.svg" Title="Login")
       -else
        a(href="/register")
-        i(class="fa-solid fa-rocket fa-xl icon-colour" Title="Register")
+        img.logo(src="rocket-solid.svg" Title="Register")
       li 
       a(href="https://conceal.network" target="blank" rel="noopener")
-       img.logo(src="logo-256x256-033.png" alt="Logo")
+       img.logo(src="logo-256x256-033.png" alt="C" Title="Conceal Network")
       .version v#{version}
     div.MessageZero
       div.Title
-        h3 Making the Best
-        h1 Assistant For Concealers
-      ul.Details Access your CCX-BOX 
+        h1 Assistant For Concealers 
+        br
         -if (noUser === false)
-         a.inline(href="/login")
-          i(class="fa-solid fa-right-to-bracket fa-xl icon-colour" Title="Login")
+         a(href="/login")
+          h3.inlineIndex Access your CCX BOX
+          img.inlineIndexD(src="right-to-bracket-solid.svg" Title="Login")
         -else
-         a.inline(href="/register")
-          i(class="fa-solid fa-rocket fa-xl icon-colour" Title="Register")
+         a(href="/register")
+          h3.inlineIndex Register 
+          img.inlineIndexD(src="rocket-solid.svg" Title="Register")
       

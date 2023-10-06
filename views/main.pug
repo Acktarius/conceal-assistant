@@ -1,20 +1,30 @@
 extends layout
 
 block layout-content
+  link(rel="preload" href="/background.jpg" as="image")
+  link(rel="preload" href="/gear-solid.svg" as="image")
+  link(rel="preload" href="/wallet-solid.svg" as="image")    
+  link(rel="preload" href="/right-from-bracket-solid.svg" as="image")
+  link(rel="preload" href="logo-256x256-033.png" as="image")
+  link(rel="stylesheet" href="/style.css")
+  script. 
+    (document.addEventListener("DOMContentLoaded", () => { 
+    console.log("Load initiated");
+    }))     
   div.View.WelcomeView
     ul.Banner
       li.h1 Conceal Assistant
       a(href="/settings")
-       i(class="fa-solid fa-gear fa-xl icon-colour" Title="Settings")
+       img.logo(src="gear-solid.svg" alt="Settings" Title="Settings")
       li
       a(href="https://wallet.conceal.network" target="_blank" rel="noopener")
-       i(class="fa-solid fa-wallet fa-xl icon-colour" Title="Wallet")
-      li
-      a(href="/logout")
-       i(class="fa-solid fa-right-from-bracket fa-xl icon-colour" Title="LogOut")
+       img.logo(src="wallet-solid.svg" alt="Wallet" Title="Wallet")
       li 
       a(href="https://conceal.network" target="blank" rel="noopener")
-       img.logo(src="logo-256x256-033.png" alt="Logo")
+       img.logo(src="logo-256x256-033.png" alt="Conceal")
+      li 
+      a(href="/logout")
+       img.logo(src="right-from-bracket-solid.svg" alt="Logout") 
       .version v#{version}
     sectionM(id="Node")
       .MessageZero
@@ -30,8 +40,6 @@ block layout-content
             a.NavButton(href="/guardiand") Deactivate
           -else
             li.h4 Not Active
-            p
-            a(href="/nsettings") Modify Node Settings
             p
             a(href="/csettings") Update Conceal-core
             p
@@ -57,4 +65,19 @@ block layout-content
             p
             a(href="/msoftware?toshow=0") Modify Mining Software
             p
-            a.NavButton(href="/minera") Activate
+            a.NavButton(href="/minera") Activate   
+  script. 
+    (
+    setTimeout (() => {
+    (() => { 
+    if (window.localStorage) { 
+    if (!localStorage.getItem('reload')) { 
+    localStorage['reload'] = true; 
+    window.location.reload(); 
+    } else { 
+    localStorage.removeItem('reload'); 
+    } 
+    } 
+    })(); 
+    } , 4500)
+    )

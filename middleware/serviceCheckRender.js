@@ -8,32 +8,31 @@ const pjson = require('pjson');
 
 const { urlNode , urlMiner } = require('./localIpUrl');
 
-
 //Main
 const main = (req, res) => {
-  fs.readFile(path.join(__dirname, ".." , "data" , "coreV.json"), 'utf8', function(err, contents) {
+  fs.readFile(path.join(__dirname, "..", "data", "coreV.json"), 'utf8', function (err, contents) {
     if (err) {
-    console.log("issue reading coreV.json file");
-    const guardianRunningP = sys.checkActive('ccx-guardian');
-    const minerRunningP = sys.checkActive('ccx-mining');
-    Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
-           const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
-           const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-           let upgrade = false; 
-        res.render("main", { title: "Main", guardianstatus: gr , minerstatus: mr , urlN: urlNode , urlM: urlMiner , version: pjson.version , upgrade: upgrade});
+      console.log("issue reading coreV.json file");
+      const guardianRunningP = sys.checkActive('ccx-guardian');
+      const minerRunningP = sys.checkActive('ccx-mining');
+      Promise.allSettled([guardianRunningP, minerRunningP]).then((results) => {
+        const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0, 6);
+        const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0, 6);
+        let upgrade = false;
+        res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade });
       });
     } else {
-  const coreV = JSON.parse(contents);
-  const guardianRunningP = sys.checkActive('ccx-guardian');
-  const minerRunningP = sys.checkActive('ccx-mining');
-  Promise.allSettled([guardianRunningP,minerRunningP,coreV]).then((results) => {
-         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
-         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-         let upgrade = (JSON.parse(JSON.stringify(results[2]))._settledValueField.upgrade);  
-      res.render("main", { title: "Main", guardianstatus: gr , minerstatus: mr , urlN: urlNode , urlM: urlMiner , version: pjson.version , upgrade: upgrade});
-    });
-      }
-    });
+      const coreV = JSON.parse(contents);
+      const guardianRunningP = sys.checkActive('ccx-guardian');
+      const minerRunningP = sys.checkActive('ccx-mining');
+      Promise.allSettled([guardianRunningP, minerRunningP, coreV]).then((results) => {
+        const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0, 6);
+        const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0, 6);
+        let upgrade = (JSON.parse(JSON.stringify(results[2]))._settledValueField.upgrade);
+        res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade });
+      });
+    }
+  });
   }
 //Miner Deactivation
 const minerD = (req, res) => {
