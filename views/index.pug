@@ -26,4 +26,14 @@ block layout-content
          a(href="/register")
           h3.inlineIndex Register 
           img.inlineIndexD(src="rocket-solid.svg" Title="Register")
+  script. 
+    (
+    (() => { 
+    if (window.localStorage) { 
+    if (localStorage.getItem('reload')) { 
+    localStorage.removeItem('reload'); 
+    } 
+    } 
+    })(); 
+    )
       
