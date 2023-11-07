@@ -63,7 +63,7 @@ Once logged in, session is active for 15minutes, nevertheless session can be ref
 during a period up to 3h, if needed. (the refresh button appears on 'mouse-over' effect in the banner)
 
 ### To do list:
-- [ ] Automatic refresh of Main Page ... but is it really needed ?
+- [x] Automatic refresh of Main Page ... but is it really needed ?
 - [x] when miner deactivated, option to change miner pool and wallet.
 - [x] adding compatibility with Xmr-Stak and Cryptodredge.
 - [x] miner setting library, auto clean-up, and remove when user deleted.
@@ -76,7 +76,6 @@ during a period up to 3h, if needed. (the refresh button appears on 'mouse-over'
 ### Known Glitch
 - [ ] Gpu name doesn't show in 'System info' when launch via a service
 - [x] Some latency to load some pages, just a refresh page can solve it
-- [ ] automatic refresh doesn't work if using a Firewall or router prevailing access to the liveReload server?
 
 ### Solved Glitch
 - [x] at very very first boot (therefore only happens once) the page needs to be manually
