@@ -1,11 +1,6 @@
 extends layout
 
 block layout-content
-  link(rel="preload" href="/background.jpg" as="image")
-  link(rel="preload" href="/gear-solid.svg" as="image")
-  link(rel="preload" href="/wallet-solid.svg" as="image")    
-  link(rel="preload" href="/right-from-bracket-solid.svg" as="image")
-  link(rel="preload" href="logo-256x256-033.png" as="image")
   link(rel="stylesheet" href="/style.css")
   script. 
     (document.addEventListener("DOMContentLoaded", () => { 
@@ -21,7 +16,7 @@ block layout-content
        img.logo(src="wallet-solid.svg" alt="Wallet" Title="Wallet")
       li 
       a(href="https://conceal.network" target="blank" rel="noopener")
-       img.logo(src="logo-256x256-033.png" alt="Conceal")
+       img.logo(src="logo-64x64.png" alt="Conceal")
       li 
       a(href="/logout")
        img.logo(src="right-from-bracket-solid.svg" alt="Logout") 
@@ -78,6 +73,7 @@ block layout-content
     localStorage.removeItem('reload'); 
     } 
     } 
-    })(); 
+    })
+    (); 
     } , 4500)
     )

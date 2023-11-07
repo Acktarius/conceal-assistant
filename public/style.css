@@ -281,6 +281,30 @@ h7 {
   color: #FFF;
 }
 */
+/*loader*/
+#ring {
+  border: 20px solid #343A40;
+  position: absolute;
+  left: 45%;
+  border-radius: 50%;
+  border-top: 20px solid #222425;
+  width: 120px;
+  height: 120px;
+  animation: spin 600ms linear infinite;
+}
+.centre {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: 12em;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 .MessageZero,
   .MessageSuite {

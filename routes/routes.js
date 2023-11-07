@@ -30,6 +30,10 @@ router.get("^/$|/index(.html)?", checkEnv, (req, res) => {
   router.get("/licence(.html)?", (req, res) => {
     res.render("licence", { title: "Licence" , version: pjson.version });
   });
+  //mainz Page
+    router.get("/mainz(.html)?", (req, res) => {
+      res.render("mainz", { title: "main loading" , version: pjson.version });
+    });
   //noAPI Page
   router.get("/noapi(.html)?", (req, res) => {
     res.render("noapi", { title: "Api ?" , version: pjson.version });

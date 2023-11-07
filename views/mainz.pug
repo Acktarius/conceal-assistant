@@ -1,0 +1,34 @@
+extends layout
+
+block layout-content
+  link(rel="stylesheet" href="/style.css")
+  div.View.WelcomeView
+    ul.Banner
+      li.h1 Conceal Assistant
+      img.logo(src="gear-solid.svg" alt="Settings" Title="Settings")
+      li
+      a(href="https://wallet.conceal.network" target="_blank" rel="noopener")
+       img.logo(src="wallet-solid.svg" alt="Wallet" Title="Wallet")
+      li 
+      a(href="https://conceal.network" target="blank" rel="noopener")
+       img.logo(src="logo-64x64.png" alt="Conceal")
+      li 
+      a(href="/logout")
+       img.logo(src="right-from-bracket-solid.svg" alt="Logout") 
+      .version v#{version}
+    div#ring.centre
+  script.
+    (
+    document.onreadystatechange = function () {
+    if (document.readyState !== "complete") {
+    document.querySelector("body").style.opacity = "0.5";
+    document.querySelector("#ring").style.visibility = "visible";
+    } else {
+    document.querySelector("body").style.visibility = "visible";
+    setTimeout (() => {
+    document.querySelector("#ring").style.display = "visible";
+    window.location.replace("main");
+    }, 3000)
+    }}
+    )
+  

@@ -12,7 +12,7 @@ block layout-content
         img.logo(src="rocket-solid.svg" Title="Register")
       li 
       a(href="https://conceal.network" target="blank" rel="noopener")
-       img.logo(src="logo-256x256-033.png" alt="C" Title="Conceal Network")
+       img.logo(src="logo-64x64.png" alt="C" Title="Conceal Network")
       .version v#{version}
     div.MessageZero
       div.Title
@@ -34,6 +34,22 @@ block layout-content
     localStorage.removeItem('reload'); 
     } 
     } 
-    })(); 
+    })
+    (); 
     )
-      
+  script. 
+    (
+    setTimeout (() => {
+    (() => { 
+    if (window.localStorage) { 
+    if (!localStorage.getItem('registered')) { 
+    localStorage['registered'] = true; 
+    window.location.reload(); 
+    } else { 
+    localStorage.removeItem('registered'); 
+    } 
+    } 
+    })
+    (); 
+    } , 2500)
+    )
