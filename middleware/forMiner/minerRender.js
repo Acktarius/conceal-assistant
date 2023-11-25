@@ -119,14 +119,14 @@ const minerSoftPost = async (req, res) => {
   const flMiner = minersDB.users.find(person => person.miner === lastMiner)
   let { wdir, mpath } = req.body; 
   //const tls = (tlsswt == 'on') ? "true" : "false";
-  // making the working directory /"useable"
-  wdir = (wdir.slice(-1) == "/") ? wdir : `${wdir}/`;
 //change at least one value
 if ((wdir == flMiner.wdir) && (mpath == flMiner.mpath)) return res.status(401).render('msoftware', { title: "Mining Software", software: flMiner.software, wdir: flMiner.wdir, mpath: flMiner.mpath, shown: lastMiner , message: "modify at least one value"});
 //verify working directory
 if (!fs.existsSync(wdir)) return res.status(401).render('msoftware', { title: "Mining Software", software: flMiner.software, wdir: flMiner.wdir, mpath: flMiner.mpath, shown: lastMiner , message: "doesn't point to existing working directory"});
 //verif executable file exist
 if (!fs.existsSync(mpath)) return res.status(401).render('msoftware', { title: "Mining Software", software: flMiner.software, wdir: flMiner.wdir, mpath: flMiner.mpath, shown: lastMiner , message: "doesn't point to existing executable"});
+  // making the working directory /"useable"
+  wdir = (wdir.slice(-1) == "/") ? wdir : `${wdir}/`;
 //Recognize software
 const softWare = (mpath.search("SRB") > 0) ? "SRBMiner-Multi" : (mpath.search("xmr-stak") > 0) ? "XmrStak" : (mpath.search("CryptoDredge") > 0) ? "CryptoDredge" : "unKnown";      
 if ( softWare == "unKnown" ) return res.status(401).render('msoftware', { title: "Mining Software", software: flMiner.software, wdir: flMiner.wdir, mpath: flMiner.mpath, shown: lastMiner , message: "unKnown software"});
