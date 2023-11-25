@@ -85,14 +85,14 @@ const handleDeleteLogout = async (req, res, next) => {
     //const otherUsers = usersDB.users.filter(person => person.refreshToken !== foundUser.refreshToken);
     //const currentUser = {...foundUser, username: '', password: '', refreshToken: '' }
     //usersDB.setUsers([...otherUsers, currentUser])
-    //keeping the first two template miners
+    //keeping the first three template miners
 
-    const keepFirstTwo = async () => {
+    const keepFirstThree = async () => {
     const lastMiner = minersDB.users.length;
-    if (lastMiner > 2 ) {    
+    if (lastMiner > 3 ) {    
         try {
-        const firstTwo = minersDB.users.filter(person => person.miner < 3);
-        minersDB.setUsers(firstTwo);
+        const firstThree = minersDB.users.filter(person => person.miner < 4);
+        minersDB.setUsers(firstThree);
         
         await fsPromises.writeFile(
             path.join(__dirname, '..', 'data', 'miners.json'),
@@ -104,7 +104,7 @@ const handleDeleteLogout = async (req, res, next) => {
         }                       
     }
     }
-    keepFirstTwo ();
+    keepFirstThree ();
 
     var userToDelete = foundUser.username;
     console.log(`deleting ${userToDelete} and logging out`);

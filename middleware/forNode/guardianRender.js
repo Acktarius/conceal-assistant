@@ -110,7 +110,7 @@ if (nameOg != "") {
 
 fs.writeFileSync(`${gwd}config.json`, JSON.stringify(config, null, 2));
 logEvents('guardian config.json file modified');
-res.redirect('/main');  
+res.redirect('/mainz');  
 
     }})
 
@@ -155,7 +155,7 @@ const concealdPost = async (req, res) => {
       console.log("path is valid");
       daemonUpdate(concealdpath);
       logEvents("conceal core upgraded to latest version")
-      res.redirect('/main');  
+      res.redirect('/mainz');  
     }
   }
 

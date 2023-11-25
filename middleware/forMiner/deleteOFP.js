@@ -11,7 +11,7 @@ const path = require('path');
 
 const deleteOFP = async (N) => {  
 const lastMiner = minersDB.users.length;
-if (2 < N && N <= lastMiner) {
+if (3 < N && N <= lastMiner) {
 const fnMiner = minersDB.users.find(person => person.miner === N)
 
     try {

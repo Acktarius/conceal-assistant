@@ -69,6 +69,8 @@ during a period up to 3h, if needed. (the refresh button appears on 'mouse-over'
 - [x] miner setting library, auto clean-up, and remove when user deleted.
 
 ### Recently added feature :
+- [x] handling of ".rig_name" after wallet
+- [x] handling of mining pool with 5 digits ports
 - [x] adding TLS/SSL option for miner
 - [x] assistance to upgrade node or miner
 - [x] improve scroll through section in main and settings pages

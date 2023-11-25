@@ -10,6 +10,9 @@ const path = require('path');
 const sys = require('sysctlx');
 const logEvents = require('../logEvents');
 const deleteOFP = require('./deleteOFP');
+const { da } = require('date-fns/locale');
+
+const { reverser, afterUntil, backWard, inBetween, inBetweenLong, startWithLong, beforeUntil } = require('./tools.js');
 
 const injectOFP = async (N,C) => {  
 const previousMiner = minersDB.users.find(person => person.miner === N-1);
@@ -20,40 +23,89 @@ if (createdMiner.mpath != previousMiner.mpath) {
     try {
         if (createdMiner.software == "SRBMiner-Multi") {
             const dataM = await fsPromises.readFile(previousMiner.mpath, 'utf8');
-            let dataMnew = dataM.replace(previousMiner.wallet, createdMiner.wallet);
-            dataMnew = dataMnew.replace(previousMiner.pool, createdMiner.pool);
+            // let dataMnew = dataM.replace(previousMiner.wallet, createdMiner.wallet);
+            let dataMnew = dataM.replace(previousMiner.pool, createdMiner.pool);
             dataMnew = dataMnew.replace(previousMiner.port, createdMiner.port);
             dataMnew = dataMnew.replace(`--tls ${previousMiner.tls}`, `--tls ${createdMiner.tls}`);
             dataMnew = dataMnew.replace(`-p ${previousMiner.pass}`, `-p ${createdMiner.pass}`);
             dataMnew = dataMnew.replace(`.${previousMiner.rigName}`, `.${createdMiner.rigName}`);
-            dataMnew = dataMnew.replace(`rig-name ${previousMiner.rigName}`, `rig-name ${createdMiner.rigName}`);
-
+            
+            if (inBetweenLong(dataMnew, previousMiner.wallet, 1) == ".") {
+                if ((createdMiner.rigName).charAt(0) == ".") {
+                    dataMnew = dataMnew.replace(`${previousMiner.wallet}${previousMiner.rigName}`, `${createdMiner.wallet}${createdMiner.rigName}`);
+                    dataMnew = dataMnew.replace(`rig-name ${previousMiner.rigName.substring(1)}`, `rig-name ${createdMiner.rigName.substring(1)}`);
+                }    else {
+                dataMnew = dataMnew.replace(`${previousMiner.wallet}${previousMiner.rigName}`, createdMiner.wallet)
+                dataMnew = dataMnew.replace(`rig-name ${previousMiner.rigName.substring(1)}`, `rig-name ${createdMiner.rigName}`);
+                }
+            } else {
+                if ((createdMiner.rigName).charAt(0) == ".") {
+                    dataMnew = dataMnew.replace(previousMiner.wallet, `${createdMiner.wallet}${createdMiner.rigName}`);
+                    dataMnew = dataMnew.replace(`rig-name ${previousMiner.rigName}`, `rig-name ${createdMiner.rigName.substring(1)}`);
+                }    else {
+                dataMnew = dataMnew.replace(previousMiner.wallet, createdMiner.wallet)
+                dataMnew = dataMnew.replace(`rig-name ${previousMiner.rigName}`, `rig-name ${createdMiner.rigName}`);
+                }
+            }
+            
             await fsPromises.writeFile(createdMiner.mpath, dataMnew, 'utf8');
 
         } else {
             if (createdMiner.software == "XmrStak") {
                 const dataM = await fsPromises.readFile(`${previousMiner.wdir}pools.txt`, 'utf8');
-                let dataMnew = dataM.replace(previousMiner.wallet, createdMiner.wallet);
-                dataMnew = dataMnew.replace(previousMiner.pool, createdMiner.pool);
+                let dataMnew = dataM.replace(previousMiner.pool, createdMiner.pool);
                 dataMnew = dataMnew.replace(previousMiner.port, createdMiner.port);
                 dataMnew = dataMnew.replace(`"pool_password" : "${previousMiner.pass}`, `"pool_password" : "${createdMiner.pass}`);
                 dataMnew = dataMnew.replace(`use_tls" : ${previousMiner.tls}`, `use_tls" : ${createdMiner.tls}`);
-                dataMnew = dataMnew.replace(`.${previousMiner.rigName}`, `.${createdMiner.rigName}`);
-                dataMnew = dataMnew.replace(`"rig_id" : "${previousMiner.rigName}`, `"rig_id" : "${createdMiner.rigName}`);
+                
+                if (inBetweenLong(dataMnew, previousMiner.wallet, 1) == ".") {
+                    if ((createdMiner.rigName).charAt(0) == ".") {
+                        dataMnew = dataMnew.replace(`${previousMiner.wallet}${previousMiner.rigName}`, `${createdMiner.wallet}${createdMiner.rigName}`);
+                        dataMnew = dataMnew.replace(`"rig_id" : "${previousMiner.rigName.substring(1)}`, `"rig_id" : "${createdMiner.rigName.substring(1)}`);
+                    }    else {
+                    dataMnew = dataMnew.replace(`${previousMiner.wallet}${previousMiner.rigName}`, createdMiner.wallet)
+                    dataMnew = dataMnew.replace(`"rig_id" : "${previousMiner.rigName.substring(1)}`, `"rig_id" : "${createdMiner.rigName}`);
+                    }
+                } else {
+                    if ((createdMiner.rigName).charAt(0) == ".") {
+                        dataMnew = dataMnew.replace(previousMiner.wallet, `${createdMiner.wallet}${createdMiner.rigName}`);
+                        dataMnew = dataMnew.replace(`"rig_id" : "${previousMiner.rigName}`, `"rig_id" : "${createdMiner.rigName.substring(1)}`);
+                    }    else {
+                    dataMnew = dataMnew.replace(previousMiner.wallet, createdMiner.wallet)
+                    dataMnew = dataMnew.replace(`"rig_id" : "${previousMiner.rigName}`, `"rig_id" : "${createdMiner.rigName}`);
+                    }
+                }
 
                 await fsPromises.writeFile(`${createdMiner.wdir}pools.txt`, dataMnew, 'utf8');
                 
             } else {
                 if (createdMiner.software == "CryptoDredge") {
                     const dataM = await fsPromises.readFile(previousMiner.mpath, 'utf8');
-                    let dataMnew = dataM.replace(previousMiner.wallet, createdMiner.wallet);
-                    dataMnew = dataMnew.replace(previousMiner.pool, createdMiner.pool);
+                    let dataMnew = dataM.replace(previousMiner.pool, createdMiner.pool);
                     dataMnew = dataMnew.replace(previousMiner.port, createdMiner.port);
                     if ((previousMiner.tls == "false") && (createdMiner.tls == "true")) dataMnew = dataMnew.replace("tcp://", "ssl://");
                     if ((previousMiner.tls == "true") && (createdMiner.tls == "false")) dataMnew = dataMnew.replace("ssl://", "tcp://");
                     dataMnew = dataMnew.replace(`-p ${previousMiner.pass}`, `-p ${createdMiner.pass}`);
-                    dataMnew = dataMnew.replace(`.${previousMiner.rigName}`, `.${createdMiner.rigName}`);
-                    dataMnew = dataMnew.replace(`-w ${previousMiner.rigName}`, `-w ${createdMiner.rigName}`);
+                    // dataMnew = dataMnew.replace(`.${previousMiner.rigName}`, `.${createdMiner.rigName}`);
+                    
+
+                    if (inBetweenLong(dataMnew, previousMiner.wallet, 1) == ".") {
+                        if ((createdMiner.rigName).charAt(0) == ".") {
+                            dataMnew = dataMnew.replace(`${previousMiner.wallet}${previousMiner.rigName}`, `${createdMiner.wallet}${createdMiner.rigName}`);
+                            dataMnew = dataMnew.replace(`-w ${previousMiner.rigName.substring(1)}`, `-w ${createdMiner.rigName.substring(1)}`);
+                        }    else {
+                        dataMnew = dataMnew.replace(`${previousMiner.wallet}${previousMiner.rigName}`, createdMiner.wallet)
+                        dataMnew = dataMnew.replace(`-w ${previousMiner.rigName.substring(1)}`, `-w ${createdMiner.rigName}`);
+                        }
+                    } else {
+                        if ((createdMiner.rigName).charAt(0) == ".") {
+                            dataMnew = dataMnew.replace(previousMiner.wallet, `${createdMiner.wallet}${createdMiner.rigName}`);
+                            dataMnew = dataMnew.replace(`-w ${previousMiner.rigName}`, `-w ${createdMiner.rigName.substring(1)}`);
+                        }    else {
+                        dataMnew = dataMnew.replace(previousMiner.wallet, createdMiner.wallet);
+                        dataMnew = dataMnew.replace(`-w ${previousMiner.rigName}`, `-w ${createdMiner.rigName}`);
+                        }
+                    }
 
                     await fsPromises.writeFile(createdMiner.mpath, dataMnew, 'utf8');
 
@@ -62,10 +114,10 @@ if (createdMiner.mpath != previousMiner.mpath) {
                 }
             }
         }
-        //clean up: keeps only the last 2 ofp and the first 2 template
+        //clean up: keeps only the last 2 ofp and the first 3 template
         if ( C == true ) {
-            if (N > 4) {
-                for(let z = 1; z < N - 3; z++) {
+            if (N > 5) {
+                for(let z = 1; z < N - 4; z++) {
                     await deleteOFP(N-1-z);
                 }
             }
