@@ -1,1 +1,44 @@
-[{"miner":1,"software":"SRBMiner-Multi","wdir":"/opt/SRBMiner-Multi-2-2-0/","mpath":"/opt/SRBMiner-Multi-2-2-0/start_CCX.sh","pool":"conceal.cedric-crispin.com","port":"3364","tls":"false","wallet":"ccx7Mi9osGEiPkJ8Eq9ajfFFipavENjJ92Gf4xCmu4KXiExSjcWoSefCQYtcA2BUrTPjrMY5pssgMNPRxaR1DXtj3TvTJG6LRo.CCX-BOX","rigName":"CCX-BOX","pass":"CCX-BOX","apiPort":"21550","description":"template"},{"miner":2,"software":"XmrStak","wdir":"/opt/xmr-stak/build/bin/","mpath":"/opt/xmr-stak/build/bin/xmr-stak","pool":"pool.conceal.network","port":"3333","tls":"false","wallet":"ccx7Mi9osGEiPkJ8Eq9ajfFFipavENjJ92Gf4xCmu4KXiExSjcWoSefCQYtcA2BUrTPjrMY5pssgMNPRxaR1DXtj3TvTJG6LRo","rigName":"CCX-BOX","pass":"CCX-BOX","apiPort":"21600","description":"template"},{"miner":3,"software":"XmrStak","wdir":"/opt/xmr-stak/build/bin/","mpath":"/opt/xmr-stak/build/bin/xmr-stak","pool":"ccx.gntl.uk","port":"10012","tls":"true","wallet":"ccx7Mi9osGEiPkJ8Eq9ajfFFipavENjJ92Gf4xCmu4KXiExSjcWoSefCQYtcA2BUrTPjrMY5pssgMNPRxaR1DXtj3TvTJG6LRo","rigName":"CCX-BOX","pass":"CCX-BOX","apiPort":"21600","description":"template"}]
+[
+  {
+    "miner": 1,
+    "software": "SRBMiner-Multi",
+    "wdir": "/opt/SRBMiner-Multi-2-2-0/",
+    "mpath": "/opt/SRBMiner-Multi-2-2-0/start_CCX.sh",
+    "pool": "conceal.cedric-crispin.com",
+    "port": "3364",
+    "tls": "false",
+    "wallet": "ccx7Mi9osGEiPkJ8Eq9ajfFFipavENjJ92Gf4xCmu4KXiExSjcWoSefCQYtcA2BUrTPjrMY5pssgMNPRxaR1DXtj3TvTJG6LRo",
+    "rigName": ".CCX-BOX",
+    "pass": "CCX-BOX",
+    "apiPort": "21550",
+    "description": "template"
+  },
+  {
+    "miner": 2,
+    "software": "XmrStak",
+    "wdir": "/opt/xmr-stak/build/bin/",
+    "mpath": "/opt/xmr-stak/build/bin/xmr-stak",
+    "pool": "pool.conceal.network",
+    "port": "3333",
+    "tls": "false",
+    "wallet": "ccx7Mi9osGEiPkJ8Eq9ajfFFipavENjJ92Gf4xCmu4KXiExSjcWoSefCQYtcA2BUrTPjrMY5pssgMNPRxaR1DXtj3TvTJG6LRo",
+    "rigName": "CCX-BOX",
+    "pass": "CCX-BOX",
+    "apiPort": "21600",
+    "description": "template"
+  },
+  {
+    "miner": 3,
+    "software": "XmrStak",
+    "wdir": "/opt/xmr-stak/build/bin/",
+    "mpath": "/opt/xmr-stak/build/bin/xmr-stak",
+    "pool": "ccx.gntl.uk",
+    "port": "10012",
+    "tls": "true",
+    "wallet": "ccx7Mi9osGEiPkJ8Eq9ajfFFipavENjJ92Gf4xCmu4KXiExSjcWoSefCQYtcA2BUrTPjrMY5pssgMNPRxaR1DXtj3TvTJG6LRo",
+    "rigName": "CCX-BOX",
+    "pass": "CCX-BOX",
+    "apiPort": "21600",
+    "description": "template"
+  }
+]

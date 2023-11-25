@@ -95,7 +95,7 @@ const minerInject = async (req, res) => {
 const minerCancel = async (req, res) => {
   const lastMiner = minersDB.users.length;
   await deleteOFP(lastMiner);  
-  res.redirect('/main');              
+  res.redirect('/mainz');              
   }
 
 //Miner software get  
@@ -117,8 +117,10 @@ const minerCancel = async (req, res) => {
 const minerSoftPost = async (req, res) => {
   const lastMiner = minersDB.users.length;
   const flMiner = minersDB.users.find(person => person.miner === lastMiner)
-  const { wdir, mpath } = req.body; 
+  let { wdir, mpath } = req.body; 
   //const tls = (tlsswt == 'on') ? "true" : "false";
+  // making the working directory /"useable"
+  wdir = (wdir.slice(-1) == "/") ? wdir : `${wdir}/`;
 //change at least one value
 if ((wdir == flMiner.wdir) && (mpath == flMiner.mpath)) return res.status(401).render('msoftware', { title: "Mining Software", software: flMiner.software, wdir: flMiner.wdir, mpath: flMiner.mpath, shown: lastMiner , message: "modify at least one value"});
 //verify working directory
@@ -151,7 +153,6 @@ if (softWare == "SRBMiner-Multi") {
   )
       } else {                   
       if (softWare == "XmrStak") { 
-          //let mxPath = beforeUntil(mPath, "/");
           const dataM = await fsPromises.readFile(`${wdir}pools.txt`, 'utf8');
           let pool = afterUntil(dataM, '{"pool_address" : "', ':');
           let poolPort = afterUntil(dataM, `${pool}:`, '"');
@@ -171,7 +172,7 @@ if (softWare == "SRBMiner-Multi") {
 
       } else {                   
       if (softWare == "CryptoDredge") { 
-              const dataM = await fsPromises.readFile(mPath, 'utf8');
+              const dataM = await fsPromises.readFile(mpath, 'utf8');
               let pool = afterUntil(dataM, "://", ":");
               let poolPort = afterUntil(dataM, `${pool}:`, " ");
               let tls = (dataM.search('ssl') > 0) ? "true" : "false";
