@@ -7,6 +7,7 @@ const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
 const pjson = require('pjson');
+const sys = require('sysctlx');
 
 const deleteOFP = require('./deleteOFP');
 const inject = require('./inject');
@@ -222,7 +223,8 @@ const minerSoftInject = async (req, res) => {
   const lastMiner = minersDB.users.length;
   const { cleanswt } = req.body;
   let C = (cleanswt == 'on') ? true : false;
-  await inject.injectSoft(lastMiner,C);  
+  await inject.injectSoft(lastMiner,C);
+  sys.reload();  
   res.status(200).redirect('/mainz');              
   }
 
