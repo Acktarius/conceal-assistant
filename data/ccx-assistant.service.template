@@ -1,7 +1,6 @@
 [Unit]
 Description=Conceal Assistant
-After=network-online.target 
-Wants=ccx-guardian.service
+After=network-online.target
 
 [Service]
 Type=simple
