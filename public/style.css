@@ -71,6 +71,14 @@ h3,
 .h3 {
   color: #23ec09;
 }
+h31 {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0;
+  font-size: 1.1rem;
+  color: #007bff;
+}
 h4,
 .h4, h8 {
   color: #cf332a;
@@ -91,6 +99,14 @@ label {
 
   color: #868BA1;
 }
+h51, .h51 {
+  font-family: "Helvetica", sans-serif;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  color: #b0b3b471;
+}
+
 h8 {
   font-family: "Helvetica", sans-serif;
   font-size: 0.9rem;
@@ -334,6 +350,9 @@ h7 {
   font-size: 2.2rem;
   padding-bottom: 0.15rem;
 }
+.MessageZero:hover > .Title > h1 {
+  color: #FFF;
+}
 .MessageZero:hover {
   opacity: 90%;
 }
@@ -380,10 +399,21 @@ h7 {
 .MessageSys:hover {
   opacity: 90%;
 }
+.MessageSys:hover > .Title > h1 {
+  color: #FFF;
+}
 .MessageSuite > .Title > h1,
   .MessageSys > .Title > h1  {
   font-size: 2.2rem;
   padding-bottom: 0.15rem;
+}
+
+.MessageSuite:hover {
+  opacity: 90%;
+}
+
+.MessageSuite:hover > .Title > h1 {
+  color: #FFF;
 }
 
   .MessageLicence {

@@ -1,5 +1,5 @@
 #!/bin/bash
-#Copyright © 2022-2023, @Acktarius, All Rights Reserved
+#Copyright © 2022-2024, @Acktarius, All Rights Reserved
 if [ ! -d conceal-core ]; then
 echo "folder doesn't exist"; exit 1;
 else

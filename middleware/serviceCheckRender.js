@@ -5,6 +5,7 @@ const fsPromises = require('fs').promises;
 const path = require('path');
 const Promise = require('bluebird');
 const pjson = require('pjson');
+const { ccx } = require('./forNode/concealApi');
 
 const { urlNode , urlMiner } = require('./localIpUrl');
 
@@ -19,7 +20,7 @@ const main = (req, res) => {
         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0, 6);
         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0, 6);
         let upgrade = false;
-        res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade });
+        res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade, nodeHeight: "?", nodeStatus: "?" });
       });
     } else {
       const coreV = JSON.parse(contents);
@@ -29,7 +30,14 @@ const main = (req, res) => {
         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0, 6);
         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0, 6);
         let upgrade = (JSON.parse(JSON.stringify(results[2]))._settledValueField.upgrade);
-        res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade });
+        ccx.info()
+          .then((node) => { 
+        res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade, nodeHeight: node.height, nodeStatus: node.status });
+          })
+          .catch((err) => { 
+        res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade, nodeHeight: "?", nodeStatus: "?" });    
+           })
+
       });
     }
   });

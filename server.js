@@ -1,4 +1,4 @@
-//Copyright © 2022-2023, @Acktarius, All Rights Reserved
+//Copyright © 2022-2024, @Acktarius, All Rights Reserved
 // server.js
 
 //Load environment variable
@@ -24,23 +24,12 @@ const minerRender = require('./middleware/forMiner/minerRender');
 const guardianRender = require('./middleware/forNode/guardianRender.js');
 const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
-//const livereload = require('livereload');
-const connectLiveReload = require('connect-livereload');
 const { coreVersion } = require('./middleware/coreVersion.js');
 const { sysInfo } = require('./middleware/sysInfo.js');
 //App Variables
 
 const publicDirectory = path.join(__dirname, "public");
-/*
-const liveReloadServer = livereload.createServer();
-liveReloadServer.watch(publicDirectory);
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-  liveReloadServer.refresh("/");
-  }, 4000);
-}
-)
-*/
+
 const app = express();
 const port = process.env.PORT || "3500"; 
 
@@ -48,7 +37,6 @@ const itinerary = require('./routes/routes');
 const { sign } = require('crypto');
 
 //App Configuration
-//app.use(connectLiveReload());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 app.use(express.static(publicDirectory));

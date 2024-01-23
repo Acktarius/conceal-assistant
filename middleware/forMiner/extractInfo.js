@@ -30,8 +30,8 @@ const extractInfo = async () => {
                 let pool = afterUntil(dataM, "-pool ",":");
                 let poolPort = afterUntil(dataM, `${pool}:`, " ");
                 let tls = (dataM.search("-tls ") > 0) ? afterUntil(dataM, "-tls "," ") : "false";
-                let wallet = startWithLong(dataM, "ccx7", 94);
-                let rigName = (inBetweenLong(dataM, wallet, 1) == ".") ? afterUntil(dataM, wallet, " ") : (dataM.search("rig-name ") > 0) ? afterUntil(dataM, "-rig-name ", ("/n" || " ")) : "";
+                let wallet = startWithLong(dataM, "ccx7", 94);       
+                let rigName = ((inBetweenLong(dataM, wallet, 1) == ".") || (inBetweenLong(dataM, wallet, 1) == "@" )) ? afterUntil(dataM, wallet, " ") : (dataM.search("rig-name ") > 0) ? afterUntil(dataM, "-rig-name ", ("/n" || " ")) : "";
                 let pass = (dataM.search("-p ") > 0) ? afterUntil(dataM, "-p "," ") : "";
                 
                 //inject in miner.json    
@@ -50,7 +50,7 @@ const extractInfo = async () => {
                         let poolPort = afterUntil(dataM, `${pool}:`, '"');
                         let tls = (dataM.search('use_tls" : ') > 0) ? (inBetweenLong(dataM, ('use_tls" : ') , 1) == "f") ? "false" : "true" : "false";
                         let wallet = startWithLong(dataM, "ccx7", 94);
-                        let rigName = (inBetweenLong(dataM, wallet, 1) == ".") ? afterUntil(dataM, wallet, '"') : (dataM.search('rig_id" : "') > 0) ? afterUntil(dataM, 'rig_id" : "' , '"') : "";
+                        let rigName = ((inBetweenLong(dataM, wallet, 1) == ".") || (inBetweenLong(dataM, wallet, 1) == "@" )) ? afterUntil(dataM, wallet, '"') : (dataM.search('rig_id" : "') > 0) ? afterUntil(dataM, 'rig_id" : "' , '"') : "";
                         let pass = afterUntil(dataM, 'pool_password" : "' , '"');
                         const dataMC = await fsPromises.readFile(`${wDir}config.txt`, 'utf8');
                         let apiPort = (!afterUntil(dataMC, 'httpd_port" : ', ",") == "") ? afterUntil(dataMC, 'httpd_port" : ', ",") : "3500/noapi";
@@ -70,7 +70,7 @@ const extractInfo = async () => {
                             let poolPort = afterUntil(dataM, `${pool}:`, " ");
                             let tls = (dataM.search('ssl') > 0) ? "true" : "false";
                             let wallet = startWithLong(dataM, "ccx7", 94);
-                            let rigName = (inBetweenLong(dataM, wallet, 1) == ".") ? afterUntil(dataM, wallet, " ") : (dataM.search("-w ") > 0) ? afterUntil(dataM, "-w "," ") : "";
+                            let rigName = ((inBetweenLong(dataM, wallet, 1) == ".") || (inBetweenLong(dataM, wallet, 1) == "@" )) ? afterUntil(dataM, wallet, " ") : (dataM.search("-w ") > 0) ? afterUntil(dataM, "-w "," ") : "";
                             let pass = (dataM.search("-p ") > 0) ? afterUntil(dataM, "-p "," ") : "";
                             let apiPort = (dataM.search("-b ") > 0) ? ((afterUntil(dataM, "-b ", " ")).length > 5) ? afterUntil(dataM, "-b ", "\n") : afterUntil(dataM, "-b ", " ") : "4068";
                             

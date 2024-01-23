@@ -29,7 +29,12 @@ block layout-content
           -var gs = guardianstatus
           -if (gs === 'active')
             li.h3 active
-            p 
+            li
+            h51 Height: 
+            h31.inlineH #{nodeHeight}
+            h51.inlineH Status: 
+            h31.inlineH #{nodeStatus}
+            p
             a(href=urlN target="_blank" rel="noopener") open API
             p
             a.NavButton(href="/guardiand") Deactivate
