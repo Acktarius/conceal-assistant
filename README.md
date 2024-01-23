@@ -63,12 +63,15 @@ Once logged in, session is active for 15minutes, nevertheless session can be ref
 during a period up to 3h, if needed. (the refresh button appears on 'mouse-over' effect in the banner)
 
 ### To do list:
+
+### Recently added feature :
+- [x] Compatibility with Fastpool worker style @*workername*
+- [x] Integration of Conceal Api to have height and status of node i\without opening extra tab. 
 - [x] Automatic refresh of Main Page at first launch
+- [x] Compatibility with Cedric Crispin's pool worker style .*workername*
 - [x] when miner deactivated, option to change miner pool and wallet.
 - [x] adding compatibility with Xmr-Stak and Cryptodredge.
 - [x] miner setting library, auto clean-up, and remove when user deleted.
-
-### Recently added feature :
 - [x] handling of ".rig_name" after wallet
 - [x] handling of mining pool with 5 digits ports
 - [x] adding TLS/SSL option for miner
