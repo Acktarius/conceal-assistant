@@ -44,7 +44,6 @@ fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function 
 
     const extractInfOSp = JSON.parse(contents);
     let os = JSON.parse(JSON.stringify(extractInfOSp[0])).os;
-    console.log(os);
     let gwd = JSON.parse(JSON.stringify(extractInfOSp[0])).gwd;
     mapV.set('os', os);
     mapV.set('gwd', gwd);
