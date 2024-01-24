@@ -20,7 +20,7 @@ block layout-content
         h1 Node :
        ul.Details Guardian service is
         -var gs = guardianstatus
-        -if (gs === 'active')
+        -if ((gs === 'active') || (gs === 'RUNNING'))
          li.h3 active
          p 
          button(type="submit") deactivate

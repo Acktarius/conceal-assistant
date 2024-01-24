@@ -36,9 +36,7 @@ const checkOs = async (req, res, next) => {
                 } catch (err) {
                     console.error(err);
                   }}
-//Miner Path
-
-
+//Miner Path ?
 
         next();
   //Windows 
