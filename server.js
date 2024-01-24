@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
 //Required Middlewares
-const { checkLinuxOs } = require('./middleware/checkOs.js');
+const { checkOs } = require('./middleware/checkOs.js');
 const registerController = require('./controllers/registerController');
 const authController = require('./controllers/authController');
 const verifyJWT = require('./middleware/verifyJWT');
@@ -59,8 +59,8 @@ app.post("/login(.html)?", authController.handleLogin);
 //Any route below that will require access Token AND an OS check = Linux
 
 //Main page handling
-app.get("/main", verifyJWT, checkLinuxOs, coreVersion, renderG.main);
-   
+app.get("/main", verifyJWT, checkOs, coreVersion, renderG.main);
+
   //miner Deactivation handling
   app.get("/minerd", verifyJWT, renderG.minerD);
   app.post("/minerd", verifyJWT, renderP.minerStop);

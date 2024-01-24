@@ -6,10 +6,26 @@ const path = require('path');
 const Promise = require('bluebird');
 const pjson = require('pjson');
 const { ccx } = require('./forNode/concealApi');
+const winsc = require('winsc');
 
 const { urlNode , urlMiner } = require('./localIpUrl');
 
 //Main
+
+const main = (req, res) => {
+  const guardianRunningP = winsc.status('ConcealGuardian');
+  guardianRunningP
+.then((node) => {
+  console.log(node);
+  gr=node
+  res.render("main", { title: "main", guardianstatus: gr, minerstatus: "Wmr", urlN: urlNode, urlM: urlMiner, version: "pjsonversion", upgrade: "NA", nodeHeight: "?", nodeStatus: "?" }); 
+})
+.catch((err) => { console.log(err);
+})
+  
+};
+
+/*
 const main = (req, res) => {
   fs.readFile(path.join(__dirname, "..", "data", "coreV.json"), 'utf8', function (err, contents) {
     if (err) {
@@ -42,6 +58,7 @@ const main = (req, res) => {
     }
   });
   }
+  */
 //Miner Deactivation
 const minerD = (req, res) => {
   const guardianRunningP = sys.checkActive('ccx-guardian');
