@@ -7,7 +7,7 @@ const fetch = require('node-fetch');
 const logEvents = require('../logEvents.js');
 const daemonUpdate = require('./daemonUpdate.js')
 const { afterUntil } = require('../forMiner/tools.js');
-const { coreVersion } = require('../coreVersion.js')
+const { infOSp } = require('../infOSp.js')
 
 const guardianGet = async (req, res) => {
       if (!fs.existsSync('/etc/systemd/system/ccx-guardian.service')) {
@@ -125,18 +125,18 @@ console.log("can't reach guardian working directory")
 
 const concealdGet = async (req, res) => {
   try {
-    fs.readFile(path.join(__dirname, ".." , ".." , "data" , "coreV.json"), 'utf8', function(err, contents) {
+    fs.readFile(path.join(__dirname, ".." , ".." , "data" , "infOSp.json"), 'utf8', function(err, contents) {
      if (err) {
-     console.log("issue reading coreV.json file")
+     console.log("issue reading infOSp.json file")
      } else {
-     const coreV = JSON.parse(contents);
-     let upgrade = ((coreV.Inst == "unknown") || (coreV.latest == "unknown")) ? false : (semver.gt(coreV.latest, coreV.Inst)) ?  true : false;
+     const infOSp = JSON.parse(contents);
+     let upgrade = ((infOSp.Inst == "unknown") || (infOSp.latest == "unknown")) ? false : (semver.gt(infOSp.latest, infOSp.Inst)) ?  true : false;
      if (upgrade == true ) { 
       console.log("node is due for an update");
      }
     let message = (upgrade === false) ? "cannot upgrade" : "";
 
-    res.render("csettings", { title: "Daemon Settings", version: pjson.version , concealdpath: coreV.Dpath , upgrade: upgrade , version_inst: coreV.Inst , version_avail: coreV.latest ,  message: message });
+    res.render("csettings", { title: "Daemon Settings", version: pjson.version , concealdpath: infOSp.Dpath , upgrade: upgrade , version_inst: infOSp.Inst , version_avail: infOSp.latest ,  message: message });
     
     }
  });

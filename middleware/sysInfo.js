@@ -27,7 +27,7 @@ const sysInfo = async (req, res, next) => {
   }
   try {
     taskGpu ();
-    fsPromises.writeFile(path.join(__dirname, '..' , 'data' , 'infoS.json'), JSON.stringify(Object.fromEntries(mapSI), null, 2));
+    fsPromises.writeFile(path.join(__dirname, '..' , 'data' , 'infoSys.json'), JSON.stringify(Object.fromEntries(mapSI), null, 2));
     return next();
 } catch (err) {
     console.error(err);

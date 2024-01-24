@@ -24,7 +24,7 @@ const minerRender = require('./middleware/forMiner/minerRender');
 const guardianRender = require('./middleware/forNode/guardianRender.js');
 const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
-const { coreVersion } = require('./middleware/coreVersion.js');
+const { infOSp } = require('./middleware/infOSp.js');
 const { sysInfo } = require('./middleware/sysInfo.js');
 //App Variables
 
@@ -59,7 +59,7 @@ app.post("/login(.html)?", authController.handleLogin);
 //Any route below that will require access Token AND an OS check = Linux
 
 //Main page handling
-app.get("/main", verifyJWT, checkOs, coreVersion, renderG.main);
+app.get("/main", verifyJWT, checkOs, infOSp, renderG.main);
 
   //miner Deactivation handling
   app.get("/minerd", verifyJWT, renderG.minerD);

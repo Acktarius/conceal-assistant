@@ -1,4 +1,4 @@
-//get system info
+//get system infOSp
 const os = require('os');
 const shell = require('shelljs');
 const fs = require('fs');
@@ -11,7 +11,7 @@ const { afterUntil } = require('./forMiner/tools.js');
 
 const mapV = new Map();
 
-const coreVersion = async (req, res, next) => {
+const infOSp = async (req, res, next) => {
 
 
   try {
@@ -37,13 +37,16 @@ const coreVersion = async (req, res, next) => {
 
 */
 
-fs.readFile(path.join(__dirname, "..", "data", "coreV.json"), 'utf8', function (err, contents) {
+fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
   if (err) {
-    console.log("issue reading coreV.json file");
+    console.log("issue reading infOSp.json file");
   } else {
-    const coreV = JSON.parse(contents);
-    console.log (coreV);
-    let gwd = JSON.parse(JSON.stringify(coreV[0])).gwd; 
+
+    const extractInfOSp = JSON.parse(contents);
+    let os = JSON.parse(JSON.stringify(extractInfOSp[0])).os;
+    console.log(os);
+    let gwd = JSON.parse(JSON.stringify(extractInfOSp[0])).gwd;
+    mapV.set('os', os);
     mapV.set('gwd', gwd);
                 if (fs.existsSync(gwd)) {
                   
@@ -79,7 +82,7 @@ fs.readFile(path.join(__dirname, "..", "data", "coreV.json"), 'utf8', function (
                         let message = "cannot upgrade";
                     }
                     
-                      fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'coreV.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
+                      fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
                       return next();  
                     }}); 
                 } else {
@@ -94,6 +97,4 @@ fs.readFile(path.join(__dirname, "..", "data", "coreV.json"), 'utf8', function (
         }
 }
 
-
-
-module.exports = { coreVersion }
+module.exports = { infOSp }

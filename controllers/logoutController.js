@@ -42,19 +42,19 @@ const handleLogout = async (req, res) => {
         path.join(__dirname, '..', 'data', 'users.json'),
         JSON.stringify(usersDB.users)
         );
-        if (fs.existsSync(path.join(__dirname, '..', 'data', 'coreV.json')) == true ) {
-        fs.unlink(path.join(__dirname, '..', 'data', 'coreV.json'), (err) => {
+        if (fs.existsSync(path.join(__dirname, '..', 'data', 'infOSp.json')) == true ) {
+        fs.unlink(path.join(__dirname, '..', 'data', 'infOSp.json'), (err) => {
             if (err) {
                 res.status(500).send({
-                message: "Could not delete coreV" + err,
+                message: "Could not delete infOSp" + err,
                 });
             }});    
         };
-        if (fs.existsSync(path.join(__dirname, '..', 'data', 'infoS.json')) == true ) {
-        fs.unlink(path.join(__dirname, '..', 'data', 'infoS.json'), (err) => {
+        if (fs.existsSync(path.join(__dirname, '..', 'data', 'infoSys.json')) == true ) {
+        fs.unlink(path.join(__dirname, '..', 'data', 'infoSys.json'), (err) => {
             if (err) {
                 res.status(500).send({
-                message: "Could not delete infoS" + err,
+                message: "Could not delete infoSys" + err,
                 });
             }});
         };    
@@ -112,26 +112,26 @@ const handleDeleteLogout = async (req, res, next) => {
     await fsPromises.writeFile(
         path.join(__dirname, '..', 'data', 'users.json'), "[]"
     )
-//delete .env and coreV amd infoS
+//delete .env , infOSp amd infoSys
     fs.unlink(path.join(__dirname, '..', '.env'), (err) => {
         if (err) {
           res.status(500).send({
             message: "Could not delete the .env" + err,
           });
         }});
-        if (fs.existsSync(path.join(__dirname, '..', 'data', 'coreV.json')) == true ) {
-            fs.unlink(path.join(__dirname, '..', 'data', 'coreV.json'), (err) => {
+        if (fs.existsSync(path.join(__dirname, '..', 'data', 'infOSp.json')) == true ) {
+            fs.unlink(path.join(__dirname, '..', 'data', 'infOSp.json'), (err) => {
                 if (err) {
                     res.status(500).send({
-                    message: "Could not delete coreV" + err,
+                    message: "Could not delete infOSp.json" + err,
                     });
                 }});    
             }
-        if (fs.existsSync(path.join(__dirname, '..', 'data', 'infoS.json')) == true ) {
-            fs.unlink(path.join(__dirname, '..', 'data', 'infoS.json'), (err) => {
+        if (fs.existsSync(path.join(__dirname, '..', 'data', 'infoSys.json')) == true ) {
+            fs.unlink(path.join(__dirname, '..', 'data', 'infoSys.json'), (err) => {
                 if (err) {
                     res.status(500).send({
-                    message: "Could not delete infoS" + err,
+                    message: "Could not delete infoSys" + err,
                     });
                 }});
             }        
@@ -150,13 +150,13 @@ const handleUser = async (req, res) => {
         return res.sendStatus(204);
    } else {
     
-    fs.readFile(path.join(__dirname, ".." , "data" , "infoS.json"), 'utf8', function(err, contents) {
+    fs.readFile(path.join(__dirname, ".." , "data" , "infoSys.json"), 'utf8', function(err, contents) {
         if (err) {
-        console.log("issue reading infoS.json file");
+        console.log("issue reading infoSys.json file");
         res.render(('settings'), { user: foundUser.username, cpu: "???" , load: "???" , gpu: "???" , tgpu: "???" , wgpu: "???" });
         } else {
-        const infoS = JSON.parse(contents);
-        res.render(('settings'), { user: foundUser.username, cpu: infoS.cpu , load: infoS.load , gpu: infoS.gpu , tgpu: infoS.temp , wgpu: infoS.watt, version: pjson.version });
+        const infoSys = JSON.parse(contents);
+        res.render(('settings'), { user: foundUser.username, cpu: infoSys.cpu , load: infoSys.load , gpu: infoSys.gpu , tgpu: infoSys.temp , wgpu: infoSys.watt, version: pjson.version });
         }
     });   
    } 
