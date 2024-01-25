@@ -20,7 +20,7 @@ block layout-content
          h1 Miner :
         ul.Details Mining service is
           -var ms = minerstatus
-          -if (ms === 'active')
+          -if ((ms === 'active') || (ms === 'RUNNING'))
            li.h3 active
            p
            button(type="submit") deactivate

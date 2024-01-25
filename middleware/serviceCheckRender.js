@@ -27,6 +27,7 @@ const main = (req, res) => {
   Promise.allSettled([guardianRunningP, minerRunningP]).then((results) => {
     const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField;
     const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField;
+    console.log(mr);
   let upgrade = extractInfOSp.upgrade
   ccx.info()
   .then((node) => { 
@@ -36,8 +37,6 @@ const main = (req, res) => {
     res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade, nodeHeight: "?", nodeStatus: "?" });    
        })
 })
-//.catch((err) => { console.log(err);
-//})
 // Linux
       } else if (extractInfOSp.os == "linux") {
       const guardianRunningP = sys.checkActive('ccx-guardian');
@@ -98,40 +97,108 @@ const main = (req, res) => {
   */
 //Miner Deactivation
 const minerD = (req, res) => {
-  const guardianRunningP = sys.checkActive('ccx-guardian');
-  const minerRunningP = sys.checkActive('ccx-mining');
-  Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
-         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
-         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-        res.render("minerd", { title: "Miner", minerstatus: mr, version: pjson.version });   
+        fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
+          if (err) {
+            console.log("issue reading infOSp.json file");
+            logEvents("issue reading infOSp.json file");
+            //res.render("main", { title: "Main", guardianstatus: "?", minerstatus: "?", urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: "?", nodeHeight: "?", nodeStatus: "?" });
+          } else {
+            const extractInfOSp = JSON.parse(contents); 
+      //Windows
+            if (extractInfOSp.os == "win") {
+      
+              const guardianRunningP = winsc.status('ConcealGuardian');
+              const minerRunningP = winsc.status('ConcealMining');
+              Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
+                    const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField;
+                    res.render("minerd", { title: "Miner", minerstatus: mr, version: pjson.version });   
+                    }); 
+      //Linux        
+            } else if (extractInfOSp.os == "linux") {
+              const guardianRunningP = sys.checkActive('ccx-guardian');
+              const minerRunningP = sys.checkActive('ccx-mining');
+            Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
+              const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+              res.render("minerd", { title: "Miner", minerstatus: mr, version: pjson.version });   
         }); 
-      }
+
+            } else {
+            console.log("Operating System not recognise");
+            res.redirect('/index');
+          }}
+        })}
 //Miner activation
 const minerA = (req, res) => {
-  const guardianRunningP = sys.checkActive('ccx-guardian');
+  fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
+    if (err) {
+      console.log("issue reading infOSp.json file");
+      logEvents("issue reading infOSp.json file");
+      //res.render("main", { title: "Main", guardianstatus: "?", minerstatus: "?", urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: "?", nodeHeight: "?", nodeStatus: "?" });
+    } else {
+      const extractInfOSp = JSON.parse(contents); 
+//Windows
+      if (extractInfOSp.os == "win") {
+
+        const guardianRunningP = winsc.status('ConcealGuardian');
+        const minerRunningP = winsc.status('ConcealMining');
+        Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
+              const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField;
+              res.render("minera", { title: "Miner", minerstatus: mr, version: pjson.version });   
+              }); 
+//Linux        
+      } else if (extractInfOSp.os == "linux") {
+        const guardianRunningP = sys.checkActive('ccx-guardian');
   const minerRunningP = sys.checkActive('ccx-mining');
   Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
-         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
          const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
         res.render("minera", { title: "Miner", minerstatus: mr, version: pjson.version });   
-        });  
-      }
+  }); 
+
+      } else {
+      console.log("Operating System not recognise");
+      res.redirect('/index');
+    }}
+  })}
 
 //Miner is not active so we can go next
 const minerDnext = (req, res, next) => {
-  const guardianRunningP = sys.checkActive('ccx-guardian');
-  const minerRunningP = sys.checkActive('ccx-mining');
-  Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
-         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
-         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
-         if (mr != "active") {
-          return next();
-         } else {
-        res.status(403).render('40x', { erreur: 'unauthorized when miner is running', version: pjson.version });
-         }
-        });  
-      }
-      
+  fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
+    if (err) {
+      console.log("issue reading infOSp.json file");
+      logEvents("issue reading infOSp.json file");
+      //res.render("main", { title: "Main", guardianstatus: "?", minerstatus: "?", urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: "?", nodeHeight: "?", nodeStatus: "?" });
+    } else {
+      const extractInfOSp = JSON.parse(contents); 
+//Windows
+      if (extractInfOSp.os == "win") {
+        const guardianRunningP = winsc.status('ConcealGuardian');
+        const minerRunningP = winsc.status('ConcealMining');
+      Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
+             const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField;
+             if (mr != "RUNNING") {
+              return next();
+             } else {
+            res.status(403).render('40x', { erreur: 'unauthorized when miner is running', version: pjson.version });
+             }
+            }); 
+//Linux        
+      } else if (extractInfOSp.os == "linux") {
+        const guardianRunningP = sys.checkActive('ccx-guardian');
+      const minerRunningP = sys.checkActive('ccx-mining');
+      Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
+             const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+             if (mr != "active") {
+              return next();
+             } else {
+            res.status(403).render('40x', { erreur: 'unauthorized when miner is running', version: pjson.version });
+             }
+            });   
+      } else {
+      console.log("Operating System not recognise");
+      res.redirect('/index');
+    }}
+  })}
+
 //guardian Node Deactivation
 const guardianD = (req, res) => {
   fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
