@@ -25,9 +25,9 @@ block layout-content
       .MessageZero
         .Title
          h1 Node :
-        ul.Details Guardian servive is
+        ul.Details Guardian service is
           -var gs = guardianstatus
-          -if ((gs === 'active') || (gs === 'RUNNING'))
+          -if ((gs === 'active') || (gs === 'RUNNIN'))
             li.h3 active
             li
             h51 Height: 
@@ -52,7 +52,7 @@ block layout-content
          h1 Miner :
         ul.Details Mining service is
           -var ms = minerstatus
-          -if ((ms === 'active') || (ms === 'RUNNING'))
+          -if ((ms === 'active') || (ms === 'RUNNIN'))
             li.h3 Active
             p
             a(href=urlM target="_blank" rel="noopener") open API

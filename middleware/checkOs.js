@@ -58,17 +58,22 @@ const checkOs = async (req, res, next) => {
       res.redirect('/index');
       };
 }
-
-//ServiceName function
+//ServiceName function for Guardian
 const sgName = (o) => {
   if (o == "win") {
     return "ConcealGuardian";
   } else if (o == "linux") {
     return "ccx-guardian";
   }
-
-} 
-
+}
+//ServiceName function for Miner
+const smName = (o) => {
+  if (o == "win") {
+    return "ConcealMining";
+  } else if (o == "linux") {
+    return "ccx-mining";
+  }
+}
 //osName basic function 
 const osN = () => {
 if (osName.startsWith('linux')) { 
@@ -78,5 +83,5 @@ if (osName.startsWith('linux')) {
 }
 }
 
-module.exports = { checkOs , sgName , osN };
+module.exports = { checkOs , sgName , smName , osN };
 
