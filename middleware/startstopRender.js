@@ -4,6 +4,7 @@ const path = require('path');
 const sys = require('sysctlx');
 const winsc = require('winsc');
 const Promise = require('bluebird');
+const { sgName } = require('./checkOs.js')
 
 //Miner Deactivation
 const minerStop = (req, res) => {
@@ -35,6 +36,7 @@ const guardianStop = (req, res) => {
           const extractInfOSp = JSON.parse(contents); 
     //Windows
           if (extractInfOSp.os == "win") {
+            console.log (sgName(extractInfOSp.os))
             const guardianStoppingP = winsc.stop('ConcealGuardian');
             guardianStoppingP.then((stop) => {
                 console.log(`stopping guardian node ${stop}`);
@@ -50,7 +52,7 @@ const guardianStop = (req, res) => {
     }
     })}
 
-//Guardian Node Deactivation
+//Guardian Node Activation
 const guardianStart = (req, res) => {
     fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
         if (err) {

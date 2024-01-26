@@ -9,9 +9,12 @@ const pjson = require('pjson');
 const { ccx } = require('./forNode/concealApi');
 const logEvents = require('./logEvents');
 const { urlNode , urlMiner } = require('./localIpUrl');
+const { sgName , osN } = require('./checkOs.js')
+
+//declarations
+const osName = process.platform;
 
 //Main
-
 const main = (req, res) => {
   fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
     if (err) {
@@ -210,11 +213,11 @@ const guardianD = (req, res) => {
       const extractInfOSp = JSON.parse(contents); 
 //Windows
       if (extractInfOSp.os == "win") {
-
-        const guardianRunningP = winsc.status('ConcealGuardian');
+        const guardianRunningP = winsc.status(`${sgName(osN())}`);
         const minerRunningP = winsc.status('ConcealMining');
         Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
                const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField;
+               console.log(gr);
               // const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
               res.render("guardiand", { title: "Node", guardianstatus: gr, version: pjson.version });   
               }); 

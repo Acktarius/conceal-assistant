@@ -5,9 +5,9 @@ const winsc = require('winsc');
 
 const { afterUntil , beforeUntil } = require('./forMiner/tools.js');
 
-
+//declarations
 const osName = process.platform;
-
+//functions
 const checkOs = async (req, res, next) => {
  //Linux 
       if (osName.startsWith('linux')) { 
@@ -59,8 +59,24 @@ const checkOs = async (req, res, next) => {
       };
 }
 
-//checkOs();
+//ServiceName function
+const sgName = (o) => {
+  if (o == "win") {
+    return "ConcealGuardian";
+  } else if (o == "linux") {
+    return "ccx-guardian";
+  }
 
+} 
 
-module.exports = { checkOs };
+//osName basic function 
+const osN = () => {
+if (osName.startsWith('linux')) { 
+  return "linux";
+} else if (osName.startsWith('win')) {
+  return "win";
+}
+}
+
+module.exports = { checkOs , sgName , osN };
 
