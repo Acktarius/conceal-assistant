@@ -46,12 +46,13 @@ section,
 }
 
 sectionM {
-  height: 50vh;
+  height: 60vh;
 }
+/*
 section {
   height: 100vh;
   }
-
+*/
 h1,.h1, h2, h3,.h3, h4,.h4 {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   text-transform: uppercase;
