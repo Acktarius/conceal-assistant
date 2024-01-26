@@ -44,32 +44,27 @@ const main = (req, res) => {
   }
 //Miner Deactivation
 const minerD = (req, res) => {
-  const guardianRunningP = sys.checkActive('ccx-guardian');
   const minerRunningP = sys.checkActive('ccx-mining');
-  Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
-         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
-         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+    minerRunningP.then((results) => {
+    console.log(results.slice(0,6));
+         const mr = results.slice(0,6);
         res.render("minerd", { title: "Miner", minerstatus: mr, version: pjson.version });   
         }); 
       }
 //Miner activation
 const minerA = (req, res) => {
-  const guardianRunningP = sys.checkActive('ccx-guardian');
   const minerRunningP = sys.checkActive('ccx-mining');
-  Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
-         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
-         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+    minerRunningP.then((results) => {
+         const mr = results.slice(0,6);
         res.render("minera", { title: "Miner", minerstatus: mr, version: pjson.version });   
         });  
       }
 
 //Miner is not active so we can go next
 const minerDnext = (req, res, next) => {
-  const guardianRunningP = sys.checkActive('ccx-guardian');
   const minerRunningP = sys.checkActive('ccx-mining');
-  Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
-         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
-         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+  minerRunningP.then((results) => {
+         const mr = results.slice(0,6);
          if (mr != "active") {
           return next();
          } else {
@@ -81,20 +76,16 @@ const minerDnext = (req, res, next) => {
 //guardian Node Deactivation
 const guardianD = (req, res) => {
   const guardianRunningP = sys.checkActive('ccx-guardian');
-  const minerRunningP = sys.checkActive('ccx-mining');
-  Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
-         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
-         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+  guardianRunningP.then((results) => {
+         const gr = results.slice(0,6);
         res.render("guardiand", { title: "Node", guardianstatus: gr, version: pjson.version });   
         }); 
       }
 //guardian node activation
 const guardianA = (req, res) => {
   const guardianRunningP = sys.checkActive('ccx-guardian');
-  const minerRunningP = sys.checkActive('ccx-mining');
-  Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
-         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
-         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+  guardianRunningP.then((results) => {
+        const gr = results.slice(0,6);
         res.render("guardiana", { title: "Node", guardianstatus: gr, version: pjson.version });   
         });  
       }
@@ -102,10 +93,8 @@ const guardianA = (req, res) => {
 //guardian is not active so we can go next
 const guardianDnext = (req, res, next) => {
   const guardianRunningP = sys.checkActive('ccx-guardian');
-  const minerRunningP = sys.checkActive('ccx-mining');
-  Promise.allSettled([guardianRunningP,minerRunningP]).then((results) => {
-         const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0,6);
-         const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0,6);
+  guardianRunningP.then((results) => {
+         const gr = results.slice(0,6);
          if (gr != "active") {
           return next();
          } else {
