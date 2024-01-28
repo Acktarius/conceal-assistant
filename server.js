@@ -55,11 +55,12 @@ app.use('/refresh', require('./routes/refresh')) //offers the option to recreate
 
 app.post("/register", registerController.handleNewUser);
 
-app.post("/login(.html)?", authController.handleLogin);
+app.post("/login(.html)?", checkOs, infOSp, authController.handleLogin);
 //Any route below that will require access Token AND an OS check = Linux
 
 //Main page handling
-app.get("/main", verifyJWT, checkOs, infOSp, renderG.main);
+//app.get("/main", verifyJWT, checkOs, infOSp, renderG.main);
+app.get("/main", verifyJWT, renderG.main);
 
   //miner Deactivation handling
   app.get("/minerd", verifyJWT, renderG.minerD);

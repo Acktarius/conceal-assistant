@@ -8,7 +8,6 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const fsPromises = require('fs').promises
 const path = require('path')
-
 const { extractInfo } = require('../middleware/forMiner/extractInfo');
 
 const handleLogin = async (req, res) => {

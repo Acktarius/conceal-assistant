@@ -4,81 +4,73 @@ const path = require('path');
 const pjson = require('pjson');
 const semver = require('semver');
 const fetch = require('node-fetch');
-const logEvents = require('../logEvents.js');
+const logAgent = require('../logEvents.js');
 const daemonUpdate = require('./daemonUpdate.js')
 const { afterUntil } = require('../forMiner/tools.js');
-const { infOSp } = require('../infOSp.js')
+//const { infOSp } = require('../infOSp.js');
+const { osN } = require('../checkOs.js');
 
+//functions
 const guardianGet = async (req, res) => {
-      if (!fs.existsSync('/etc/systemd/system/ccx-guardian.service')) {
-      console.log("guardian service doesn't exist or not named properly");
-      } else {
-        try {
-          const data = await fsPromises.readFile('/etc/systemd/system/ccx-guardian.service', 'utf8');
-              let begin = data.search("WorkingDirectory=");
-              if (!begin) {
-                  console.log("can't find path");
-              } else {
-              const { afterUntil } = require('../forMiner/tools.js');
-              let gwd = afterUntil(data, "WorkingDirectory=", "\n");
-              gwd = (gwd.charAt(gwd.length-1) != "/") ? (gwd + "/") : gwd;
-              if (fs.existsSync(gwd)) {
-                fs.readFile(`${gwd}config.json`, 'utf8', function(err, contents) {
-                if (err) {
-                console.log("issue reading config.json file")
-                } else {
-                const config = JSON.parse(contents);
-                  let concealDpath = ("node" in config) ? config.node.path : "";
-                  let nameD = ("node" in config) ? config.node.name : "";
-                  let feeAddr = ("node" in config) ? config.node.feeAddr : "";
-                  let apiPort = ("api" in config) ? config.api.port : "";
-                  let discordUrl = ("error" in config) ? config.error.notify.discord.url : "";
-                res.render("nsettings", { title: "Guardian Settings", version: pjson.version, conceald: concealDpath, name: nameD, feeaddr: feeAddr, apiport: apiPort, discordurl: discordUrl
-                  });
-                }});
-              } else {
-            console.log("can't reach guardian working directory")
-              }
-            }
+  fs.readFile(path.join(__dirname, "../..", "data", "infOSp.json"), 'utf8', function (err, contents) {
+    if (err) {
+      logAgent.doubleLogEvents("trying to get guardian info","issue reading infOSp.json file");
+      //res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: "?", nodeHeight: "?", nodeStatus: "?" });
+    } else {
+      const extractInfOSp = JSON.parse(contents);
+      try {
+      let gwd = extractInfOSp.gwd 
+        fs.readFile(`${gwd}config.json`, 'utf8', function(err, contents) {
+          if (err) {
+            console.log("issue reading config.json file")
+           } else {
+            const config = JSON.parse(contents);
+              let concealDpath = ("node" in config) ? config.node.path : "";
+              let nameD = ("node" in config) ? config.node.name : "";
+              let feeAddr = ("node" in config) ? config.node.feeAddr : "";
+              let apiPort = ("api" in config) ? config.api.port : "";
+              let discordUrl = ("error" in config) ? config.error.notify.discord.url : "";
+            res.render("nsettings", { title: "Guardian Settings", version: pjson.version, conceald: concealDpath, name: nameD, feeaddr: feeAddr, apiport: apiPort, discordurl: discordUrl
+              });
+            }});
         } catch (err) {
                 console.error(err);
                 res.status(403).render('40x', { erreur: 'issue to reach config file' });     
-        }
-}};
+        }  
+    }})
+  }
 
 
 const guardianPost = async (req, res) => {
-  const { conceald, name, feeaddr, apiport, discordurl } = req.body;
-try {
-  const data = await fsPromises.readFile('/etc/systemd/system/ccx-guardian.service', 'utf8');
-  let begin = data.search("WorkingDirectory=");
-  if (!begin) {
-      console.log("can't find path");
-  } else {
-  const { afterUntil } = require('../forMiner/tools.js');
-  let gwd = afterUntil(data, "WorkingDirectory=", "\n");
-  gwd = (gwd.charAt(gwd.length-1) != "/") ? (gwd + "/") : gwd;
-    if (fs.existsSync(gwd)) {
+  fs.readFile(path.join(__dirname, "../..", "data", "infOSp.json"), 'utf8', function (err, contents) {
+    if (err) {
+      logAgent.doubleLogEvents("trying to get guardian info","issue reading infOSp.json file");
+    } else {
+      const extractInfOSp = JSON.parse(contents);
+      try {
+      let gwd = extractInfOSp.gwd 
       fs.readFile(`${gwd}config.json`, 'utf8', function(err, contents) {
-      if (err) {
-      console.log("issue reading config.json file")
-      } else {
-      const config = JSON.parse(contents);
+        if (err) {
+        console.log("issue reading config.json file")
+        } else {
+          const { conceald, name, feeaddr, apiport, discordurl } = req.body;
+        const config = JSON.parse(contents);
 
-      let concealdOg = ("node" in config) ? config.node.path : "";
-      let nameOg = ("node"in config) ? config.node.name : "";
-      let feeaddrOg = ("node" in config) ? config.node.feeAddr : "";
-      let apiportOg = ("api" in config) ? config.api.port : "";
-      let discordurlOg = ("error.notify.discord.url" in config) ? config.error.notify.discord.url : "";
+        let concealdOg = ("node" in config) ? config.node.path : "";
+        let nameOg = ("node"in config) ? config.node.name : "";
+        let feeaddrOg = ("node" in config) ? config.node.feeAddr : "";
+        let apiportOg = ("api" in config) ? config.api.port : "";
+        let discordurlOg = ("error.notify.discord.url" in config) ? config.error.notify.discord.url : "";
 
 //Path Check  
 if (concealdOg != "") {
-if (!(fs.existsSync(conceald)) || !(conceald.endsWith("conceald"))) {
-  return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'improper path or file' });
+    if (!(fs.existsSync(conceald)) || ( (osN() == "linux") && !(conceald.endsWith("conceald"))) || ((osN() == "win") && !(conceald.endsWith("conceald.exe")))) {
+      return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'improper path or file' });
 } else {
   config.node.path = conceald;
 }
 }
+
 //wallet check
 if (feeaddrOg != "") {
   if ((feeaddr.length !== 98 || !(feeaddr.startsWith("ccx7")))) {
@@ -106,22 +98,15 @@ if (discordurlOg != "") {
 if (nameOg != "") {
   config.node.name = name
 }
-              
-
 fs.writeFileSync(`${gwd}config.json`, JSON.stringify(config, null, 2));
-logEvents('guardian config.json file modified');
+logAgent.doubleLogEvents("Modifying guardian config", 'guardian config.json file modified');
 res.redirect('/mainz');  
-
     }})
-
-} else {
-console.log("can't reach guardian working directory")
 }
-}
-} catch (err) {
-  console.error(err);
-}
-}
+    catch (err) {
+      console.error(err);
+    }
+}})}
 
 const concealdGet = async (req, res) => {
   try {
@@ -130,25 +115,24 @@ const concealdGet = async (req, res) => {
      console.log("issue reading infOSp.json file")
      } else {
      const infOSp = JSON.parse(contents);
-     let upgrade = ((infOSp.Inst == "unknown") || (infOSp.latest == "unknown")) ? false : (semver.gt(infOSp.latest, infOSp.Inst)) ?  true : false;
+     let upgrade = (infOSp.upgrade === true) ? ((infOSp.Inst == "unknown") || (infOSp.latest == "unknown")) ? false : (semver.gt(infOSp.latest, infOSp.Inst)) ?  true : false : false;
      if (upgrade == true ) { 
       console.log("node is due for an update");
      }
-    let message = (upgrade === false) ? "cannot upgrade" : "";
+    let message = (infOSp.message) ? infOSp.message : (upgrade === false) ? "cannot upgrade" : "";
 
     res.render("csettings", { title: "Daemon Settings", version: pjson.version , concealdpath: infOSp.Dpath , upgrade: upgrade , version_inst: infOSp.Inst , version_avail: infOSp.latest ,  message: message });
-    
     }
  });
   } catch (err) {
     console.error(err);
   }
-  }    
+}    
 
 //Conceal core deamon Post
 const concealdPost = async (req, res) => {
   const { concealdpath } = req.body;
-
+  if (osN() == "linux") {
     if (!fs.existsSync(concealdpath + "conceal-core")) {
       return res.status(500).render('40x', { title: 'error 500' , erreur: 'issue to locate folder' });
     } else {
@@ -157,6 +141,9 @@ const concealdPost = async (req, res) => {
       logEvents("conceal core upgraded to latest version")
       res.redirect('/mainz');  
     }
+  } else {
+    return res.status(503).render('40x', { title: 'error 503' , erreur: 'unavailable' });
+  }
   }
 
 

@@ -8,9 +8,34 @@ const { afterUntil , beforeUntil } = require('./forMiner/tools.js');
 //declarations
 const osName = process.platform;
 //functions
+//ServiceName function for Guardian
+const sgName = (o) => {
+  if (o == "win") {
+    return "ConcealGuardian";
+  } else if (o == "linux") {
+    return "ccx-guardian";
+  }
+}
+//ServiceName function for Miner
+const smName = (o) => {
+  if (o == "win") {
+    return "ConcealMining";
+  } else if (o == "linux") {
+    return "ccx-mining";
+  }
+}
+//osName basic function 
+const osN = () => {
+if (osName.startsWith('linux')) { 
+  return "linux";
+} else if (osName.startsWith('win')) {
+  return "win";
+}
+}
+//main
 const checkOs = async (req, res, next) => {
  //Linux 
-      if (osName.startsWith('linux')) { 
+      if (osN() == 'linux') { 
         let os = "linux";
 //guardian path
         if (!fs.existsSync('/etc/systemd/system/ccx-guardian.service')) {
@@ -40,9 +65,9 @@ const checkOs = async (req, res, next) => {
 
         next();
   //Windows 
-      } else if (osName.startsWith('win32')) {
+      } else if (osN() == 'win') {
         let os = "win";
-        let serviceDetails = await winsc.details('ConcealGuardian');
+        let serviceDetails = await winsc.details(`${sgName(osN())}`);
         let gwd = serviceDetails.exePath;
         gwd = beforeUntil(gwd, "\\");
         gwd = (gwd.charAt(0) == '"') ? (gwd.substring(1)) : gwd;
@@ -58,30 +83,7 @@ const checkOs = async (req, res, next) => {
       res.redirect('/index');
       };
 }
-//ServiceName function for Guardian
-const sgName = (o) => {
-  if (o == "win") {
-    return "ConcealGuardian";
-  } else if (o == "linux") {
-    return "ccx-guardian";
-  }
-}
-//ServiceName function for Miner
-const smName = (o) => {
-  if (o == "win") {
-    return "ConcealMining";
-  } else if (o == "linux") {
-    return "ccx-mining";
-  }
-}
-//osName basic function 
-const osN = () => {
-if (osName.startsWith('linux')) { 
-  return "linux";
-} else if (osName.startsWith('win')) {
-  return "win";
-}
-}
+
 
 module.exports = { checkOs , sgName , smName , osN };
 

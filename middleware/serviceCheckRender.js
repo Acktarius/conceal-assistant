@@ -7,12 +7,11 @@ const path = require('path');
 const Promise = require('bluebird');
 const pjson = require('pjson');
 const { ccx } = require('./forNode/concealApi');
-const logEvents = require('./logEvents');
+const logAgent = require('./logEvents');
 const { urlNode , urlMiner } = require('./localIpUrl');
-const { sgName, smName , osN } = require('./checkOs.js')
-
+const { sgName, smName , osN } = require('./checkOs.js');
 //declarations and Functions
-const osName = process.platform;
+//const osName = process.platform;
 
 const guardianRunningP = (o) => {
   if (o == "win") {
@@ -34,22 +33,19 @@ const main = (req, res) => {
   Promise.allSettled([guardianRunningP(osN()), minerRunningP(osN())]).then((results) => {
     const gr = JSON.parse(JSON.stringify(results[0]))._settledValueField.slice(0, 6);
     const mr = JSON.parse(JSON.stringify(results[1]))._settledValueField.slice(0, 6);
-    console.log(`guardian ${gr} et Miner ${mr}`);
     fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
       if (err) {
         console.log("issue reading infOSp.json file");
-        logEvents("issue reading infOSp.json file");
         res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: "?", nodeHeight: "?", nodeStatus: "?" });
       } else {
         const extractInfOSp = JSON.parse(contents);
         let upgrade = extractInfOSp.upgrade
         ccx.info()
         .then((node) => { 
-          console.log(node);                      // debug
         res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade, nodeHeight: node.height, nodeStatus: node.status });
         }) 
         .catch((err) => { 
-          console.log("erreur sur node ?");       // debug
+          console.log("conceal-api cannot fetch");       // for debug to be remove
           res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade, nodeHeight: "?", nodeStatus: "?" });    
               })
       }})

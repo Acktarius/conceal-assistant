@@ -50,6 +50,7 @@ const handleLogout = async (req, res) => {
                 });
             }});    
         };
+
         if (fs.existsSync(path.join(__dirname, '..', 'data', 'infoSys.json')) == true ) {
         fs.unlink(path.join(__dirname, '..', 'data', 'infoSys.json'), (err) => {
             if (err) {

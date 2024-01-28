@@ -58,6 +58,6 @@ const guardianStart = (req, res) => {
     guardianStartingP(osN()).then((start) => {
         console.log(`starting guardian node: ${start}`);
         res.status(200).redirect('/mainz');
-        })}
-        
+    })}
+
 module.exports = { minerStop , minerStart , guardianStop , guardianStart }      

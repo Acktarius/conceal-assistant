@@ -13,4 +13,10 @@ const logEvents = async (message) => {
         console.log(err);
     }
 }
-module.exports = logEvents;
+
+const doubleLogEvents = async (context, message) => {
+    console.log(`${context}: ${message}`);
+    await logEvents(message);
+}
+
+module.exports = { logEvents , doubleLogEvents };

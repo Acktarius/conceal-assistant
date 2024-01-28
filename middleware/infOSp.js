@@ -4,13 +4,16 @@ const shell = require('shelljs');
 const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
+const winsc = require('winsc');
 const semver = require('semver');
+const Promise = require('bluebird');
 const fetch = require('node-fetch');
-const { afterUntil } = require('./forMiner/tools.js');
-
-
+const { afterUntil , beforeUntil } = require('./forMiner/tools.js');
+const { wDir , mPath } = require('./infoM.js');
+const { smName , osN } = require('./checkOs.js');
+//Declaration
 const mapV = new Map();
-
+//Main
 const infOSp = async (req, res, next) => {
 
 
@@ -21,22 +24,6 @@ const infOSp = async (req, res, next) => {
         let versionLatest = afterUntil(body, "Conceal Core CLI v", "<");
         versionLatest = semver.valid(versionLatest) ? versionLatest : "unknown";
         mapV.set('latest', versionLatest);
-/*        
-        if (!fs.existsSync('/etc/systemd/system/ccx-guardian.service')) {
-        console.log("guardian service doesn't exist or not named properly");
-        } else {
-          try {
-            const data = await fsPromises.readFile('/etc/systemd/system/ccx-guardian.service', 'utf8');
-                let begin = data.search("WorkingDirectory=");
-                if (!begin) {
-                    console.log("can't find path");
-                } else {
-                
-                let gwd = afterUntil(data, "WorkingDirectory=", "\n");
-                gwd = (gwd.charAt(gwd.length-1) != "/") ? (gwd + "/") : gwd;
-
-*/
-
 fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
   if (err) {
     console.log("issue reading infOSp.json file");
@@ -48,16 +35,15 @@ fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function 
     mapV.set('os', os);
     mapV.set('gwd', gwd);
                 if (fs.existsSync(gwd)) {
-                  
                   fs.readFile(`${gwd}config.json`, 'utf8', function(err, contents) {
                     if (err) {
                     console.log("issue reading config.json file")
                     } else {
-                    const config = JSON.parse(contents);
+                    const config = JSON.parse(contents);                                                                  //daemon path
                     if (config.node.path) {
+                      if (os == "linux") {
                       let concealDpath = (config.node.path).slice(0, (config.node.path).search("conceal-core"));
                       mapV.set('Dpath', concealDpath);
-                      
                         if (!fs.existsSync(concealDpath+"conceal-core/build/version/version.h")) {
                         mapV.set('Inst', "unknown");
                         mapV.set('upgrade', false);
@@ -69,7 +55,14 @@ fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function 
                         let upgrade = ((versionInst == "unknown") || (versionLatest == "unknown")) ? false : (semver.gt(versionLatest, versionInst)) ?  true : false;
                         mapV.set('upgrade', upgrade);
                         let message = (upgrade === false) ? "cannot upgrade" : "";
-                        } 
+                        }
+                        } else if (os == "win") {
+                          mapV.set('Inst', "unknown");
+                        let concealDpath = (config.node.path).slice(0, (config.node.path).search('conceald'));
+                        mapV.set('Dpath', concealDpath);
+                      } else {
+                        mapV.set('Dpath', "unknown");
+                      }    
                       } else {
                         if (fs.existsSync(gwd+"conceald.exe")) {
                           mapV.set('Dpath', gwd);
@@ -77,11 +70,31 @@ fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function 
                           mapV.set('Dpath', "unknown");
                         }
                         mapV.set('Inst', "unknown");
-                        mapV.set('upgrade', false);
-                        let message = "cannot upgrade";
                     }
-                    
-                      fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
+                    if (config.node.autoUpdate && (config.node.autoUpdate === true )) {
+                      mapV.set('autoUpdate', config.node.autoUpdate);
+                      mapV.set('upgrade', false);
+                      mapV.set('message', "upgrade is set automatic already");
+                          
+                         } else  {
+                            if (os == "linux") {
+                              mapV.set('upgrade', true);
+                              mapV.set('message', "upgradable");
+                            } else if (os = "win") {
+                              mapV.set('upgrade', false);
+                              mapV.set('message', "upgrade not supported on this OS");
+                            } else {
+                              mapV.set('upgrade', false);
+                              mapV.set('message', "unkwnown OS");
+                            }
+                        }                                                                                                   //Miner
+                        wDir().then((minerdir) => {
+                          mapV.set('wDir', minerdir);
+                            mPath().then((minerpapth) => {
+                            mapV.set('mPath', minerpapth);
+                            fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
+                            });
+                        });
                       return next();  
                     }}); 
                 } else {

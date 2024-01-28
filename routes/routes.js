@@ -3,7 +3,6 @@ const router = express.Router()
 const { checkEnv } = require('../middleware/checkEnv')
 const { alreadyLoggedIn } = require('../controllers/alreadyLoggedIn')
 const pjson = require('pjson');
-
 const usersDB = {
   users: require('../data/users.json'),
   setUsers: function (data) { this.users = data }

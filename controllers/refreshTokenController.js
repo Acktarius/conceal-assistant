@@ -25,7 +25,6 @@ const handleRefreshToken = (req, res) => {
             { "username": decoded.username },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '15m' });
-            console.log(accessToken);
             res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 15 * 60 * 1000});
             res.status(201).redirect('main');
     }}
