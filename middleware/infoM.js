@@ -6,7 +6,7 @@ const path = require('path');
 const winsc = require('winsc');
 const semver = require('semver');
 const fetch = require('node-fetch');
-const { afterUntil , beforeUntil } = require('./forMiner/tools.js');
+const { afterUntil , beforeUntil , inBetween } = require('./forMiner/tools.js');
 const { smName , osN } = require('./checkOs.js');
 //Declaration
 
@@ -32,13 +32,12 @@ const wDir = async () => {
                   }
           }    
 
-  } else if (osN() == "win") {
-      try {let miningDetails = await winsc.details(smName(osN()));
-      let wdir = miningDetails.exePath;
-      wdir = beforeUntil(wdir, "\\");
-      wdir = (wdir.charAt(0) == '"') ? (wdir.substring(1)) : wdir;
+  } else if (osN() == "win") {                                              //for Windows, xml file with its Path
+      try {
+        let miningDetails = await winsc.details(smName(osN()));
+        let wdir = `${inBetween(miningDetails.exePath, ".exe\" \"", ".xml")}.xml`; 
       return wdir;
-      } catch (err){
+        } catch (err){
           console.error(err);
       }
   } else {
@@ -66,10 +65,11 @@ const mPath = async () => {
                   }
           }    
 
-  } else if (osN() == "win") {
+  } else if (osN() == "win") {                                          //for Windows, xml file with its Path
       try {
       let miningDetails = await winsc.details(smName(osN()));
-      return miningDetails.exePath;
+      let mpath = `${inBetween(miningDetails.exePath, ".exe\" \"", ".xml")}.xml`; 
+      return mpath;
       } catch (err){
           console.error(err);
       }

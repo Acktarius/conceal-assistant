@@ -6,7 +6,8 @@ const minersDB = {
 const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
-const { afterUntil, startWithLong , inBetweenLong } = require('./tools.js');
+const { osN } = require('../checkOs.js');
+const { afterUntil, startWithLong , inBetweenLong, inBetween, beforeUntil } = require('./tools.js');
 
 const extractInfo = async () => {
     fs.readFile(path.join(__dirname, "../..", "data", "infOSp.json"), 'utf8', async function (err, contents) {
@@ -16,10 +17,15 @@ const extractInfo = async () => {
             try {
                 const infoM = JSON.parse(contents);
                 let mPath = infoM.mPath;
-                let wDir = infoM.wDir;
-
-                const softWare = (mPath.search("SRB") > 0) ? "SRBMiner-Multi" : (mPath.search("xmr-stak") > 0) ? "XmrStak" : (mPath.search("CryptoDredge") > 0) ? "CryptoDredge" : "unKnown";
-                const minerNb = minersDB.users.length +1;
+                let wdir = infoM.wDir;
+                let tempmPath = await fsPromises.readFile(mPath, 'utf8');
+                let exe = (osN() == "win") ? inBetween(tempmPath , "ble>", "</exe") : `${mPath}`;
+                let wDir = (osN() == "win") ? beforeUntil(exe, "\\") : `${wdir}`;
+                console.log(exe);
+                console.log(wDir);
+         
+                let softWare = (exe.search("SRB") > 0) ? "SRBMiner-Multi" : (exe.search("xmr-stak") > 0) ? "XmrStak" : (exe.search("CryptoDredge") > 0) ? "CryptoDredge" : "unKnown";
+                //const minerNb = minersDB.users.length +1;
                 //now let's look at the miner
                     if (softWare == "SRBMiner-Multi") {
                 const dataM = await fsPromises.readFile(mPath, 'utf8');

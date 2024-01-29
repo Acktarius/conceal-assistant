@@ -40,6 +40,7 @@
     "local-ip-url": "^1.0.3",
     "method-override": "^3.0.0",
     "node-fetch": "^2.6.9",
+    "package-lock-only": "^0.0.4",
     "pjson": "^1.0.9",
     "pug": "^3.0.2",
     "semver": "^7.5.3",
