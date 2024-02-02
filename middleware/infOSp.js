@@ -83,8 +83,9 @@ fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function 
                           
                          } else  {
                             if (os == "linux") {
-                              mapV.set('upgrade', true);
-                              mapV.set('message', "upgradable");
+                              //mapV.set('upgrade', upgrade);
+                              //let message = (upgrade === false) ? "cannot upgrade" : "";
+                              //mapV.set('message', message);
                             } else if (os = "win") {
                               mapV.set('upgrade', false);
                               mapV.set('message', "upgrade not supported on this OS");
