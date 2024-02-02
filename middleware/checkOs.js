@@ -87,9 +87,9 @@ const checkOs = async (req, res, next) => {
           if (!fs.existsSync(`/etc/systemd/system/${sgName(osN())}.service`)) {
           console.log("guardian service doesn't exist or not named properly");
           gwd = "unknown"
-            isSi(smName(osN())).then((isMining) => {
+            let isMining = isSi(smName(osN()))
               fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify([{"os": osN(), "gwd": gwd, "isSGi": false, "isSMi": isMining }], null, 2));
-              });
+              
           } else {
             
               const data = await fsPromises.readFile(`/etc/systemd/system/${sgName(osN())}.service`, 'utf8');
@@ -100,9 +100,8 @@ const checkOs = async (req, res, next) => {
                   let gwd = afterUntil(data, "WorkingDirectory=", "\n");
                   gwd = (gwd.charAt(gwd.length-1) != "/") ? (gwd + "/") : gwd;
                   try {
-                    isSi(smName(osN())).then((isMining) => {
+                    let isMining = isSi(smName(osN()))
                       fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify([{"os": osN(), "gwd": gwd, "isSMi": isMining, "isSGi": true }], null, 2));
-                    });
                   } catch (err) {
                       console.error(err);
                     }

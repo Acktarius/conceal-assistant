@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const logEvents = require('./logEvents')
+const { logEvents } = require('./logEvents')
 
 const checkEnv = (req, res, next) => {
 if (fs.existsSync(path.join(__dirname, '../', '.env'))) {
