@@ -11,8 +11,6 @@ const mapSI = new Map();
 
 
 
-
-
 const sysInfo = async (req, res, next) => {
 
   function taskGpu () {
@@ -34,7 +32,7 @@ const sysInfo = async (req, res, next) => {
     let temp = shell.exec('sensors | grep "edge" | tr -s " " | cut -d " " -f 2', {silent:true}).stdout;
     temp = (temp.search("\n") >= 0 ) ? temp.slice(0,(temp.length - 1)) : temp;
     mapSI.set('temp', temp);
-    let watt = shell.exec('sensors | grep "PPT" | tr -s " " | cut -d " " -f 2', {silent:true}).stdout
+    let watt = shell.exec('sensors | grep "PPT" | tr -s " " | cut -d " " -f 2', {silent:true}).stdout;
     watt = (watt.search("\n") >= 0 ) ? watt.slice(0,(watt.length - 1)) : watt;
     mapSI.set('watt', watt);
     mapSI.set('cpu', os.cpus()[0].model);

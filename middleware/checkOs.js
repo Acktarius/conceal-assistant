@@ -53,65 +53,13 @@ const isSi = (s) => {
   }
 
 //main
-const checkOs = async (req, res, next) => {
- //Linux 
-      if ((osN() == 'linux') || (osN() == 'win')) { 
-       
-        if (osN == 'win') {
-          let serviceDetails = await winsc.details(`${sgName(osN())}`);
-        }
-//guardian path is a requirement otherwise Assistant has no purpose
-/*
-        if (!fs.existsSync('/etc/systemd/system/ccx-guardian.service')) {
-          console.log("guardian service doesn't exist or not named properly");
-          } else {
-            try {
-              const data = await fsPromises.readFile('/etc/systemd/system/ccx-guardian.service', 'utf8');
-                  let begin = data.search("WorkingDirectory=");
-                  if (!begin) {
-                      console.log("can't find path");
-                  } else {
-                  
-                  let gwd = afterUntil(data, "WorkingDirectory=", "\n");
-                  gwd = (gwd.charAt(gwd.length-1) != "/") ? (gwd + "/") : gwd;
-
-                  try {
-                    isSi(sgName(osN())).then((value) => {                                                                                         // ????
-                    fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify([{"os": osN(), "gwd": `${gwd}`, "isSMi": "toto", "isSGi": value }], null, 2));
-                    });
-                  } catch (err) {
-                      console.error(err);
-                    }
-
-                  } 
-                } catch (err) {
-                    console.error(err);
-                  }}
-
-        next();
-  //Windows 
-      } else if (osN() == 'win') {
-*/
-        
+const checkOs = async (req, res, next) => {    
+        if (osN() == 'win') {
+          let serviceDetails = await winsc.details(`${sgName(osN())}`);      
         try {
           isSi(sgName(osN())).then((isGuardian) => {
             if (isGuardian) {
-            
-            switch (osN()) {
-              case 'linux':
-                const data = fsPromises.readFile(`/etc/systemd/system/${sgName(osN())}.service`, 'utf8');
-                  let begin = data.search("WorkingDirectory=");
-                  if (!begin) {
-                      console.log("can't find path");
-                  } else {
-                  let gwd = afterUntil(data, "WorkingDirectory=", "\n");
-                  gwd = (gwd.charAt(gwd.length-1) != "/") ? (gwd + "/") : gwd;
-                  isSi(smName(osN())).then((isMining) => {
-                    fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify([{"os": osN(), "gwd": gwd, "isSGi": isGuardian, "isSMi": isMining }], null, 2));
-                    });
-                  }              
-              break;
-              case 'win':
+
                 let serviceDetails = winsc.details(`${sgName(osN())}`);
                 serviceDetails.then((details) => {
                   let gwd = details.exePath;
@@ -121,34 +69,59 @@ const checkOs = async (req, res, next) => {
                   isSi(smName(osN())).then((isMining) => {
                     fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify([{"os": osN(), "gwd": gwd, "isSGi": isGuardian, "isSMi": isMining }], null, 2));
                     });
-                });
-              break;
-              default:
-                //shouldn't arrive in this corner
-                console.log ("Cannot deal with this Operating System")
-                res.redirect('/index');
-            }    
+                });  
           } else {
             gwd = "unknown"
             isSi(smName(osN())).then((isMining) => {
               fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify([{"os": osN(), "gwd": gwd, "isSGi": isGuardian, "isSMi": isMining }], null, 2));
               });
-
-          }
-            
+          }          
+          next();
             });
         } catch (err) {
           console.error(err);
         }
 
-        next();
+      } else if (osN() == 'linux') {
+        try {
+          if (!fs.existsSync(`/etc/systemd/system/${sgName(osN())}.service`)) {
+          console.log("guardian service doesn't exist or not named properly");
+          gwd = "unknown"
+            isSi(smName(osN())).then((isMining) => {
+              fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify([{"os": osN(), "gwd": gwd, "isSGi": false, "isSMi": isMining }], null, 2));
+              });
+          } else {
+            
+              const data = await fsPromises.readFile(`/etc/systemd/system/${sgName(osN())}.service`, 'utf8');
+                  let begin = data.search("WorkingDirectory=");
+                  if (!begin) {
+                      console.log("can't find path");
+                  } else {
+                  let gwd = afterUntil(data, "WorkingDirectory=", "\n");
+                  gwd = (gwd.charAt(gwd.length-1) != "/") ? (gwd + "/") : gwd;
+                  try {
+                    isSi(smName(osN())).then((isMining) => {
+                      fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify([{"os": osN(), "gwd": gwd, "isSMi": isMining, "isSGi": true }], null, 2));
+                    });
+                  } catch (err) {
+                      console.error(err);
+                    }
 
+                  } 
+                } 
+                next();
+              } catch (err) {
+                    console.error(err);
+                  }
+               
+        
       } else {
-      console.log ("Cannot deal with this Operating System")
+      console.log ("Cannot deal with this Operating System");
       res.redirect('/index');
-      };
+      }
 }
 
+//Linux check (to avoid access to Mining Software changes)
 const linux = async (req, res, next) => {
 if (osN() == 'linux') {
   next ();
