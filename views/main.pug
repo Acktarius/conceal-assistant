@@ -26,8 +26,7 @@ block layout-content
         .Title
          h1 Node :
         ul.Details Guardian service is
-          -var gs = guardianstatus
-          -if ((gs === 'active') || (gs === 'RUNNIN'))
+          -if ((guardianstatus === 'active') || (guardianstatus === 'RUNNIN'))
             li.h3 active
             li
             h51 Height: 
@@ -40,12 +39,15 @@ block layout-content
             a.NavButton(href="/guardiand") Deactivate
           -else
             li.h4 Not Active
-            p
-            a(href="/nsettings") Modify Guardian Config
-            p
-            a(href="/csettings") Update Conceal-core
-            p
-            a.NavButton(href="/guardiana") Activate
+            -if (isSGi)
+              p
+              a(href="/nsettings") Modify Guardian Config
+              p
+              a(href="/csettings") Update Conceal-core
+              p
+              a.NavButton(href="/guardiana") Activate
+            -else
+              h8 Cannot find Guardian service
           -if (upgrade == true)
             h8 Conceal Core upgrade available 
     sectionM(id="Miner")
@@ -53,8 +55,7 @@ block layout-content
         .Title
          h1 Miner :
         ul.Details Mining service is
-          -var ms = minerstatus
-          -if ((ms === 'active') || (ms === 'RUNNIN'))
+          -if ((minerstatus === 'active') || (minerstatus === 'RUNNIN'))
             li.h3 Active
             p
             a(href=urlM target="_blank" rel="noopener") open API
@@ -62,12 +63,16 @@ block layout-content
             a.NavButton(href="/minerd") Deactivate
           -else
             li.h4 Not Active
-            p
-            a(href="/msettings?toshow=0") Modify Miner Settings
-            p
-            a(href="/msoftware?toshow=0") Modify Mining Software
-            p
-            a.NavButton(href="/minera") Activate   
+            -if (isSMi)
+              p
+              a(href="/msettings?toshow=0") Modify Miner Settings
+              p
+              -if (os == 'linux')
+                a(href="/msoftware?toshow=0") Modify Mining Software
+                p
+              a.NavButton(href="/minera") Activate 
+            -else
+              h8 Cannot find mining service    
   script. 
     (
     setTimeout (() => {

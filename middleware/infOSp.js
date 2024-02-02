@@ -29,11 +29,16 @@ fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function 
     console.log("issue reading infOSp.json file");
   } else {
 
-    const extractInfOSp = JSON.parse(contents);
+  const extractInfOSp = JSON.parse(contents);
     let os = JSON.parse(JSON.stringify(extractInfOSp[0])).os;
     let gwd = JSON.parse(JSON.stringify(extractInfOSp[0])).gwd;
+    let isSGi = JSON.parse(JSON.stringify(extractInfOSp[0])).isSGi;
+    let isSMi = JSON.parse(JSON.stringify(extractInfOSp[0])).isSMi;
     mapV.set('os', os);
     mapV.set('gwd', gwd);
+    mapV.set('isSGi', isSGi);
+    mapV.set('isSMi', isSMi);
+
                 if (fs.existsSync(gwd)) {
                   fs.readFile(`${gwd}config.json`, 'utf8', function(err, contents) {
                     if (err) {
@@ -90,15 +95,25 @@ fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function 
                         }                                                                                                   //Miner
                         wDir().then((minerdir) => {
                           mapV.set('wDir', minerdir);
-                            mPath().then((minerpapth) => {
-                            mapV.set('mPath', minerpapth);
+                            mPath().then((minerpath) => {
+                            mapV.set('mPath', minerpath);
                             fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
+                            //fs.appendFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
                             });
                         });
                       return next();  
                     }}); 
                 } else {
-                  console.log("something is wrong");
+                  console.log("something is wrong with guardian");
+                  mapV.set('upgrade', false);
+                  wDir().then((minerdir) => {
+                    mapV.set('wDir', minerdir);
+                      mPath().then((minerpath) => {
+                      mapV.set('mPath', minerpath);
+                      fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
+                      //fs.appendFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
+                      });
+                  });
                   return next();
                 }
               }})

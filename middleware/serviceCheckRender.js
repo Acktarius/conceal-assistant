@@ -39,14 +39,17 @@ const main = (req, res) => {
         res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: "?", nodeHeight: "?", nodeStatus: "?" });
       } else {
         const extractInfOSp = JSON.parse(contents);
-        let upgrade = extractInfOSp.upgrade
+        let os = extractInfOSp.os;
+        let upgrade = extractInfOSp.upgrade;
+        let isSGi = extractInfOSp.isSGi;
+        let isSMi = extractInfOSp.isSMi;
         ccx.info()
         .then((node) => { 
-        res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade, nodeHeight: node.height, nodeStatus: node.status });
+        res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, os: os, upgrade: upgrade, isSGi: isSGi, isSMi: isSMi, nodeHeight: node.height, nodeStatus: node.status });
         }) 
         .catch((err) => { 
           console.log("conceal-api cannot fetch");       // for debug to be remove
-          res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: upgrade, nodeHeight: "?", nodeStatus: "?" });    
+          res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, os: os, upgrade: upgrade, isSGi: isSGi, isSMi: isSMi, nodeHeight: "?", nodeStatus: "?" });    
               })
       }})
 })

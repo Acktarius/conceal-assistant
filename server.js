@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
 //Required Middlewares
-const { checkOs } = require('./middleware/checkOs.js');
+const { checkOs , linux } = require('./middleware/checkOs.js');
 const registerController = require('./controllers/registerController');
 const authController = require('./controllers/authController');
 const verifyJWT = require('./middleware/verifyJWT');
@@ -95,11 +95,11 @@ app.get("/main", verifyJWT, renderG.main);
    app.post("/msettingsc", verifyJWT, renderG.minerDnext, minerRender.minerInject);
    app.delete("/msettingsc", verifyJWT, renderG.minerDnext, minerRender.minerCancel);
    //Mining Software
-   app.get("/msoftware", verifyJWT, renderG.minerDnext, minerRender.minerSoftGet);
-   app.post("/msoftware", verifyJWT, renderG.minerDnext, minerRender.minerSoftPost);
-   app.get("/msoftwarec", verifyJWT, renderG.minerDnext, minerRender.confirmSoftGet);
-   app.post("/msoftwarec", verifyJWT, renderG.minerDnext, minerRender.minerSoftInject);
-   app.delete("/msoftwarec", verifyJWT, renderG.minerDnext, minerRender.minerSoftCancel);
+   app.get("/msoftware", verifyJWT, linux, renderG.minerDnext, minerRender.minerSoftGet);
+   app.post("/msoftware", verifyJWT, linux, renderG.minerDnext, minerRender.minerSoftPost);
+   app.get("/msoftwarec", verifyJWT, linux, renderG.minerDnext, minerRender.confirmSoftGet);
+   app.post("/msoftwarec", verifyJWT, linux, renderG.minerDnext, minerRender.minerSoftInject);
+   app.delete("/msoftwarec", verifyJWT, linux, renderG.minerDnext, minerRender.minerSoftCancel);
 //logout
   app.get("/logout", logoutController.handleLogout);
 //delete and logout User
