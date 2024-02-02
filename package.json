@@ -29,6 +29,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "bluebird": "^3.7.2",
+    "child_process": "^1.0.2",
     "conceal-api": "^0.8.8",
     "cookie-parser": "^1.4.6",
     "date-fns": "^2.29.3",
@@ -45,6 +46,7 @@
     "pug": "^3.0.2",
     "semver": "^7.5.3",
     "shelljs": "^0.8.5",
+    "shelljs.exec": "^1.1.8",
     "sysctlx": "^0.0.7",
     "winsc": "^1.0.4"
   },

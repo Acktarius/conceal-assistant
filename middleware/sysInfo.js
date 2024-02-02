@@ -1,18 +1,33 @@
 //get system info
 const os = require('os');
 const shell = require('shelljs');
+const exec = require('shelljs.exec');
 const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
+const { osN } = require('./checkOs.js');
 
 const mapSI = new Map();
+
+
+
+
 
 const sysInfo = async (req, res, next) => {
 
   function taskGpu () {
-    let gpu = shell.exec('glxinfo -B | grep "Device" | tr -s " " | cut -d " " -f 3,4,5,6', {silent:true}).stdout.slice(0,20);
+    const gpuModel = () => {
+    if (osN() == 'linux') {
+    let gpu = shell.exec('glxinfo -B | grep "Device" | tr -s " " | cut -d " " -f 3,4,5,6; exit', {silent:true}).stdout.slice(0,20);
     gpu = (gpu.search("\n") >= 0 ) ? gpu.slice(0,(gpu.length - 1)) : gpu;
-    mapSI.set('gpu', gpu);
+    return gpu;
+    } else if (osN() == 'win') {
+      let gpu = exec("powershell.exe (Get-WmiObject Win32_VideoController).Name; exit", {silent:true}).stdout.slice(0,30);
+      gpu = (gpu.search("\n") >= 0 ) ? gpu.slice(0,(gpu.length - 1)) : gpu;
+      return gpu;
+    }
+  }
+    mapSI.set('gpu', gpuModel());
     taskRemain();
   }
   function taskRemain () {
