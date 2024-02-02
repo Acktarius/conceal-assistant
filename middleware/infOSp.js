@@ -24,29 +24,29 @@ const infOSp = async (req, res, next) => {
         let versionLatest = afterUntil(body, "Conceal Core CLI v", "<");
         versionLatest = semver.valid(versionLatest) ? versionLatest : "unknown";
         mapV.set('latest', versionLatest);
-fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
-  if (err) {
-    console.log("issue reading infOSp.json file");
-  } else {
+        fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
+          if (err) {
+            console.log("issue reading infOSp.json file");
+          } else {
 
-  const extractInfOSp = JSON.parse(contents);
-    let os = JSON.parse(JSON.stringify(extractInfOSp[0])).os;
-    let gwd = JSON.parse(JSON.stringify(extractInfOSp[0])).gwd;
-    let isSGi = JSON.parse(JSON.stringify(extractInfOSp[0])).isSGi;
-    let isSMi = JSON.parse(JSON.stringify(extractInfOSp[0])).isSMi;
-    mapV.set('os', os);
-    mapV.set('gwd', gwd);
-    mapV.set('isSGi', isSGi);
-    mapV.set('isSMi', isSMi);
+            const extractInfOSp = JSON.parse(contents);
+            let os = JSON.parse(JSON.stringify(extractInfOSp[0])).os;
+            let gwd = JSON.parse(JSON.stringify(extractInfOSp[0])).gwd;
+            let isSGi = JSON.parse(JSON.stringify(extractInfOSp[0])).isSGi;
+            let isSMi = JSON.parse(JSON.stringify(extractInfOSp[0])).isSMi;
+            mapV.set('os', os);
+            mapV.set('gwd', gwd);
+            mapV.set('isSGi', isSGi);
+            mapV.set('isSMi', isSMi);
 
-                if (fs.existsSync(gwd)) {
-                  fs.readFile(`${gwd}config.json`, 'utf8', function(err, contents) {
+              if (fs.existsSync(gwd)) {
+                fs.readFile(`${gwd}config.json`, 'utf8', function(err, contents) {
                     if (err) {
                     console.log("issue reading config.json file")
                     } else {
-                    const config = JSON.parse(contents);                                                                  //daemon path
+                    const config = JSON.parse(contents);                                                                  //daemon path upgrade ?
                     if (config.node.path) {
-                      if (os == "linux") {
+                      if (os == "linux") {                                                                                // linux
                       let concealDpath = (config.node.path).slice(0, (config.node.path).search("conceal-core"));
                       mapV.set('Dpath', concealDpath);
                         if (!fs.existsSync(concealDpath+"conceal-core/build/version/version.h")) {
@@ -60,49 +60,42 @@ fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function 
                         let upgrade = ((versionInst == "unknown") || (versionLatest == "unknown")) ? false : (semver.gt(versionLatest, versionInst)) ?  true : false;
                         mapV.set('upgrade', upgrade);
                         let message = (upgrade === false) ? "cannot upgrade" : "";
+                        mapV.set('message', message);
                         }
-                        } else if (os == "win") {
+                      } else if (os == "win") {                                                                            // windows   
                           mapV.set('Inst', "unknown");
                         let concealDpath = (config.node.path).slice(0, (config.node.path).search('conceald'));
                         mapV.set('Dpath', concealDpath);
                       } else {
+                        mapV.set('Inst', "unknown");
                         mapV.set('Dpath', "unknown");
+                        mapV.set('upgrade', false);
                       }    
-                      } else {
+                      } else {                                                                                              // in case there is no node path (default mode)
                         if (fs.existsSync(gwd+"conceald.exe")) {
                           mapV.set('Dpath', gwd);
                         } else {
                           mapV.set('Dpath', "unknown");
                         }
                         mapV.set('Inst', "unknown");
+                        mapV.set('upgrade', false);
                     }
-                    if (config.node.autoUpdate && (config.node.autoUpdate === true )) {
+                    if (config.node.autoUpdate && (config.node.autoUpdate === true )) {                                     // in case auto update is Here && True
                       mapV.set('autoUpdate', config.node.autoUpdate);
-                      mapV.set('upgrade', false);
+                      mapV.set('upgrade', false);                                                                           // guardian auto update overpowers assistant
                       mapV.set('message', "upgrade is set automatic already");
-                          
+
                          } else  {
-                            if (os == "linux") {
-                              //mapV.set('upgrade', upgrade);
-                              //let message = (upgrade === false) ? "cannot upgrade" : "";
-                              //mapV.set('message', message);
-                            } else if (os = "win") {
-                              mapV.set('upgrade', false);
-                              mapV.set('message', "upgrade not supported on this OS");
-                            } else {
-                              mapV.set('upgrade', false);
-                              mapV.set('message', "unkwnown OS");
-                            }
+                            mapV.set('autoUpdate', false);
                         }                                                                                                   //Miner
                         wDir().then((minerdir) => {
                           mapV.set('wDir', minerdir);
                             mPath().then((minerpath) => {
                             mapV.set('mPath', minerpath);
                             fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
-                            //fs.appendFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
                             });
                         });
-                      return next();  
+  
                     }}); 
                 } else {
                   console.log("something is wrong with guardian");
@@ -115,11 +108,12 @@ fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function 
                       //fs.appendFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
                       });
                   });
-                  return next();
-                }
+
+                  }
+                next();
               }})
-              }
-     catch (err) {
+              
+      } catch (err) {
           console.error(err);
           return next();
         }
