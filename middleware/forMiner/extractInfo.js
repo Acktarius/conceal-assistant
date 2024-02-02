@@ -47,14 +47,14 @@ const extractInfo = async () => {
                     
                     } else if (softWare == "XmrStak") { 
                         //let mxPath = beforeUntil(mPath, "/");
-                        const dataM = await fsPromises.readFile(`${wDir()}pools.txt`, 'utf8');
+                        const dataM = await fsPromises.readFile(`${wDir}pools.txt`, 'utf8');
                         let pool = afterUntil(dataM, '{"pool_address" : "', ':');
                         let poolPort = afterUntil(dataM, `${pool}:`, '"');
                         let tls = (dataM.search('use_tls" : ') > 0) ? (inBetweenLong(dataM, ('use_tls" : ') , 1) == "f") ? "false" : "true" : "false";
                         let wallet = startWithLong(dataM, "ccx7", 94);
                         let rigName = ((inBetweenLong(dataM, wallet, 1) == ".") || (inBetweenLong(dataM, wallet, 1) == "@" )) ? afterUntil(dataM, wallet, '"') : (dataM.search('rig_id" : "') > 0) ? afterUntil(dataM, 'rig_id" : "' , '"') : "";
                         let pass = afterUntil(dataM, 'pool_password" : "' , '"');
-                        const dataMC = await fsPromises.readFile(`${wDir()}config.txt`, 'utf8');
+                        const dataMC = await fsPromises.readFile(`${wDir}config.txt`, 'utf8');
                         let apiPort = (!afterUntil(dataMC, 'httpd_port" : ', ",") == "") ? afterUntil(dataMC, 'httpd_port" : ', ",") : "3500/noapi";
                                               
                             //inject in miner.json
