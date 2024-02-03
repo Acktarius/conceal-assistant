@@ -26,6 +26,7 @@ const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
 const { infOSp } = require('./middleware/infOSp.js');
 const { sysInfo } = require('./middleware/sysInfo.js');
+const { netH } = require('./middleware/networkHeight.js');
 //App Variables
 
 const publicDirectory = path.join(__dirname, "public");
@@ -60,7 +61,7 @@ app.post("/login(.html)?", checkOs, infOSp, authController.handleLogin);
 
 //Main page handling
 //app.get("/main", verifyJWT, checkOs, infOSp, renderG.main);
-app.get("/main", verifyJWT, renderG.main);
+app.get("/main", verifyJWT, netH, renderG.main);
 
   //miner Deactivation handling
   app.get("/minerd", verifyJWT, renderG.minerD);
