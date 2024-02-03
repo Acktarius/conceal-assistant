@@ -11,6 +11,7 @@ const fetch = require('node-fetch');
 const { afterUntil , beforeUntil } = require('./forMiner/tools.js');
 const { wDir , mPath } = require('./infoM.js');
 const { smName , osN } = require('./checkOs.js');
+const e = require('express');
 //Declaration
 const mapV = new Map();
 //Main
@@ -20,10 +21,17 @@ const infOSp = async (req, res, next) => {
   try {
         const response = await fetch('https://github.com/ConcealNetwork/conceal-core/releases');
         const body = await response.text();
-        
         let versionLatest = afterUntil(body, "Conceal Core CLI v", "<");
         versionLatest = semver.valid(versionLatest) ? versionLatest : "unknown";
         mapV.set('latest', versionLatest);
+
+        const explorer = await fetch('https://explorer.conceal.network/daemon/getinfo');
+        let exBody = await explorer.text();
+        networkHeight = Number(afterUntil(exBody, 'height":', ","));
+        mapV.set('networkHeight', networkHeight);
+        
+                
+
         fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
           if (err) {
             console.log("issue reading infOSp.json file");

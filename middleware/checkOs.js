@@ -63,7 +63,6 @@ const checkOs = async (req, res, next) => {
                 let serviceDetails = winsc.details(`${sgName(osN())}`);
                 serviceDetails.then((details) => {
                   let gwd = details.exePath;
-                  console.log(gwd);
                   gwd = beforeUntil(gwd, "\\");
                   gwd = (gwd.charAt(0) == '"') ? (gwd.substring(1)) : gwd;
                   isSi(smName(osN())).then((isMining) => {

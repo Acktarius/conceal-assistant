@@ -30,7 +30,10 @@ block layout-content
             li.h3 active
             li
             h51 Height: 
-            h31.inlineH #{nodeHeight}
+            -if ((nodeHeight <= netH) || (nodeHeight == "?"))
+              h32.inlineH #{nodeHeight}/#{netH}
+            -else
+              h31.inlineH #{nodeHeight}
             h51.inlineH Status: 
             h31.inlineH #{nodeStatus}
             p

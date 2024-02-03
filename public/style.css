@@ -68,16 +68,18 @@ h3,
 .h3 {
   color: #23ec09;
 }
-h31 {
+h31, h32 {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   text-transform: uppercase;
   padding: 0;
   margin: 0;
   font-size: 1.1rem;
+}
+h31 {
   color: #007bff;
 }
 h4,
-.h4, h8 {
+.h4, h8, h32 {
   color: #cf332a;
 }
 
