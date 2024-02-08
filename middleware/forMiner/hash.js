@@ -18,20 +18,28 @@ const curlMiner = async (url) => {
 	return promise;
 }
 
-
-
-let hashd = (whichMiner == "xmr") ? 'Totals:</th><td> ' : (whichMiner == "srb") ? 'tbd' : 'tbd';
-let hashf = (whichMiner == "xmr") ? '</td>' : (whichMiner == "srb") ? 'tbd' : 'tbd';
-let unitd = (whichMiner == "xmr") ? "<th rowspan='6'>" : (whichMiner == "srb") ? 'tbd' : 'tbd';
-let unitf = (whichMiner == "xmr") ? '</td>' : (whichMiner == "srb") ? 'tbd' : 'tbd';
-
-
 const handleHash = async (req, res) => {
     curlMiner(urlMiner)
         .then((data) => {
+        if ((whichMiner != "xmr") && (whichMiner != "srb")) {
+        res.json({ hash: "unknown", unit: "?" });
+        } else {
+        let hashd = (whichMiner == "xmr") ? 'Totals:</th><td> ' : (whichMiner == "srb") ? 'minute</th><td>' : 'tbd';
+        let hashf = (whichMiner == "xmr") ? '</td>' : (whichMiner == "srb") ? ' ' : 'tbd';
         let valueH = inBetweenEvol(data, hashd, hashf);
+        let unitd = (whichMiner == "xmr") ? "<th rowspan='6'>" : (whichMiner == "srb") ? `${valueH} ` : 'tbd';
+        let unitf = (whichMiner == "xmr") ? '</td>' : (whichMiner == "srb") ? '</td>' : 'tbd';
         let valueU = inBetweenEvol(data, unitd, unitf);
-        res.json({ hash: valueH, unit: valueU });
+        if ( valueH.length > 20 ) {
+            return res.json({ hash: "not known yet ", unit: valueU });
+        } else {
+            res.json({ hash: valueH, unit: valueU });
+        }
+        }
+        })
+        .catch((err) => {
+            console.log("fetch error");
+            res.json({ hash: "0", unit: "?" });
         });
 }
 

@@ -99,8 +99,8 @@ const infOSp = async (req, res, next) => {
                         wDir().then((minerdir) => {
                           mapV.set('wDir', minerdir);
                             mPath().then((minerpath) => {
-                            mapV.set('mPath', minerpath);
-                            fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
+                              mapV.set('mPath', minerpath);
+                              fs.writeFileSync(path.join(__dirname, '..' , 'data' , 'infOSp.json'), JSON.stringify(Object.fromEntries(mapV), null, 2));
                             });
                         });
   

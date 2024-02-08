@@ -24,7 +24,7 @@ block layout-content
        img.logo(src="right-from-bracket-solid.svg" alt="Logout") 
       .version v#{version}
     sectionM(id="Node")
-      .MessageZero(id="nodeMessage")
+      .MessageZero
         .Title
          h1 Node :
         ul.Details Guardian service is
@@ -53,15 +53,16 @@ block layout-content
           -if (upgrade == true)
             h8 Conceal Core upgrade available 
     sectionM(id="Miner")
-      .MessageSuite(id="minerMessage")
+      .MessageSuite
         .Title
          h1 Miner :
         ul.Details Mining service is
           -if ((minerstatus === 'active') || (minerstatus === 'RUNNIN'))
             li.h3 Active
             p
+            h51.inlineH Hashrate: 
             h31(id='miner_hash')
-            h51.inlineH(id='miner_hash_unit') click for hashrate
+            h51.inlineH(id='miner_hash_unit') click to re-fetch
             p
             a(href=urlM target="_blank" rel="noopener") open API
             p

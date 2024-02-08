@@ -58,7 +58,7 @@ if (createdMiner.mpath != previousMiner.mpath) {
                 dataMnew = dataMnew.replace(`"pool_password" : "${previousMiner.pass}`, `"pool_password" : "${createdMiner.pass}`);
                 dataMnew = dataMnew.replace(`use_tls" : ${previousMiner.tls}`, `use_tls" : ${createdMiner.tls}`);
                 
-                if (inBetweenLong(dataMnew, previousMiner.wallet, 1) == "." || inBetweenLong(dataMnew, previousMiner.wallet, 1) == "@") {
+                if ((inBetweenLong(dataMnew, previousMiner.wallet, 1) == ".") || (inBetweenLong(dataMnew, previousMiner.wallet, 1) == "@")) {
                     if ((createdMiner.rigName.charAt(0) == "." ) || (createdMiner.rigName.charAt(0) == "@")) {
                         dataMnew = dataMnew.replace(`${previousMiner.wallet}${previousMiner.rigName}`, `${createdMiner.wallet}${createdMiner.rigName}`);
                         dataMnew = dataMnew.replace(`"rig_id" : "${previousMiner.rigName.substring(1)}`, `"rig_id" : "${createdMiner.rigName.substring(1)}`);

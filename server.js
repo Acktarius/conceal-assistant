@@ -70,7 +70,7 @@ app.post("/login(.html)?", checkOs, infOSp, authController.handleLogin);
 app.get("/main", verifyJWT, renderG.main);
 
 //hash JSON
-app.get("/hash(.html)?", cors(corsOptions), verifyJWT, handleHash);
+app.get("/hash(.html)?", cors(corsOptions), handleHash);
 
   //miner Deactivation handling
   app.get("/minerd", verifyJWT, renderG.minerD);

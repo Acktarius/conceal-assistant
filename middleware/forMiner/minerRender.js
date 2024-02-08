@@ -142,7 +142,7 @@ if (softWare == "SRBMiner-Multi") {
   let poolPort = afterUntil(dataM, `${pool}:`, " ");
   let tls = (dataM.search("-tls ") > 0) ? afterUntil(dataM, "-tls "," ") : "false";
   let wallet = startWithLong(dataM, "ccx7", 94);
-  let rigName = (inBetweenLong(dataM, wallet, 1) == ("." || "@")) ? afterUntil(dataM, wallet, " ") : (dataM.search("rig-name ") > 0) ? afterUntil(dataM, "-rig-name ", ("/n" || " ")) : "";
+  let rigName = ((inBetweenLong(dataM, wallet, 1) == ".") || (inBetweenLong(dataM, wallet, 1) == "@")) ? afterUntil(dataM, wallet, " ") : (dataM.search("rig-name ") > 0) ? afterUntil(dataM, "-rig-name ", " ") : "";
   let pass = (dataM.search("-p ") > 0) ? afterUntil(dataM, "-p "," ") : "";
   //inject in miner.json    
 
