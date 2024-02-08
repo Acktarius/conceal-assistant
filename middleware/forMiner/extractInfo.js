@@ -21,8 +21,6 @@ const extractInfo = async () => {
                 let tempmPath = await fsPromises.readFile(mPath, 'utf8');
                 let exe = (osN() == "win") ? inBetween(tempmPath , "ble>", "</exe") : `${mPath}`;
                 let wDir = (osN() == "win") ? beforeUntil(exe, "\\") : `${wdir}`;
-                console.log(exe);
-                console.log(wDir);
          
                 let softWare = (exe.search("SRB") > 0) ? "SRBMiner-Multi" : (exe.search("xmr-stak") > 0) ? "XmrStak" : (exe.search("CryptoDredge") > 0) ? "CryptoDredge" : "unKnown";
                 //const minerNb = minersDB.users.length +1;

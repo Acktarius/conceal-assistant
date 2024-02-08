@@ -39,6 +39,12 @@ function inBetween(data, debut, fin) {
     return data.slice(d,f);
 }
 
+function inBetweenEvol(data, debut, fin) {
+    var d = data.search(debut) + debut.length;        
+    var remain = data.slice(d, data.length);
+    var f = d + remain.search(fin);
+    return data.slice(d,f);
+}
 
 function inBetweenLong(data, debut, l) {
     var d = data.search(debut) + debut.length;        
@@ -64,4 +70,4 @@ function beforeUntil(data, endSign) {
 
 
 
-module.exports = { reverser , afterUntil, backWard, inBetween, inBetweenLong, startWithLong, beforeUntil };
+module.exports = { reverser , afterUntil, backWard, inBetween, inBetweenEvol, inBetweenLong, startWithLong, beforeUntil };

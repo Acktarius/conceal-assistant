@@ -1,12 +1,12 @@
-const express = require('express')
-const router = express.Router()
-const { checkEnv } = require('../middleware/checkEnv')
-const { alreadyLoggedIn } = require('../controllers/alreadyLoggedIn')
+const express = require('express');
+const router = express.Router();
+const { checkEnv } = require('../middleware/checkEnv');
+const { alreadyLoggedIn } = require('../controllers/alreadyLoggedIn');
 const pjson = require('pjson');
 const usersDB = {
   users: require('../data/users.json'),
   setUsers: function (data) { this.users = data }
-}
+};
 // main index page
 router.get("^/$|/index(.html)?", checkEnv, (req, res) => { 
   const noUser = (usersDB.users.length === 0) ? true : false;
@@ -37,5 +37,6 @@ router.get("^/$|/index(.html)?", checkEnv, (req, res) => {
   router.get("/noapi(.html)?", (req, res) => {
     res.render("noapi", { title: "Api ?" , version: pjson.version });
   });
+
 
   module.exports = router

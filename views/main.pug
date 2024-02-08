@@ -2,10 +2,12 @@ extends layout
 
 block layout-content
   link(rel="stylesheet" href="/style.css")
+  meta(name='nodeH' content=nodeHeight)
+  meta(name='localIp' content=localIp)
   script. 
     (document.addEventListener("DOMContentLoaded", () => { 
     console.log("Load initiated");
-    }))     
+    }))
   div.View.WelcomeView
     ul.Banner
       li.h1 Conceal Assistant
@@ -22,18 +24,15 @@ block layout-content
        img.logo(src="right-from-bracket-solid.svg" alt="Logout") 
       .version v#{version}
     sectionM(id="Node")
-      .MessageZero
+      .MessageZero(id="nodeMessage")
         .Title
          h1 Node :
         ul.Details Guardian service is
           -if ((guardianstatus === 'active') || (guardianstatus === 'RUNNIN'))
             li.h3 active
-            li
-            h51 Height: 
-            -if ((nodeHeight < netH) || (nodeHeight == "?"))
-              h32.inlineH #{nodeHeight}/#{netH}
-            -else
-              h31.inlineH #{nodeHeight}
+            li 
+            h51 Height:
+            h31.inlineH(id='blockchain_height') #{nodeHeight}
             h51.inlineH Status: 
             h31.inlineH #{nodeStatus}
             p
@@ -54,12 +53,15 @@ block layout-content
           -if (upgrade == true)
             h8 Conceal Core upgrade available 
     sectionM(id="Miner")
-      .MessageSuite
+      .MessageSuite(id="minerMessage")
         .Title
          h1 Miner :
         ul.Details Mining service is
           -if ((minerstatus === 'active') || (minerstatus === 'RUNNIN'))
             li.h3 Active
+            p
+            h31(id='miner_hash')
+            h51.inlineH(id='miner_hash_unit') click for hashrate
             p
             a(href=urlM target="_blank" rel="noopener") open API
             p
@@ -76,19 +78,23 @@ block layout-content
               a.NavButton(href="/minera") Activate 
             -else
               h8 Cannot find mining service    
-  script. 
-    (
-    setTimeout (() => {
-    (() => { 
-    if (window.localStorage) { 
-    if (!localStorage.getItem('reload')) { 
-    localStorage['reload'] = true; 
-    window.location.reload(); 
-    } else { 
-    localStorage.removeItem('reload'); 
-    } 
-    } 
-    })
-    (); 
-    } , 4500)
-    )
+  //
+    script. 
+      (
+      setTimeout (() => {
+      (() => { 
+      if (window.localStorage) { 
+      if (!localStorage.getItem('reload')) { 
+      localStorage['reload'] = true; 
+      window.location.reload(); 
+      } else { 
+      localStorage.removeItem('reload'); 
+      } 
+      } 
+      })
+      (); 
+      } , 4500)
+      )
+  script
+    include ../frontend/netx.js
+  

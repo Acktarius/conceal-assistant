@@ -7,6 +7,7 @@ require('dotenv').config()
 //Required External Modules
 const express = require("express");
 const path = require("path");
+const cors = require('cors');
 const bcrypt = require("bcrypt");
 const methodOverride = require('method-override');
 const Promise = require('bluebird');
@@ -24,9 +25,9 @@ const minerRender = require('./middleware/forMiner/minerRender');
 const guardianRender = require('./middleware/forNode/guardianRender.js');
 const { urlNode , urlMiner } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
+const { handleHash } = require('./middleware/forMiner/hash.js');
 const { infOSp } = require('./middleware/infOSp.js');
 const { sysInfo } = require('./middleware/sysInfo.js');
-const { netH } = require('./middleware/networkHeight.js');
 //App Variables
 
 const publicDirectory = path.join(__dirname, "public");
@@ -46,7 +47,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 
+var corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200
+}
 
 //Routes Definitions
 // access via routes.js in routes folder
@@ -61,7 +67,10 @@ app.post("/login(.html)?", checkOs, infOSp, authController.handleLogin);
 
 //Main page handling
 //app.get("/main", verifyJWT, checkOs, infOSp, renderG.main);
-app.get("/main", verifyJWT, netH, renderG.main);
+app.get("/main", verifyJWT, renderG.main);
+
+//hash JSON
+app.get("/hash(.html)?", cors(corsOptions), verifyJWT, handleHash);
 
   //miner Deactivation handling
   app.get("/minerd", verifyJWT, renderG.minerD);

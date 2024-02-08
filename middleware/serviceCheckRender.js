@@ -8,7 +8,7 @@ const Promise = require('bluebird');
 const pjson = require('pjson');
 const { ccx } = require('./forNode/concealApi');
 const logAgent = require('./logEvents');
-const { urlNode , urlMiner } = require('./localIpUrl');
+const { urlNode , urlMiner , localIp } = require('./localIpUrl');
 const { sgName, smName , osN } = require('./checkOs.js');
 //declarations and Functions
 //const osName = process.platform;
@@ -36,21 +36,20 @@ const main = (req, res) => {
     fs.readFile(path.join(__dirname, "..", "data", "infOSp.json"), 'utf8', function (err, contents) {
       if (err) {
         console.log("issue reading infOSp.json file");
-        res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, upgrade: "?", nodeHeight: "?", netH: "?", nodeStatus: "?" });
+        res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, localIp: localIp, version: pjson.version, upgrade: "?", nodeHeight: "?", nodeStatus: "?" });
       } else {
         const extractInfOSp = JSON.parse(contents);
         let os = extractInfOSp.os;
         let upgrade = extractInfOSp.upgrade;
         let isSGi = extractInfOSp.isSGi;
         let isSMi = extractInfOSp.isSMi;
-        let netH = extractInfOSp.networkHeight;
         ccx.info()
         .then((node) => { 
-        res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, os: os, upgrade: upgrade, isSGi: isSGi, isSMi: isSMi, nodeHeight: node.height, netH: netH, nodeStatus: node.status });
+        res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, localIp: localIp, version: pjson.version, os: os, upgrade: upgrade, isSGi: isSGi, isSMi: isSMi, nodeHeight: node.height, nodeStatus: node.status });
         }) 
         .catch((err) => { 
           console.log("conceal-api cannot fetch");       // for debug to be remove
-          res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, version: pjson.version, os: os, upgrade: upgrade, isSGi: isSGi, isSMi: isSMi, nodeHeight: "?", netH: netH, nodeStatus: "?" });    
+          res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, localIp: localIp, version: pjson.version, os: os, upgrade: upgrade, isSGi: isSGi, isSMi: isSMi, nodeHeight: "?", nodeStatus: "?" });    
               })
       }})
 })
