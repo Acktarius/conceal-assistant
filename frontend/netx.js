@@ -1,12 +1,11 @@
 //node variables
 var nodeH = document.getElementsByName('nodeH')[0].content;
-
-
+var nodeTitleClick = document.getElementById("node_click");
 var blockchainHeightContainer = document.getElementById("blockchain_height");
 
 //Miner variables
 var serverIp = document.getElementsByName('localIp')[0].content;
-
+var minerTitleClick = document.getElementById("miner_click")
 var minerHashContainer = document.getElementById("miner_hash");
 var minerHashUnitContainer = document.getElementById("miner_hash_unit");
 
@@ -40,7 +39,7 @@ const sendHttpRequest = (method, url, pick) => {
 }
 
 
-blockchainHeightContainer.addEventListener("click", (event) => {
+nodeTitleClick.addEventListener("click", (event) => {
 	sendHttpRequest ('GET', 'https://explorer.conceal.network/daemon/getinfo', 'height')
 		.then((netH) => {
 				if (nodeH < netH) {
@@ -56,7 +55,7 @@ blockchainHeightContainer.addEventListener("click", (event) => {
 
 //Miner
 //refresh on click
-minerHashContainer.addEventListener("click", (event) => {
+minerTitleClick.addEventListener("click", (event) => {
 		sendHttpRequest('GET', `http://${serverIp}:3500/hash`, 'hash') 
 			.then((minerH) => {
 				renderHTML(minerHashContainer, minerH, "#007bff");

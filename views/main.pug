@@ -25,7 +25,7 @@ block layout-content
       .version v#{version}
     sectionM(id="Node")
       .MessageZero
-        .Title
+        .Title(id="node_click")
          h1 Node :
         ul.Details Guardian service is
           -if ((guardianstatus === 'active') || (guardianstatus === 'RUNNIN'))
@@ -54,7 +54,7 @@ block layout-content
             h8 Conceal Core upgrade available 
     sectionM(id="Miner")
       .MessageSuite
-        .Title
+        .Title(id="miner_click")
          h1 Miner :
         ul.Details Mining service is
           -if ((minerstatus === 'active') || (minerstatus === 'RUNNIN'))
