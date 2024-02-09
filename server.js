@@ -23,7 +23,7 @@ const renderG = require('./middleware/serviceCheckRender');
 const renderP = require('./middleware/startstopRender');
 const minerRender = require('./middleware/forMiner/minerRender');
 const guardianRender = require('./middleware/forNode/guardianRender.js');
-const { urlNode , urlMiner } = require('./middleware/localIpUrl');
+const { urlNode , urlMiner , localIp } = require('./middleware/localIpUrl');
 const logoutController = require('./controllers/logoutController');
 const { handleHash } = require('./middleware/forMiner/hash.js');
 const { infOSp } = require('./middleware/infOSp.js');
@@ -70,7 +70,7 @@ app.post("/login(.html)?", checkOs, infOSp, authController.handleLogin);
 app.get("/main", verifyJWT, renderG.main);
 
 //hash JSON
-app.get("/hash(.html)?", cors(corsOptions), handleHash);
+app.get("/hash(.html)?", verifyJWT, cors(corsOptions), handleHash);
 
   //miner Deactivation handling
   app.get("/minerd", verifyJWT, renderG.minerD);
@@ -117,5 +117,5 @@ app.get("/hash(.html)?", cors(corsOptions), handleHash);
 
 //Server Activation
 app.listen(port, () => {
-    console.log(`Listening to requests on http://localhost:${port}`);
+    console.log(`Listening to requests on http://${localIp}:${port}`);
   });

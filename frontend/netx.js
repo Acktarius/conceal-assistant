@@ -54,9 +54,9 @@ nodeTitleClick.addEventListener("click", (event) => {
 	});
 
 //Miner
-//refresh on click
+//refresh on click  'hash'
 minerTitleClick.addEventListener("click", (event) => {
-		sendHttpRequest('GET', `http://${serverIp}:3500/hash`, 'hash') 
+		sendHttpRequest('GET', `http://${serverIp}:3500/hash`, 'hash')
 			.then((minerH) => {
 				renderHTML(minerHashContainer, minerH, "#007bff");
 
@@ -73,6 +73,7 @@ minerTitleClick.addEventListener("click", (event) => {
 				renderHTML(minerHashUnitContainer, err, "#cf332a");
 			});
 		});		
+
 //on page load after tempo
 document.addEventListener("DOMContentLoaded", (event) => {
 		setTimeout(() => {
