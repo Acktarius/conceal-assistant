@@ -8,7 +8,7 @@ Any how, since it's a web server type of application, it can be consulted from a
 
 ## Linux
 ### Node service shall be named: ccx-guardian.service  
-### [Mining service shall be named: ccx-mining.service](#1-Linux-setup-assuming:)
+### Mining service shall be named: [ccx-mining.service](#1-Linux-setup-assuming:)
 
 
 Node.JS, NPM, and Nodemon are required, sensors is needed to get Gpu temp and power info :
