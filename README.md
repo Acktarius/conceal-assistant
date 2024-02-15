@@ -115,8 +115,8 @@ refresh, it's because there are no environmental token yet and they are just bei
 
 | OS         | Guardian service name | Mining service name  |
 | ---------- | --------------------- | -------------------- |
-| Linux      | ccx-guardian.service  | ccx-guardian.service |
-| Windows    | TConcealGuardian      | ConcealMining        |
+| Linux      | ccx-guardian.service  | ccx-mining.service   |
+| Windows    | ConcealGuardian       | ConcealMining        |
 
 ---
 
