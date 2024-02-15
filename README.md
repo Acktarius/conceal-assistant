@@ -9,7 +9,7 @@ Any how, since it's a web server type of application, it can be consulted from a
 ## Linux
 ### Node service shall be named: ccx-guardian.service  
 ### Mining service shall be named: ccx-mining.service  
-[see note 1](#1-linux-setup-assuming:)  
+[see note 1](#linux-setup)  
 
 
 Node.JS, NPM, and Nodemon are required, sensors is needed to get Gpu temp and power info :
@@ -68,7 +68,7 @@ during a period up to 3h, if needed. (the refresh button appears on 'mouse-over'
 ## Windows
 ### Node service shall be named: ConcealGuardian 
 ### Mining service shall be named: ConcealMining  
-[see note 2](#2-windows-setup-assuming:)  
+[see note 2](#windows-setup)  
 
 open a command prompt with a right click **Run as administrator**  
 go to the directory where you want to install,
@@ -122,14 +122,14 @@ refresh, it's because there are no environmental token yet and they are just bei
 
 ---
  
-#### <a name="1-linux-setup-assuming:"></a>1 Linux setup assuming:
+#### Linux setup
 - SRBMiner-Multi is launched with a .sh file including informations (--pool --wallet -p --api-enable --api-rig-name)
 - Xmr-Stak is launched with the executable xmr-stak, informations are in a pools.txt file store in the same folder as the executable ({"pool_address" "wallet_address" "rig_id" "pool_password" ) and in the config.txt file for the api ("httpd_port")
 - CryptoDredge is launched with a .sh file including informations (-o stratum+tcp:// -u -p -w --api-type ccminer-tcp -b)
 
 ---
 
-#### 2 Windows setup assuming:
+#### Windows setup
 **ConcealMining** service based on an xml file, and operated by [winSW](https://github.com/winsw/winsw)  
 exemple of xml file, like *cmservice.xml* :  
 ```
