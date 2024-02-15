@@ -1,10 +1,10 @@
 # conceal-assistant
 
 ## Allows the user after authentification to check the status of node and mining services, and to activate or deactivate those services.
-Conceal-Assistant is designed for CCX-Box, therefore it has been originily developed to run on Linux, however since version 1.2.0 it is compatible for Windows users.
+Conceal-Assistant is designed for CCX-Box, therefore it has been originily developed to run on Linux, however since version 1.2.0 it is compatible for Windows users.  
 Any how, since it's a web server type of application, it can be consulted from any other device on the same local network using other OS(windows, mac,  arch ...)  
 
-**4 miner templates are available for purpose of guidance , and if used, would be mining to Conceal Network donation address**
+**Four miner templates are available for purpose of guidance , and if used, would be mining to Conceal Network donation address**
 
 ## Linux
 ### Node service shall be named: ccx-guardian.service 
@@ -69,7 +69,7 @@ during a period up to 3h, if needed. (the refresh button appears on 'mouse-over'
 ### Mining service shall be named: ConcealMining (2)  
 
 open a command prompt with a right click **Run as administrator**  
-to to the directory you want to install,
+go to the directory where you want to install,
 ```
 git clone https://github.com/Acktarius/conceal-assistant.git
 ```
@@ -78,7 +78,6 @@ and go to the folder just created:
 cd conceal-assistant
 ```
 npm install 
-```
 
 
 ### Normal use
@@ -111,6 +110,13 @@ refresh, it's because there are no environmental token yet and they are just bei
 - [x] Credits are now in a collapssible box preventing overlapping
 - [x] Bug correction when deleting user and his flight sheet.
 - [x] Some latency to load some pages
+
+---
+
+| OS         | Guardian service name | Mining service name  |
+| ---------- | --------------------- | -------------------- |
+| Linux      | ccx-guardian.service  | ccx-guardian.service |
+| Windows    | TConcealGuardian      | ConcealMining        |
 
 ---
 
