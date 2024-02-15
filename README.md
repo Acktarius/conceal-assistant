@@ -123,6 +123,29 @@ refresh, it's because there are no environmental token yet and they are just bei
 ---
  
 #### Linux setup
+*exemple of ==ccx-mining.service== file (this one even including a script for overclock)* 
+```
+[Unit]
+Description=Conceal Mining
+After=network-online.target
+
+
+[Service]
+Type=simple
+# Another Type option: forking
+User=root
+Group=root
+WorkingDirectory=/opt/xmr-stak/build/bin/
+ExecStart=/opt/xmr-stak/build/bin/xmr-stak
+ExecStartPost=/opt/conceal-toolbox/oc-amd/oc-amd.sh
+Restart=always
+RestartSec=30
+ExecStop=/opt/conceal-toolbox/oc-amd/oc-amd.sh reset
+
+[Install]
+WantedBy=multi-user.target
+```
+
 - SRBMiner-Multi is launched with a .sh file including informations (--pool --wallet -p --api-enable --api-rig-name)
 - Xmr-Stak is launched with the executable xmr-stak, informations are in a pools.txt file store in the same folder as the executable ({"pool_address" "wallet_address" "rig_id" "pool_password" ) and in the config.txt file for the api ("httpd_port")
 - CryptoDredge is launched with a .sh file including informations (-o stratum+tcp:// -u -p -w --api-type ccminer-tcp -b)
