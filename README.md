@@ -9,7 +9,7 @@ Any how, since it's a web server type of application, it can be consulted from a
 ## Linux
 ### Node service shall be named: ccx-guardian.service  
 ### Mining service shall be named: ccx-mining.service  
-[see note 1](#linux-setup)  
+[see note 1](#linux-extra-setup)  
 
 
 Node.JS, NPM, and Nodemon are required, sensors is needed to get Gpu temp and power info :
@@ -52,7 +52,7 @@ or
 ```
 nodemon server.js
 ```
-### Superior permission are needed to modify mining service or node upgrade
+**Superior permission are needed to modify mining service or node upgrade**
 ```
 sudo nodemon server.js
 ```
@@ -68,7 +68,7 @@ during a period up to 3h, if needed. (the refresh button appears on 'mouse-over'
 ## Windows
 ### Node service shall be named: ConcealGuardian 
 ### Mining service shall be named: ConcealMining  
-[see note 2](#windows-setup)  
+[see note 2](#windows-extra-setup)  
 
 open a command prompt with a right click **Run as administrator**  
 go to the directory where you want to install,
@@ -87,7 +87,7 @@ nodemon server.js
 ```
 
 
-### Recently added feature :
+## Recently added feature :
 - [x] Click on **Miner** to compare hash software vs hash at the pool.
 - [x] Compatibility with Fastpool worker style @*workername*
 - [x] Integration of Conceal Api to have height and status of node without opening extra tab. 
@@ -102,10 +102,10 @@ nodemon server.js
 - [x] assistance to upgrade node or miner
 - [x] improve scroll through section in main and settings pages
 
-### Known Glitch
+## Known Glitch
 - [ ] Gpu name doesn't show in 'System info' when launch via a service
 
-### Solved Glitch
+## Solved Glitch
 - [x] at very very first boot (therefore only happens once) the page needs to be manually
 refresh, it's because there are no environmental token yet and they are just being created.
 - [x] automatically create access token at first use if environmental are missing
@@ -122,7 +122,7 @@ refresh, it's because there are no environmental token yet and they are just bei
 
 ---
  
-#### Linux setup
+#### Linux extra setup
 *exemple of ccx-mining.service file (this one even including a script for overclock)* 
 ```
 [Unit]
@@ -152,7 +152,7 @@ WantedBy=multi-user.target
 
 ---
 
-#### Windows setup
+#### Windows extra setup
 **ConcealMining** service based on an xml file, and operated by [winSW](https://github.com/winsw/winsw)  
 exemple of xml file, like *cmservice.xml* :  
 ```
