@@ -18,6 +18,7 @@ const extractInfo = async () => {
                 const infoM = JSON.parse(contents);
                 let mPath = infoM.mPath;
                 let wdir = infoM.wDir;
+                console.log(mPath);
                 let tempmPath = await fsPromises.readFile(mPath, 'utf8');
                 let exe = (osN() == "win") ? inBetween(tempmPath , "ble>", "</exe") : `${mPath}`;
                 let wDir = (osN() == "win") ? beforeUntil(exe, "\\") : `${wdir}`;
