@@ -8,7 +8,8 @@ Any how, since it's a web server type of application, it can be consulted from a
 
 ## Linux
 ### Node service shall be named: ccx-guardian.service  
-### Mining service shall be named: ccx-mining.service [1](#1-linux-setup-assuming:)
+### Mining service shall be named: ccx-mining.service  
+[see note 1](#1-linux-setup-assuming:)  
 
 
 Node.JS, NPM, and Nodemon are required, sensors is needed to get Gpu temp and power info :
@@ -66,7 +67,8 @@ during a period up to 3h, if needed. (the refresh button appears on 'mouse-over'
 
 ## Windows
 ### Node service shall be named: ConcealGuardian 
-### Mining service shall be named: ConcealMining [2](#2-windows-setup-assuming:)
+### Mining service shall be named: ConcealMining  
+[see note 2](#2-windows-setup-assuming:)  
 
 open a command prompt with a right click **Run as administrator**  
 go to the directory where you want to install,
