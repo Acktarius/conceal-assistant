@@ -1,12 +1,14 @@
 # conceal-assistant
 
 ## Allows the user after authentification to check the status of node and mining services, and to activate or deactivate those services.
-Conceal-Assistant is designed for CCX-Box, therefore it's only supported to run on Linux,
-nevertheless, since it's a web server type of software, it can be consulted from any other device on the same local network using other environment(windows, mac ...)
-## Node service shall be named: ccx-guardian.service
-## Mining service shall be named: ccx-mining.service (1)
+Conceal-Assistant is designed for CCX-Box, therefore it has been originily developed to run on Linux, however since version 1.2.0 it is compatible for Windows users.
+Any how, since it's a web server type of application, it can be consulted from any other device on the same local network using other OS(windows, mac,  arch ...)  
 
-**2 miner templates are available for purpose of guidance , and if used, would be mining to Conceal Network donation address**
+**4 miner templates are available for purpose of guidance , and if used, would be mining to Conceal Network donation address**
+
+## Linux
+### Node service shall be named: ccx-guardian.service 
+### Mining service shall be named: ccx-mining.service (1)  
 
 
 Node.JS, NPM, and Nodemon are required, sensors is needed to get Gpu temp and power info :
@@ -62,11 +64,32 @@ the setting page gives you the option to delete a user and then  you'll be redir
 Once logged in, session is active for 15minutes, nevertheless session can be refresh
 during a period up to 3h, if needed. (the refresh button appears on 'mouse-over' effect in the banner)
 
-### To do list:
+## Windows
+### Node service shall be named: ConcealGuardian 
+### Mining service shall be named: ConcealMining (2)  
+
+open a command prompt with a right click **Run as administrator**  
+to to the directory you want to install,
+```
+git clone https://github.com/Acktarius/conceal-assistant.git
+```
+and go to the folder just created:
+```
+cd conceal-assistant
+```
+npm install 
+```
+
+
+### Normal use
+```
+nodemon server.js
+
 
 ### Recently added feature :
+- [x] Click on **Miner** to compare hash software vs hash at the pool.
 - [x] Compatibility with Fastpool worker style @*workername*
-- [x] Integration of Conceal Api to have height and status of node i\without opening extra tab. 
+- [x] Integration of Conceal Api to have height and status of node without opening extra tab. 
 - [x] Automatic refresh of Main Page at first launch
 - [x] Compatibility with Cedric Crispin's pool worker style .*workername*
 - [x] when miner deactivated, option to change miner pool and wallet.
@@ -89,10 +112,28 @@ refresh, it's because there are no environmental token yet and they are just bei
 - [x] Bug correction when deleting user and his flight sheet.
 - [x] Some latency to load some pages
 
-(1) assuming :
+---
+
+(1) Linux setup assuming :  
 - SRBMiner-Multi is launched with a .sh file including informations (--pool --wallet -p --api-enable --api-rig-name)
 - Xmr-Stak is launched with the executable xmr-stak, informations are in a pools.txt file store in the same folder as the executable ({"pool_address" "wallet_address" "rig_id" "pool_password" ) and in the config.txt file for the api ("httpd_port")
 - CryptoDredge is launched with a .sh file including informations (-o stratum+tcp:// -u -p -w --api-type ccminer-tcp -b)
+
+---
+
+(2) Windows setup assuming :  
+**ConcealMining** service based on an xml file, and operated by [winSW](https://github.com/winsw/winsw)  
+exemple of xml file, like *cmservice.xml* :  
+```
+<service>
+  <id>ConcealMining</id>
+  <name>Conceal Mining</name>
+  <description>Conceal Mining to launch miner</description>
+  <executable>C:\Miners\SRBMiner-Multi-2-4-3\SRBMiner-MULTI.exe</executable>
+  <arguments>--disable-cpu --algorithm cryptonight_gpu --pool us.fastpool.xyz:10167 --wallet ccx7Zbm7PjafXKvb3naqpGXzhLtAXesKiR5UXUbfwD9MCf77XdvXf1TX64KdDjcTDb3E7dS6MGE2GKT3w4DuCb8H9dwvWWGuof@Eskaflowne --api-rig-name Eskaflowne --api-enable</arguments>
+<log mode="roll"></log>
+</service>
+```
 
 ---
 
