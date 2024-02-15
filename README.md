@@ -121,7 +121,7 @@ refresh, it's because there are no environmental token yet and they are just bei
 ---
 
 [^1]: Linux setup assuming :  
-### 1
+#### [1]
 - SRBMiner-Multi is launched with a .sh file including informations (--pool --wallet -p --api-enable --api-rig-name)
 - Xmr-Stak is launched with the executable xmr-stak, informations are in a pools.txt file store in the same folder as the executable ({"pool_address" "wallet_address" "rig_id" "pool_password" ) and in the config.txt file for the api ("httpd_port")
 - CryptoDredge is launched with a .sh file including informations (-o stratum+tcp:// -u -p -w --api-type ccminer-tcp -b)
@@ -129,7 +129,7 @@ refresh, it's because there are no environmental token yet and they are just bei
 ---
 
 [^2]: Windows setup assuming :  
-### 2
+#### [2]
 **ConcealMining** service based on an xml file, and operated by [winSW](https://github.com/winsw/winsw)  
 exemple of xml file, like *cmservice.xml* :  
 ```
