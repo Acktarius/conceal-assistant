@@ -123,7 +123,7 @@ refresh, it's because there are no environmental token yet and they are just bei
 ---
  
 #### Linux setup
-*exemple of ==ccx-mining.service== file (this one even including a script for overclock)* 
+*exemple of ccx-mining.service file (this one even including a script for overclock)* 
 ```
 [Unit]
 Description=Conceal Mining
