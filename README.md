@@ -76,9 +76,8 @@ git clone https://github.com/Acktarius/conceal-assistant.git
 and go to the folder just created:
 ```
 cd conceal-assistant
-```
 npm install 
-
+```  
 
 ### Normal use
 ```
