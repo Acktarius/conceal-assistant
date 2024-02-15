@@ -117,5 +117,5 @@ app.get("/hash(.html)?", verifyJWT, cors(corsOptions), handleHash);
 
 //Server Activation
 app.listen(port, () => {
-    console.log(`Listening to requests on http://${localIp}:${port}`);
+    console.log(`Listening to requests on http://${localIp}:${port} or localy on http://localhost:3500`);
   });

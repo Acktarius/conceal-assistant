@@ -4,7 +4,7 @@ var nodeTitleClick = document.getElementById("node_click");
 var blockchainHeightContainer = document.getElementById("blockchain_height");
 
 //Miner variables
-var serverIp = document.getElementsByName('localIp')[0].content;
+var serverIp = window.location.href.startsWith("http://localhost:3500") ? "localhost": document.getElementsByName('localIp')[0].content;
 var minerTitleClick = document.getElementById("miner_click")
 var minerHashContainer = document.getElementById("miner_hash");
 var minerHashUnitContainer = document.getElementById("miner_hash_unit");
@@ -17,7 +17,7 @@ function renderHTML(container, innerT, color) {
 	}, 60000)
 }
 
-//Node
+//general single picker
 const sendHttpRequest = (method, url, pick) => {
 	const promise = new Promise((resolve, reject) => {
 		const netx = new XMLHttpRequest();
@@ -27,6 +27,27 @@ const sendHttpRequest = (method, url, pick) => {
 			if (netx.status >=200 && netx.status < 400) {
 			resolve(netx.response[pick]);
 			} else {
+				reject("error getting info");
+			}
+		};
+		netx.onerror = () => {
+			reject("error loading info");
+		}
+		netx.send();
+	});
+	return promise;
+}
+
+//specific multi picker for Hash page
+const sendHttpRequestMulti = (method, url) => {
+	const promise = new Promise((resolve, reject) => {
+		const netx = new XMLHttpRequest();
+		netx.open(method, url)
+		netx.responseType = 'json';
+		netx.onload = () => {
+			if (netx.status >=200 && netx.status < 400) {
+			resolve(netx.response);
+			} else  {
 				reject("error getting info");
 			}
 		};
@@ -56,42 +77,34 @@ nodeTitleClick.addEventListener("click", (event) => {
 //Miner
 //refresh on click  'hash'
 minerTitleClick.addEventListener("click", (event) => {
-		sendHttpRequest('GET', `http://${serverIp}:3500/hash`, 'hash')
-			.then((minerH) => {
-				renderHTML(minerHashContainer, minerH, "#007bff");
-
+		sendHttpRequestMulti('GET', `http://${serverIp}:3500/hash`)
+			.then((miner) => {
+				renderHTML(minerHashContainer, `${miner.hash} /${miner.poolHash}` , "#007bff");
+				renderHTML(minerHashUnitContainer, ` ${miner.unit}`, "#007bff");
 			})
 			.catch((err) => {
 				renderHTML(minerHashContainer, err, "#cf332a");
-			});
-		sendHttpRequest('GET', `http://${serverIp}:3500/hash`, 'unit') 
-			.then((hashU) => {
-				renderHTML(minerHashUnitContainer, hashU, "#007bff");
-
-			})
-			.catch((err) => {
-				renderHTML(minerHashUnitContainer, err, "#cf332a");
+				renderHTML(minerHashUnitContainer, "", "#cf332a");
+				
 			});
 		});		
+
+
+
+
 
 //on page load after tempo
 document.addEventListener("DOMContentLoaded", (event) => {
 		setTimeout(() => {
-		sendHttpRequest('GET', `http://${serverIp}:3500/hash`, 'hash') 
-		.then((minerH) => {
-			renderHTML(minerHashContainer, minerH, "#007bff");
-
-		})
-		.catch((err) => {
-			renderHTML(minerHashContainer, err, "#cf332a");
-		});
-		sendHttpRequest('GET', `http://${serverIp}:3500/hash`, 'unit') 
-		.then((hashU) => {
-			renderHTML(minerHashUnitContainer, hashU, "#007bff");
-
-		})
-		.catch((err) => {
-			renderHTML(minerHashUnitContainer, err, "#cf332a");
-		});
+			sendHttpRequestMulti('GET', `http://${serverIp}:3500/hash`)
+			.then((miner) => {
+				renderHTML(minerHashContainer, miner.hash, "#007bff");
+				renderHTML(minerHashUnitContainer, ` ${miner.unit}`, "#007bff");
+			})
+			.catch((err) => {
+				renderHTML(minerHashContainer, err, "#cf332a");
+				renderHTML(minerHashUnitContainer, "", "#cf332a");
+				
+			});
 		}, 5000);
 	});
