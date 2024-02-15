@@ -46,6 +46,9 @@ const fetchJson = async (url, pool, w) => {
                 case "community":    
                 resolve(data[w].hash);
                   break;
+                case "gntl":    
+                  resolve(data[w].hash);
+                    break;  
                 default:
                     reject("pool not supported");
               }             
@@ -72,7 +75,11 @@ const poolWorkerUrl = async (x) => {
         pwu[0] = "community";
         pwu[1] =  `${lastMiner.rigName}`;
         pwu[2] = `https://pool.conceal.network/api/miner/${lastMiner.wallet}/stats/allWorkers`;
-    }
+    } else if (lastMiner.pool.search("gntl") > 0) {
+        pwu[0] = "gntl";
+        pwu[1] =  `${lastMiner.rigName}`;
+        pwu[2] = `https://ccx.gntl.uk/api/miner/${lastMiner.wallet}/stats/allWorkers`;
+    }    
     return pwu;
 }
 
