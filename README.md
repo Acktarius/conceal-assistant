@@ -7,8 +7,8 @@ Any how, since it's a web server type of application, it can be consulted from a
 **Four miner templates are available for purpose of guidance , and if used, would be mining to Conceal Network donation address**
 
 ## Linux
-### Node service shall be named: ccx-guardian.service 
-### Mining service shall be named: ccx-mining.service (1)  
+### Node service shall be named: ccx-guardian.service  
+### Mining service shall be named: ccx-mining.service ^(1)^    
 
 
 Node.JS, NPM, and Nodemon are required, sensors is needed to get Gpu temp and power info :
@@ -66,7 +66,7 @@ during a period up to 3h, if needed. (the refresh button appears on 'mouse-over'
 
 ## Windows
 ### Node service shall be named: ConcealGuardian 
-### Mining service shall be named: ConcealMining (2)  
+### Mining service shall be named: ConcealMining ^(2)^  
 
 open a command prompt with a right click **Run as administrator**  
 go to the directory where you want to install,
@@ -83,6 +83,7 @@ npm install
 ### Normal use
 ```
 nodemon server.js
+```
 
 
 ### Recently added feature :
