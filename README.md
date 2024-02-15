@@ -69,6 +69,7 @@ during a period up to 3h, if needed. (the refresh button appears on 'mouse-over'
 ### Node service shall be named: ConcealGuardian 
 ### Mining service shall be named: ConcealMining  
 [see note 2](#windows-extra-setup)  
+<https://youtu.be/npebqkvHqbA?si=IDUIXByuiilSjZij>  
 
 open a command prompt with a right click **Run as administrator**  
 go to the directory where you want to install,
