@@ -88,19 +88,12 @@ nodemon server.js
 
 
 ## Recently added feature :
+- [x] Windows compatibility
 - [x] Click on **Miner** to compare hash software vs hash at the pool.
 - [x] Compatibility with Fastpool worker style @*workername*
 - [x] Integration of Conceal Api to have height and status of node without opening extra tab. 
-- [x] Automatic refresh of Main Page at first launch
+- [x] Automatic refresh of register Page at first launch to land on index page
 - [x] Compatibility with Cedric Crispin's pool worker style .*workername*
-- [x] when miner deactivated, option to change miner pool and wallet.
-- [x] adding compatibility with Xmr-Stak and Cryptodredge.
-- [x] miner setting library, auto clean-up, and remove when user deleted.
-- [x] handling of ".rig_name" after wallet
-- [x] handling of mining pool with 5 digits ports
-- [x] adding TLS/SSL option for miner
-- [x] assistance to upgrade node or miner
-- [x] improve scroll through section in main and settings pages
 
 ## Known Glitch
 - [ ] Gpu name doesn't show in 'System info' when launch via a service
