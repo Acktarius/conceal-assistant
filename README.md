@@ -1,4 +1,4 @@
-# conceal-assistant
+# Conceal-Assistant
 
 ## Allows the user after authentification to check the status of node and mining services, and to activate or deactivate those services.
 Conceal-Assistant is designed for CCX-Box, therefore it has been originily developed to run on Linux, however since version 1.2.0 it is compatible for Windows users.  
