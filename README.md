@@ -155,7 +155,7 @@ exemple of xml file, like *cmservice.xml* :
   <name>Conceal Mining</name>
   <description>Conceal Mining to launch miner</description>
   <executable>C:\Miners\SRBMiner-Multi-2-4-3\SRBMiner-MULTI.exe</executable>
-  <arguments>--disable-cpu --algorithm cryptonight_gpu --pool us.fastpool.xyz:10167 --wallet ccx7Zbm7PjafXKvb3naqpGXzhLtAXesKiR5UXUbfwD9MCf77XdvXf1TX64KdDjcTDb3E7dS6MGE2GKT3w4DuCb8H9dwvWWGuof@Eskaflowne --api-rig-name Eskaflowne --api-enable</arguments>
+  <arguments>--disable-cpu --algorithm cryptonight_gpu --pool us.fastpool.xyz:10167 --wallet ccx7Mi9osGEiPkJ8Eq9ajfFFipavENjJ92Gf4xCmu4KXiExSjcWoSefCQYtcA2BUrTPjrMY5pssgMNPRxaR1DXtj3TvTJG6LRo@ccxDonation --api-rig-name ccxDonation --api-enable</arguments>
 <log mode="roll"></log>
 </service>
 ```
