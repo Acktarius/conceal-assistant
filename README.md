@@ -83,10 +83,15 @@ npm install
 ```  
 
 ### Normal use
+open a command prompt with a right click **Run as administrator**  
+go to Conceal Assistant folder,
 ```
 nodemon server.js
 ```
 
+or use the bat file provided in release,  
+you'll have to edit it with correct path to Conceal Assistant,  
+and run it with a right click **Run as administrator**  
 
 ## Recently added feature :
 - [x] Windows compatibility
