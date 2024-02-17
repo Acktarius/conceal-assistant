@@ -89,9 +89,10 @@ go to Conceal Assistant folder,
 nodemon server.js
 ```
 
-or use the bat file provided in release,  
+or use the ccx-assistant.bat file provided,  
 you'll have to edit it with correct path to Conceal Assistant,  
 and run it with a right click **Run as administrator**  
+(you can use cham.ico to identify it on your desktop)
 
 ## Recently added feature :
 - [x] Windows compatibility
