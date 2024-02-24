@@ -138,7 +138,7 @@ const concealdPost = async (req, res) => {
     } else {
       console.log("path is valid");
       daemonUpdate(concealdpath);
-      logAgent.doubleLogEvents("Upgrade process completed","conceal core upgraded to latest version");
+      logAgent.doubleLogEvents("Upgrade process completed","conceal core upgraded to latest version\nLogout and Log Back In, Please.\n");
       res.redirect('/mainz');  
     }
   } else {
