@@ -1,14 +1,13 @@
 @echo off
 :: set path to Conceal Assistant in next line
 cd "C:/conceal-assistant"
-Echo Conceal Assistant will start
-Echo,
-Echo Press 'Ctrl + c' to quit
-PAUSE
+:ccx
 CLS
-Echo ==========================
-Echo      Conceal Assistant
-Echo ==========================
+Echo ===================================
+Echo          Conceal Assistant
+Echo ===================================
 Echo Press 'Ctrl + c' to quit
 Echo,
 nodemon server.js
+PAUSE
+GOTO ccx
