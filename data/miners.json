@@ -2,8 +2,8 @@
   {
     "miner": 1,
     "software": "SRBMiner-Multi",
-    "wdir": "/opt/SRBMiner-Multi-2-2-0/",
-    "mpath": "/opt/SRBMiner-Multi-2-2-0/start_CCX.sh",
+    "wdir": "/opt/SRBMiner-Multi-2-2-4/",
+    "mpath": "/opt/SRBMiner-Multi-2-2-4/start-mining-conceal.sh",
     "pool": "conceal.cedric-crispin.com",
     "port": "3364",
     "tls": "false",
@@ -11,7 +11,7 @@
     "rigName": ".CCX-BOX",
     "pass": "CCX-BOX",
     "apiPort": "21550",
-    "description": "template"
+    "description": "template_SRBMiner version 2-2-4"
   },
   {
     "miner": 2,
