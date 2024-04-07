@@ -50,7 +50,11 @@ npm run assistant
 ```
 or
 ```
-nodemon server.js
+nodemon server.js  
+```
+when server available, compact mode:
+```
+npm run electron
 ```
 **Superior permission are needed to modify mining service or node upgrade**
 ```
@@ -95,6 +99,7 @@ and run it with a right click **Run as administrator**
 (you can use cham.ico to identify it on your desktop)
 
 ## Recently added feature :
+- [x] Compact window with Electron
 - [x] Windows compatibility
 - [x] Click on **Miner** to compare hash software vs hash at the pool.
 - [x] Compatibility with Fastpool worker style @*workername*

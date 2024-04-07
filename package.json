@@ -18,7 +18,9 @@
   "scripts": {
     "start": "node server.js",
     "watch": "nodemon",
-    "assistant": "nodemon server.js"
+    "assistant": "nodemon server.js",
+    "electron": "electron ./electron/main.js",
+    "compact": "concurrently \"npm run assistant\" \"npm run electron\""
   },
   "keywords": [
     "Conceal",
@@ -59,5 +61,9 @@
   "bugs": {
     "url": "https://github.com/Acktarius/conceal-assistant/issues"
   },
-  "homepage": "https://github.com/Acktarius/conceal-assistant#readme"
+  "homepage": "https://github.com/Acktarius/conceal-assistant#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^29.2.0"
+  }
 }
