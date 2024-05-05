@@ -1,6 +1,6 @@
 {
   "name": "conceal-assistant",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "Assistant pour Conceal",
   "main": "server.js",
   "nodemonConfig": {
