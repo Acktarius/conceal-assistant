@@ -17,7 +17,6 @@
   },
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon",
     "assistant": "nodemon server.js",
     "electron": "electron ./electron/main.js",
     "compact": "concurrently \"npm run assistant\" \"npm run electron\""
@@ -51,7 +50,6 @@
     "semver": "^7.5.3",
     "shelljs": "^0.8.5",
     "shelljs.exec": "^1.1.8",
-    "sysctlx": "^0.0.7",
     "winsc": "^1.0.4"
   },
   "repository": {

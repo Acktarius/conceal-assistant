@@ -1,5 +1,4 @@
 //get service status and prepare render
-const sys = require('sysctlx');
 const winsc = require('winsc');
 const fs = require('fs');
 const fsPromises = require('fs').promises;
@@ -10,21 +9,35 @@ const { ccx } = require('./forNode/concealApi');
 const logAgent = require('./logEvents');
 const { urlNode , urlMiner , localIp } = require('./localIpUrl');
 const { sgName, smName , osN } = require('./checkOs.js');
+const { exec } = require('child_process');
+const util = require('util');
+const execPromise = util.promisify(exec);
 //declarations and Functions
 //const osName = process.platform;
+
+// Helper function to check systemd service status
+const checkSystemdService = async (serviceName) => {
+  try {
+    const { stdout } = await execPromise(`systemctl is-active ${serviceName}`);
+    return stdout.trim();
+  } catch (error) {
+    // If service is not running, systemctl exits with non-zero code
+    return 'inactive';
+  }
+};
 
 const guardianRunningP = (o) => {
   if (o == "win") {
     return winsc.status(sgName(osN()));
   } else if (o == "linux") {
-    return sys.checkActive(sgName(osN()));
+    return checkSystemdService(sgName(osN()));
   }
 }
 const minerRunningP = (o) => {
   if (o == "win") {
     return winsc.status(smName(osN()));
   } else if (o == "linux") {
-    return sys.checkActive(smName(osN()));
+    return checkSystemdService(smName(osN()));
   }
 }
 

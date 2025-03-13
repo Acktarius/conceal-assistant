@@ -13,7 +13,7 @@ const fsPromises = require('fs').promises;
 const path = require('path');
 const pjson = require('pjson');
 
-const logEvents = require('../middleware/logEvents');
+const { logEvents } = require('../middleware/logEvents');
 const { remover } = require('../middleware/forMiner/remover');
 const deleteOFP = require('../middleware/forMiner/deleteOFP');
 const { sysInfo } = require('../middleware/sysInfo');

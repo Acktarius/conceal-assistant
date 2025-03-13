@@ -1,4 +1,3 @@
-
 const minersDB = {
     users: require('../../data/miners.json'),
     setUsers: function (data) { this.users = data }
@@ -7,13 +6,27 @@ const minersDB = {
 const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
-const sys = require('sysctlx');
 const winsc = require('winsc');
 const { logEvents } = require('../logEvents');
 const deleteOFP = require('./deleteOFP');
 const { da } = require('date-fns/locale');
 const { smName , osN } = require('../checkOs.js');
 const { reverser, afterUntil, backWard, inBetween, inBetweenLong, startWithLong, beforeUntil } = require('./tools.js');
+const { exec } = require('child_process');
+const util = require('util');
+const execPromise = util.promisify(exec);
+
+// Helper function to reload systemd service
+const reloadSystemdService = async (serviceName) => {
+  try {
+    await execPromise('systemctl daemon-reload');
+    await execPromise(`systemctl restart ${serviceName}`);
+    return 'success';
+  } catch (error) {
+    console.error('Failed to reload service:', error.message);
+    return 'failed';
+  }
+};
 
 const injectOFP = async (N,C) => {  
 const previousMiner = minersDB.users.find(person => person.miner === N-1);
@@ -133,13 +146,11 @@ if (createdMiner.mpath != previousMiner.mpath) {
 const injectSoft = async (N,C) => {  
     const previousMiner = minersDB.users.find(person => person.miner === N-1);
     const createdMiner = minersDB.users.find(person => person.miner === N);
-//    if (createdMiner.mpath == previousMiner.mpath) {
     if (createdMiner.wdir == previousMiner.wdir) {
         console.log(`software is the same new:${createdMiner.wdir} old:${previousMiner.wdir} `);
         await deleteOFP(N);
-        } else {
+    } else {
         try {
-            
             let dataLS = await fsPromises.readFile(`/etc/systemd/system/${smName(osN())}.service`, 'utf8');
             
             let dataLSnew = dataLS.replace(previousMiner.wdir, createdMiner.wdir);
@@ -147,23 +158,23 @@ const injectSoft = async (N,C) => {
             
             await fsPromises.writeFile(`/etc/systemd/system/${smName(osN())}.service`, dataLSnew, 'utf8');
             
-            sys.reload(`${smName(osN())}`);
+            await reloadSystemdService(smName(osN()));
             await logEvents(`${createdMiner.software} is now in service`);
 
             //clean up: keeps only the last 2 ofp and the 2 first template
             if ( C == true ) {
-            if (N > 4) {
-                for(let z = 1; z < N - 3; z++) {
-                    await deleteOFP(N-1-z);
+                if (N > 4) {
+                    for(let z = 1; z < N - 3; z++) {
+                        await deleteOFP(N-1-z);
+                    }
                 }
-            }
             }
             
         } catch (err) {
             console.error(err);    
         }
     }
-    }
+}
 
 
 module.exports = { injectOFP , injectSoft };

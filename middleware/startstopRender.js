@@ -1,40 +1,56 @@
 //Post to start or stop and prepare redirect
 const fs = require('fs');
 const path = require('path');
-const sys = require('sysctlx');
 const winsc = require('winsc');
 const Promise = require('bluebird');
 const { sgName , smName , osN } = require('./checkOs.js')
+const { exec } = require('child_process');
+const util = require('util');
+const execPromise = util.promisify(exec);
+
+// Helper function to manage systemd services
+const systemdService = async (serviceName, action) => {
+  try {
+    const { stdout } = await execPromise(`systemctl ${action} ${serviceName}`);
+    return stdout.trim() || 'success';
+  } catch (error) {
+    console.error(`Failed to ${action} service ${serviceName}:`, error.message);
+    return 'failed';
+  }
+};
 
 //declaration and functions
 const guardianStoppingP = (o) => {
-    if (o == "win") {
-      return winsc.stop(sgName(osN()));
-    } else if (o == "linux") {
-      return sys.stop(sgName(osN()));
-    }
+  if (o == "win") {
+    return winsc.stop(sgName(osN()));
+  } else if (o == "linux") {
+    return systemdService(sgName(osN()), 'stop');
   }
+}
+
 const guardianStartingP = (o) => {
-    if (o == "win") {
-      return winsc.start(sgName(osN()));
-    } else if (o == "linux") {
-      return sys.start(sgName(osN()));
-    }
+  if (o == "win") {
+    return winsc.start(sgName(osN()));
+  } else if (o == "linux") {
+    return systemdService(sgName(osN()), 'start');
   }
+}
+
 const minerStoppingP = (o) => {
-    if (o == "win") {
-      return winsc.stop(smName(osN()));
-    } else if (o == "linux") {
-      return sys.stop(smName(osN()));
-    }
+  if (o == "win") {
+    return winsc.stop(smName(osN()));
+  } else if (o == "linux") {
+    return systemdService(smName(osN()), 'stop');
   }
-  const minerStartingP = (o) => {
-    if (o == "win") {
-      return winsc.start(smName(osN()));
-    } else if (o == "linux") {
-      return sys.start(smName(osN()));
-    }
+}
+
+const minerStartingP = (o) => {
+  if (o == "win") {
+    return winsc.start(smName(osN()));
+  } else if (o == "linux") {
+    return systemdService(smName(osN()), 'start');
   }
+}
 //Miner Deactivation
 const minerStop = (req, res) => { 
         minerStoppingP(osN()).then((stop) => {

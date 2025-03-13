@@ -7,11 +7,23 @@ const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
 const pjson = require('pjson');
-const sys = require('sysctlx');
+const { exec } = require('child_process');
+const util = require('util');
+const execPromise = util.promisify(exec);
 
 const deleteOFP = require('./deleteOFP');
 const inject = require('./inject');
 
+// Helper function to reload systemd daemon
+const reloadSystemd = async () => {
+  try {
+    await execPromise('systemctl daemon-reload');
+    return 'success';
+  } catch (error) {
+    console.error('Failed to reload systemd:', error.message);
+    return 'failed';
+  }
+};
 
 const minerGet = async (req, res) => {
   const toShowQuery = req.query.toshow;
@@ -224,7 +236,7 @@ const minerSoftInject = async (req, res) => {
   const { cleanswt } = req.body;
   let C = (cleanswt == 'on') ? true : false;
   await inject.injectSoft(lastMiner,C);
-  sys.reload();  
+  await reloadSystemd();  
   res.status(200).redirect('/mainz');              
   }
 
