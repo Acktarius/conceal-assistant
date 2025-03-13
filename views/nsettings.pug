@@ -19,27 +19,24 @@ block layout-content
       div.MessageConfirm
           div.Title
             h1 node settings
-            label(for="conceald")  Conceald path :
-            br
+          div.form-group
+            label(for="conceald") Conceald path :
             input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="conceald" name="conceald" value=conceald placeholder=conceald)
-            br
-            label(for="name")  Name :
-            br
+          div.form-group
+            label(for="name") Name :
             input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="name" name="name" value=name placeholder=name)
-            br
-            label(for="feeaddr")  fee Address :
-            br
+          div.form-group
+            label(for="feeaddr") fee Address :
             input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="feeaddr" name="feeaddr" value=feeaddr placeholder=feeaddr)
-            br
-            label(for="apiport")  Api Port :
-            br
+          div.form-group
+            label(for="nodeargs") Node Args :
+            input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="nodeargs" name="nodeargs" value=nodeargs placeholder=nodeargs)
+          div.form-group
+            label(for="apiport") Api Port :
             input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="apiport" name="apiport" value=apiport placeholder=apiport)
-            br
-            label(for="discordurl")  Discord Web Hook :
-            br
+          div.form-group
+            label(for="discordurl") Discord Web Hook :
             input(type="text" style="width: 20rem; overflow-wrap: break-word;" id="discordurl" name="discordurl" value=discordurl placeholder=discordurl)
-            br
-            br
-            button(type="submit" form="modify") Modify
-            -if (message != '')
+          button(type="submit" form="modify") Modify
+          if (message != '')
             h4 #{message}

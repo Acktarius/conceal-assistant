@@ -58,12 +58,12 @@ const main = (req, res) => {
         let isSMi = extractInfOSp.isSMi;
         ccx.info()
         .then((node) => { 
-          res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, localIp: localIp, version: pjson.version, os: os, upgrade: upgrade, isSGi: isSGi, isSMi: isSMi, nodeHeight: node.height, nodeStatus: node.status });
+          res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, localIp: localIp, version: pjson.version, os: os, upgrade: upgrade, isSGi: isSGi, isSMi: isSMi, nodeHeight: node.height, nodeStatus: node.status });
         }) 
         .catch((err) => { 
           console.log("conceal-api fetch error:", err.message || err);  // Enhanced error logging
           logAgent.doubleLogEvents("API Error", `Failed to fetch node info: ${err.message || err}`);
-          res.render("main", { title: "main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, localIp: localIp, version: pjson.version, os: os, upgrade: upgrade, isSGi: isSGi, isSMi: isSMi, nodeHeight: "?", nodeStatus: "?" });    
+          res.render("main", { title: "Main", guardianstatus: gr, minerstatus: mr, urlN: urlNode, urlM: urlMiner, localIp: localIp, version: pjson.version, os: os, upgrade: upgrade, isSGi: isSGi, isSMi: isSMi, nodeHeight: "?", nodeStatus: "?" });    
         });
       }
     });

@@ -20,42 +20,40 @@ block layout-content
           div.Title
             h1 miner settings
           span.Details Software: #{software}
-          br
-          label(for="wallet")  Mining Address :
-          br
-          input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="wallet" name="wallet" value=wallet placeholder=wallet)
-          br
-          br
-          span.inlineH
-            label(for="pool")  Mining Pool, 
-            label(for="port") port and
-            label(for="tls")  TLS
-          span.inlineH
-            -if (tls == "true")
-             input(type="checkbox" id="tlsswt" name="tlsswt" checked)
-            -else
-             input(type="checkbox" id="tlsswt" name="tlsswt")
-            label.toggle(for="tlsswt")
-          br
-          br
-          input(type="text" style="width: 15.5rem;" id="pool" name="pool" value=pool placeholder=pool)
-          span 
-            input(type="text" style="width: 3rem;" id="port" name="port" value=port placeholder=port)
-          br
-          br
-          label(for="rigname")  Miner Name :
-          span 
-            input(type="text" style="width: 11.4rem;" id="rigname" name="rigname" value=rigname placeholder=rigname)
-          br
-          label(for="password")  Password :
-          span 
-            input(type="text" style="width: 12.75rem;" id="password" name="password" value=password placeholder=password)
-          br
-          label(for="description")  Description :
-          span 
-            input(type="text" style="width: 12rem;" id="description" name="description" value=description)
-          br
-          br
+          div.form-group
+            label(for="wallet") Mining Address :
+            input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="wallet" name="wallet" value=wallet placeholder=wallet)
+          
+          div.form-group
+            div.inlineH
+              label(for="pool" & "port") Mining Pool, port   
+            div.pool-inputs
+              input(type="text" style="width: 15.5rem;" id="pool" name="pool" value=pool placeholder=pool)
+              span 
+                input(type="text" style="width: 3rem;" id="port" name="port" value=port placeholder=port)
+          
+          div.form-group
+            div.tls-group
+              label(for="tlsswt") TLS
+              div.toggle-wrapper
+                if (tls == "true")
+                  input(type="checkbox" id="tlsswt" name="tlsswt" checked)
+                else
+                  input(type="checkbox" id="tlsswt" name="tlsswt")
+                label.toggle(for="tlsswt")
+              
+          div.form-group
+            label(for="rigname") Miner Name :
+            input(type="text" style="width: 90%;" id="rigname" name="rigname" value=rigname placeholder=rigname)
+          
+          div.form-group
+            label(for="password") Password :
+            input(type="text" style="width: 90%;" id="password" name="password" value=password placeholder=password)
+          
+          div.form-group
+            label(for="description") Description :
+            input(type="text" style="width: 90%;" id="description" name="description" value=description)
+
           div.flight-nav
             -let m = eval(shown) - 1
             -let p = eval(shown) + 1
@@ -67,7 +65,7 @@ block layout-content
             if (p <= last)
               a(href=plus).nav-item
                 img.caret-icon(src="caret-right.svg" alt="Next")
-          br
+          
           button(type="submit" form="modify") Modify
-          -if (message != '')
-           h4 #{message}
+          if (message != '')
+            h4 #{message}

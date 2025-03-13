@@ -18,11 +18,13 @@ block layout-content
       div.MessageZero
        div.Title
         h1 Node :
-       ul.Details Guardian service is
-        -var gs = guardianstatus
-        -if ((gs === 'active') || (gs === 'RUNNIN'))
-         li.h3 active
-         p 
-         button(type="submit") deactivate
-        -else
-         li.h4 not active
+       -var gs = guardianstatus
+       -var isActive = ((gs === 'active') || (gs === 'RUNNIN'))
+       .inlineH Guardian service is
+        if isActive
+         h3 Active
+        else
+         h4 Not Active
+       if isActive
+        p
+        button(type="submit") Deactivate

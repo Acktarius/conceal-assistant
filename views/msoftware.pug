@@ -20,16 +20,12 @@ block layout-content
           div.Title
             h1 mining software
           span.Details Software: #{software}
-          br
-          label(for="wdir")  Working Directory :
-          br
-          input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="wdir" name="wdir" value=wdir placeholder=wdir)
-          br
-          br
-          label(for="mpath")  Miner Path :
-          br
-          input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="mpath" name="mpath" value=mpath placeholder=mpath)
-          br
+          div.form-group
+            label(for="wdir") Working Directory :
+            input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="wdir" name="wdir" value=wdir placeholder=wdir)
+          div.form-group
+            label(for="mpath") Miner Path :
+            input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="mpath" name="mpath" value=mpath placeholder=mpath)
           br
           div.flight-nav
             -let m = eval(shown) - 1

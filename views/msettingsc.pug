@@ -34,16 +34,19 @@ block layout-content
               td #{port}
               td #{tls}
           br
-          h5.inlineH  Miner Name :
-          h2.inlineH #{rigname}
+          .inlineH
+            h5 Miner Name:
+            h2 #{rigname}
           br
-          h5.inlineH  password :
-          h2.inlineH #{password}
+          .inlineH
+            h5 password:
+            h2 #{password}
           br
-          h7.inlineH keep only new and previous flight sheet
-          span.inlineH
-            input(type="checkbox" id="switch" name="cleanswt" checked=false form="inject")
-            label.toggle(for="switch") 
+          .inlineH
+            h7 keep only new and previous flight sheet
+            span
+              input(type="checkbox" id="switch" name="cleanswt" checked=false form="inject")
+              label.toggle(for="switch") 
           br
           br
           button.inlinebutton(type="submit" form="cancel") Cancel

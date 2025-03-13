@@ -18,11 +18,13 @@ block layout-content
       div.MessageZero
         div.Title
          h1 Miner :
-        ul.Details Mining service is
-          -var ms = minerstatus
-          -if ((ms === 'active') || (ms === 'RUNNIN'))
-           li.h3 active
-           p
-           button(type="submit") deactivate
-          -else
-           li.h4 not active
+        -var ms = minerstatus
+        -var isActive = ((ms === 'active') || (ms === 'RUNNIN'))
+        .inlineH Mining service is
+         if isActive
+          h3 Active
+         else
+          h4 Not Active
+        if isActive
+         p
+         button(type="submit") Deactivate

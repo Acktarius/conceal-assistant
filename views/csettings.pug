@@ -19,19 +19,19 @@ block layout-content
       div.MessageConfirm
           div.Title
             h1 Conceal Core
-            label(for="concealdpath")  path to Conceal Core :
-            br
-            input(type="text" style="width: 19rem; overflow-wrap: break-word;" id="concealdpath" name="concealdpath" value=concealdpath placeholder=concealdpath)
+            .form-group
+                label(for="concealdpath") path to Conceal Core:
+                input(type="text" id="concealdpath" name="concealdpath" value=concealdpath placeholder=concealdpath)
             br
             h2 installed version : #{version_inst}
-            -if (upgrade === true)
+            if (upgrade === true)
              h3 latest version available : #{version_avail}
              br
              button(type="submit" form="update") Upgrade
-            -else
+            else
              h2 latest version available : #{version_avail}
              br
              .NavButton.disabled(disabled="true") Upgrade
             br
-            -if (message != '')
+            if (message != '')
             h4 #{message}

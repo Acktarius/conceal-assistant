@@ -152,6 +152,7 @@ a {
   max-width: fit-content;
   letter-spacing: 0.1rem;
   text-decoration: underline #A50;
+  font-size: 1.2rem;
   }
 
 a:hover {
@@ -186,14 +187,40 @@ h7 {
   align-items: center;
 }
 .inlineH {
-  display: inline-block;
-  height: 1.5rem;
-  margin-left: auto;
-  margin-right: 0.5rem;
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  line-height: 1.5rem;
+  white-space: nowrap;
   list-style-type: none;
+  font-size: 1.2rem;
 }
+
+.inlineH h5 {
+  min-width: 7rem;
+  margin: 0;
+}
+
+.inlineH h2 {
+  margin: 0;
+}
+
+.inlineH h3,h4 {
+  font-size: 1.2rem;
+}
+
+.inlineH h7 {
+  padding-left: 0;
+  margin-right: 0.5rem;
+}
+
+.inlineH > * {
+  display: inline-block;
+  margin: 0;
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -449,6 +476,44 @@ ol {
   color: #868BA1;
 }
 
+.MessageConfirm .form-group {
+  position: relative;
+  margin-bottom: 0.8rem;
+}
+
+.MessageConfirm .form-group label {
+  display: block;
+  margin-bottom: 0.2rem;
+  transition: color 0.2s ease;
+}
+
+.MessageConfirm .form-group input {
+  display: block;
+  margin-bottom: 0;
+}
+
+/* Pool inputs specific styling */
+.MessageConfirm .pool-inputs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+/* Remove any conflicting styles */
+.MessageConfirm .inlineH {
+  margin-bottom: 0.2rem;
+}
+
+.MessageConfirm .inlineH + .inlineH {
+  margin-left: 0.5rem;
+}
+
+/* Only change label color when hovering over the form-group */
+.MessageConfirm .form-group:hover label {
+  color: #FFF;
+}
+
+/* Rest of MessageConfirm styles */
 .MessageConfirm {
   background-image: linear-gradient(170deg,#343A40, #222425);
   font-size: 0.8rem;
@@ -468,32 +533,58 @@ ol {
   white-space: pre-line;
   opacity: 97%;
 }
+
 .MessageConfirm > .Title > h1 {
   font-size: 2.2rem;
   padding-bottom: 0.15rem;
+  margin-bottom: 0.3rem;
 }
+
+.MessageConfirm:hover {
+  opacity: 93%;
+}
+
+.MessageConfirm:hover > .Title > h1 {
+  color: #FFF;
+}
+
+/* Input field hover effects */
+.MessageConfirm label {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.MessageConfirm input[type=text] {
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+/* Only change label color when hovering over its associated input */
+.MessageConfirm input[type=text]:hover + label,
+.MessageConfirm input[type=text]:focus + label,
+.MessageConfirm label:hover {
+  color: #FFF;
+}
+
 .MessageConfirm .Details {
   color: #007bff;
+  margin-bottom: 0.8rem;
 }
+
 .MessageConfirm h5 {
   font-size: 1.1rem;
 }
+
 .MessageConfirm h2 {
   word-break: break-word;
   color: #A50;
   font-size: 0.95rem;
   text-transform: none;
+  width: 95%;
 }
+
 .MessageConfirm button {
   width: 7rem;
-}
-.MessageConfirm:hover {
-  opacity: 93%;
-}
-.MessageConfirm:hover h2,
-    .MessageConfirm:hover label,
-      .MessageConfirm:hover td {
-  color: #FFF; 
 }
 
 .inlinebutton {
@@ -540,6 +631,12 @@ span {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   text-decoration: none;
 }
+
+span.Details {
+  margin-bottom: .8rem;
+  display: inline-block;
+}
+
 .nowrap {
   white-space: pre-wrap;
   margin-left: 0.5rem;
@@ -551,7 +648,7 @@ span {
   justify-content: center;
   align-items: center;
   padding: 0.8rem;
-  margin: 0.2rem auto;
+  margin: 0.8rem auto 0.6rem auto;
 
   height: 3rem;
   width: 9rem;
@@ -566,7 +663,6 @@ span {
   color: #fff;
   text-decoration: none;
   letter-spacing: normal;
-  margin-top: 0.25rem;
   box-shadow: var(--ui-shadow);
 }
 
@@ -586,7 +682,7 @@ button {
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 0.2rem auto;
+  margin: 0.8rem auto 0.6rem auto;
   height: 3rem;
   width: 9rem;
 
@@ -620,14 +716,38 @@ button:hover {
   margin: 0;
   color: #868BA1;
   list-style-type: none;
-  }
-  .Details li {
-    display: inline-block;
-    vertical-align: middle;
-    font-weight: 700;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+}
+
+.Details .inlineH {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5rem;
+  white-space: nowrap;
+}
+
+.Details .inlineH h3,
+.Details .inlineH h4 {
+  margin-left: 0.5rem;
+  display: inline-block;
+}
+
+.Details li {
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.Details li.inlineH {
+  padding-left: 0;
+  margin-left: 0;
+}
+
 details {
     background-image: linear-gradient(170deg,#343A40, #222425);
     padding: 0 var(--padding);
@@ -704,10 +824,10 @@ input[type=checkbox]{
   width: 2.5rem;
   height: 1.5rem;
   background: #A50;
-  display: block;
+  display: inline-block;
   border-radius: 1.5rem;
   position: relative;
-  bottom: 1.5rem;
+  margin-left: 0.5rem;
 }
 
 .toggle:after {
@@ -727,8 +847,8 @@ input:checked + .toggle {
 }
 
 input:checked + .toggle:after {
-  left: calc(100% - 0.15rem);
-  transform: translateX(-100%);
+  left: calc(100% - 1.3rem);
+  transform: none;
 }
 
 .toggle:active:after {
@@ -848,4 +968,55 @@ footer {
 
 .nav-item:hover {
   color: #FFF;
+}
+
+.MessageConfirm .tls-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.MessageConfirm .tls-group label {
+  margin: 0 0.5rem 0.8rem 0;
+}
+
+.MessageConfirm .toggle {
+  margin: 0;
+  vertical-align: middle;
+}
+
+.inline-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.inlineH h51, 
+.inlineH h31 {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.inlineH h51 {
+  min-width: 5rem;
+  text-align: left;
+}
+
+/* Specific styles for hashrate display */
+#miner_hash,
+#miner_hash_unit {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+#miner_hash {
+  min-width: 4rem;
+  text-align: right;
+}
+
+#miner_hash_unit {
+  min-width: 3rem;
+  text-align: left;
 }

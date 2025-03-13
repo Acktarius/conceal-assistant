@@ -26,12 +26,21 @@ const guardianGet = async (req, res) => {
            } else {
             const config = JSON.parse(contents);
               let concealDpath = ("node" in config) ? config.node.path : "";
+              let nodeArgs = ("node" in config && "args" in config.node) ? config.node.args.join(" ") : "";
               let nameD = ("node" in config) ? config.node.name : "";
               let feeAddr = ("node" in config) ? config.node.feeAddr : "";
               let apiPort = ("api" in config) ? config.api.port : "";
               let discordUrl = ("error" in config) ? config.error.notify.discord.url : "";
-            res.render("nsettings", { title: "Guardian Settings", version: pjson.version, conceald: concealDpath, name: nameD, feeaddr: feeAddr, apiport: apiPort, discordurl: discordUrl
-              });
+            res.render("nsettings", { 
+              title: "Guardian Config", 
+              version: pjson.version, 
+              conceald: concealDpath, 
+              name: nameD, 
+              feeaddr: feeAddr, 
+              apiport: apiPort, 
+              discordurl: discordUrl,
+              nodeargs: nodeArgs
+            });
             }});
         } catch (err) {
                 console.error(err);
@@ -53,60 +62,85 @@ const guardianPost = async (req, res) => {
         if (err) {
         console.log("issue reading config.json file")
         } else {
-          const { conceald, name, feeaddr, apiport, discordurl } = req.body;
-        const config = JSON.parse(contents);
+          const { conceald, name, feeaddr, nodeargs, apiport, discordurl } = req.body;
+          const config = JSON.parse(contents);
 
-        let concealdOg = ("node" in config) ? config.node.path : "";
-        let nameOg = ("node"in config) ? config.node.name : "";
-        let feeaddrOg = ("node" in config) ? config.node.feeAddr : "";
-        let apiportOg = ("api" in config) ? config.api.port : "";
-        let discordurlOg = ("error.notify.discord.url" in config) ? config.error.notify.discord.url : "";
+          let concealdOg = ("node" in config) ? config.node.path : "";
+          let nameOg = ("node"in config) ? config.node.name : "";
+          let feeaddrOg = ("node" in config) ? config.node.feeAddr : "";
+          let nodeargsOg = ("node" in config && "args" in config.node) ? config.node.args.join(" ") : "";
+          let apiportOg = ("api" in config) ? config.api.port : "";
+          let discordurlOg = ("error.notify.discord.url" in config) ? config.error.notify.discord.url : "";
 
-//Path Check  
-if (concealdOg != "") {
-    if (!(fs.existsSync(conceald)) || ( (osN() == "linux") && !(conceald.endsWith("conceald"))) || ((osN() == "win") && !(conceald.endsWith("conceald.exe")))) {
-      return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'improper path or file' });
-} else {
-  config.node.path = conceald;
-}
-}
+          const renderError = (message) => {
+            return res.status(401).render('nsettings', {
+              title: "Guardian Settings",
+              version: pjson.version,
+              conceald: concealdOg,
+              name: nameOg,
+              feeaddr: feeaddrOg,
+              nodeargs: nodeargsOg,
+              apiport: apiportOg,
+              discordurl: discordurlOg,
+              message
+            });
+          };
 
-//wallet check
-if (feeaddrOg != "") {
-  if ((feeaddr.length !== 98 || !(feeaddr.startsWith("ccx7")))) {
-    return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: "wallet address not valid"});
-  } else {
-    config.node.feeAddr = feeaddr;
-  }
-}
-//verif port as a number
-if (apiportOg != "") {
- if (isNaN(apiport)) {
-  return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: 'apiport has to be a number' });
- } else {
-  config.api.port = apiport;  
- }
-}
-//verif discord url
-if (discordurlOg != "") {
-  if (!(discordurl.startsWith("https://discord.com/"))) {
-  return res.status(401).render('nsettings', { title: "Guardian Settings", version: pjson.version, conceald: concealdOg , name: nameOg , feeaddr: feeaddrOg , apiport: apiportOg, discordurl: discordurlOg , message: "not a Discord web hook or not set"});
-  } else {
-  config.error.notify.discord.url = discordurl;
-  }
-  }
-if (nameOg != "") {
-  config.node.name = name
-}
-fs.writeFileSync(`${gwd}config.json`, JSON.stringify(config, null, 2));
-logAgent.doubleLogEvents("Modifying guardian config", 'guardian config.json file modified');
-res.redirect('/mainz');  
-    }})
-}
-    catch (err) {
-      console.error(err);
+          //Path Check  
+          if (concealdOg != "") {
+            if (!(fs.existsSync(conceald)) || ((osN() == "linux") && !(conceald.endsWith("conceald"))) || ((osN() == "win") && !(conceald.endsWith("conceald.exe")))) {
+              return renderError('improper path or file');
+            }
+            config.node.path = conceald;
+          }
+
+          //wallet check
+          if (feeaddrOg != "") {
+            if ((feeaddr.length !== 98 || !(feeaddr.startsWith("ccx7")))) {
+              return renderError("wallet address not valid");
+            }
+            config.node.feeAddr = feeaddr;
+          }
+
+          //verif node args
+          if (nodeargsOg != "") {
+            if (!(nodeargs.startsWith("-"))) {
+              return renderError('node args not valid');
+            }
+            // Store the entire string as a single array element
+            config.node.args = [nodeargs];
+          }
+
+          //verif port as a number
+          if (apiportOg != "") {
+            if (isNaN(apiport)) {
+              return renderError('apiport has to be a number');
+            }
+            config.api.port = apiport;
+          }
+
+          //verif discord url
+          if (discordurlOg != "") {
+            if (!(discordurl.startsWith("https://discord.com/"))) {
+              return renderError("not a Discord web hook or not set");
+            }
+            config.error.notify.discord.url = discordurl;
+          }
+
+          if (nameOg != "") {
+            config.node.name = name;
+          }
+
+          fs.writeFileSync(`${gwd}config.json`, JSON.stringify(config, null, 2));
+          logAgent.doubleLogEvents("Modifying guardian config", 'guardian config.json file modified');
+          res.redirect('/mainz');
+        }});
+      } catch (err) {
+        console.error(err);
+      }
     }
-}})}
+  })
+}
 
 const concealdGet = async (req, res) => {
   try {
