@@ -4,11 +4,14 @@ const createWindow = () => {
     const compactWin = new BrowserWindow({
       width: 480,
       height: 720,
+      autoHideMenuBar: true,
+      frame: true,
       webPreferences: {
         preload: 'http://localhost:3500/index'
       }
     })
   
+    compactWin.setMenu(null)
     compactWin.loadURL('http://localhost:3500/index')
   }
 //opening

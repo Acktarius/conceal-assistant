@@ -56,17 +56,17 @@ block layout-content
             input(type="text" style="width: 12rem;" id="description" name="description" value=description)
           br
           br
-          span.center
+          div.flight-nav
             -let m = eval(shown) - 1
             -let p = eval(shown) + 1
             -let moins = "/msettings?toshow=" + m
             -let plus = "/msettings?toshow=" + p
-            a(href=moins)
-             i.inlineH(class="fa-solid fa-caret-left fa-xl icon-colour") 
-            label.inlineH(for="shown")  - Flight Sheet # #{shown} 
-            -if (p <= last)
-              a(href=plus)
-               i.inlineH(class="fa-solid fa-caret-right fa-xl icon-colour")
+            a(href=moins).nav-item
+              img.caret-icon(src="caret-left.svg" alt="Previous")
+            span.nav-item Flight Sheet # #{shown}
+            if (p <= last)
+              a(href=plus).nav-item
+                img.caret-icon(src="caret-right.svg" alt="Next")
           br
           button(type="submit" form="modify") Modify
           -if (message != '')

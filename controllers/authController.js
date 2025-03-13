@@ -1,3 +1,4 @@
+//Copyright © 2022-2025, @Acktarius, All Rights Reserved
 const usersDB = {
     users: require('../data/users.json'),
     setUsers: function (data) { this.users = data }
@@ -11,6 +12,14 @@ const path = require('path')
 const { extractInfo } = require('../middleware/forMiner/extractInfo');
 
 const handleLogin = async (req, res) => {
+    // Set security headers
+    res.set({
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+    });
+
     const { user, pwd } = req.body;
     if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are required.'})
    const foundUser = usersDB.users.find(person => person.username === user)
@@ -36,9 +45,16 @@ const handleLogin = async (req, res) => {
             JSON.stringify(usersDB.users)
         )
         
-        res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 15 * 60 * 1000});
-        //res.json({ accessToken });
-        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 3 * 60 * 60 * 1000});
+        res.cookie('access_token', accessToken, { 
+            httpOnly: true, 
+            maxAge: 15 * 60 * 1000,
+            sameSite: 'strict'
+        });
+        res.cookie('jwt', refreshToken, { 
+            httpOnly: true, 
+            maxAge: 3 * 60 * 60 * 1000,
+            sameSite: 'strict'
+        });
         extractInfo(); 
         res.status(201).redirect("mainz");          
    } else {

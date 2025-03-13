@@ -14,48 +14,49 @@ block layout-content
       a(href="/logout")
        img.logo(src="right-from-bracket-solid.svg" Title="Logout") 
       .version v#{version} 
-    section
-      .MessageZero 
-        .Title
-          h1 settings
-        span.Details.attention Delete #{user} and Logout ?
-        br
-        form(method="POST" action="/logout?_method=DELETE")
-         button(type="submit") Delete #{user}
-      .MessageSys 
-        .Title
-          h1 System info 
+    div.SettingsContent
+      section
+        .MessageZero 
+          .Title
+            h1 settings
+          span.Details.attention Delete #{user} and Logout ?
           br
-        table
-            tr
-              th Cpu
-              th Gpu
-            tr
-              td #{cpu}
-              td #{gpu}
-            tr 
-              td Load : #{load}
-              td temp edge : #{tgpu}, #{wgpu} Watt
-    section     
-      details
-        summary.h1 Credits
-        br
-        p Conceal Lab project by Conceal Network
-        br
-        h2 Images
-        br
-        p Cryptunit.com
-          a(href="https://www.cryptunit.com/promo/CCX" target="blank" rel="noopener")
-           i(class="fa-solid fa-link icon-colour")
-        p Conceal InfoGraphics
-        br
-        h2 Special Thanks to:
-        br 
-        p _Dave GRAY for his 
-          span 
-            a(href="https://www.youtube.com/@DaveGrayTeachesCode/featured" target="blank" rel="noopener") YouTube 
-            p tutorials
-        br
-        p _Kyle (Web Dev Simplified) for his 
-          a(href="https://www.youtube.com/WebDevSimplified" target="blank" rel="noopener") YouTube
-          p  videos
+          form(method="POST" action="/logout?_method=DELETE")
+           button(type="submit") Delete #{user}
+        .MessageSys 
+          .Title
+            h1 System info 
+            br
+          table
+              tr
+                th Cpu
+                th Gpu
+              tr
+                td #{cpu}
+                td #{gpu}
+              tr 
+                td Load : #{load}
+                td temp edge : #{tgpu}, #{wgpu} Watt
+      section     
+        details
+          summary.h1 Credits
+          br
+          p Conceal Lab project by Conceal Network
+          br
+          h2 Images
+          br
+          p Cryptunit.com
+            a(href="https://www.cryptunit.com/promo/CCX" target="blank" rel="noopener")
+             i(class="fa-solid fa-link icon-colour")
+          p Conceal InfoGraphics
+          br
+          h2 Special Thanks to:
+          br 
+          p _Dave GRAY for his 
+            span 
+              a(href="https://www.youtube.com/@DaveGrayTeachesCode/featured" target="blank" rel="noopener") YouTube 
+              p tutorials
+          br
+          p _Kyle (Web Dev Simplified) for his 
+            a(href="https://www.youtube.com/WebDevSimplified" target="blank" rel="noopener") YouTube
+            p  videos

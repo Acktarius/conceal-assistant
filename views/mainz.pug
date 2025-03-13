@@ -2,6 +2,8 @@ extends layout
 
 block layout-content
   link(rel="stylesheet" href="/style.css")
+  //- Add meta tag to identify this as the loading page
+  meta(name="page-type" content="loading")
   div.View.WelcomeView
     ul.Banner
       li.h1 Conceal Assistant
@@ -17,18 +19,43 @@ block layout-content
        img.logo(src="right-from-bracket-solid.svg" alt="Logout") 
       .version v#{version}
     div#ring.centre
+    //- Add a fallback message for no-JS
+    noscript
+      .error-message JavaScript is required to load the dashboard
+    //- Add an error message div (hidden by default)
+    div#error-message(style="display: none;")
+      p An error occurred while loading. 
+      a(href="/main") Click here to try again
   script.
-    (
-    document.onreadystatechange = function () {
-    if (document.readyState !== "complete") {
-    document.querySelector("body").style.opacity = "0.5";
-    document.querySelector("#ring").style.visibility = "visible";
-    } else {
-    document.querySelector("body").style.visibility = "visible";
-    setTimeout (() => {
-    document.querySelector("#ring").style.display = "visible";
-    window.location.replace("main");
-    }, 3000)
-    }}
-    )
+    // Prevent netx.js from initializing on the loading page
+    window.isLoadingPage = true;
+
+    let maxAttempts = 3;
+    let currentAttempt = 0;
+    
+    function tryRedirect() {
+      if (currentAttempt >= maxAttempts) {
+        document.querySelector("#error-message").style.display = "block";
+        document.querySelector("#ring").style.display = "none";
+        return;
+      }
+      
+      try {
+        if (document.readyState !== "complete") {
+          document.querySelector("body").style.opacity = "0.5";
+          document.querySelector("#ring").style.visibility = "visible";
+        } else {
+          document.querySelector("body").style.visibility = "visible";
+          setTimeout(() => {
+            window.location.replace("main");
+          }, 3000);
+        }
+      } catch (error) {
+        console.error("Error during redirect:", error);
+        currentAttempt++;
+        setTimeout(tryRedirect, 1000);
+      }
+    }
+    
+    document.onreadystatechange = tryRedirect;
   

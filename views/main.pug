@@ -4,10 +4,10 @@ block layout-content
   link(rel="stylesheet" href="/style.css")
   meta(name='nodeH' content=nodeHeight)
   meta(name='localIp' content=localIp)
-  script. 
-    (document.addEventListener("DOMContentLoaded", () => { 
-    console.log("Load initiated");
-    }))
+  script.
+    document.addEventListener("DOMContentLoaded", () => { 
+      console.log("Load initiated");
+    });
   div.View.WelcomeView
     ul.Banner
       li.h1 Conceal Assistant
@@ -23,62 +23,63 @@ block layout-content
       a(href="/logout")
        img.logo(src="right-from-bracket-solid.svg" alt="Logout") 
       .version v#{version}
-    sectionM(id="Node")
-      .MessageZero
-        .Title(id="node_click")
-         h1 Node :
-        ul.Details Guardian service is
-          -if ((guardianstatus === 'active') || (guardianstatus === 'RUNNIN'))
-            li.h3 active
-            li 
-            h51 Height:
-            h31.inlineH(id='blockchain_height') #{nodeHeight}
-            h51.inlineH Status: 
-            h31.inlineH #{nodeStatus}
-            p
-            a(href=urlN target="_blank" rel="noopener") open API
-            p
-            a.NavButton(href="/guardiand") Deactivate
-          -else
-            li.h4 Not Active
-            -if (isSGi)
+    div.ScrollableContent
+      sectionM(id="Node")
+        .MessageZero
+          .Title(id="node_click")
+           h1 Node :
+          ul.Details Guardian service is
+            if guardianstatus === 'active' || guardianstatus === 'RUNNIN'
+              li.h3 active
+              li 
+              h51 Height:
+              h31.inlineH(id='blockchain_height') #{nodeHeight}
+              h51.inlineH Status: 
+              h31.inlineH #{nodeStatus}
               p
-              a(href="/nsettings") Modify Guardian Config
+              a(href=urlN target="_blank" rel="noopener") open API
               p
-              a(href="/csettings") Update Conceal-core
-              p
-              a.NavButton(href="/guardiana") Activate
-            -else
-              h8 Cannot find Guardian service
-          -if (upgrade == true)
-            h8 Conceal Core upgrade available 
-    sectionM(id="Miner")
-      .MessageSuite
-        .Title(id="miner_click")
-         h1 Miner :
-        ul.Details Mining service is
-          -if ((minerstatus === 'active') || (minerstatus === 'RUNNIN'))
-            li.h3 Active
-            p
-            h51.inlineH Hashrate: 
-            h31(id='miner_hash')
-            h51.inlineH(id='miner_hash_unit') click to re-fetch
-            p
-            a(href=urlM target="_blank" rel="noopener") open API
-            p
-            a.NavButton(href="/minerd") Deactivate
-          -else
-            li.h4 Not Active
-            -if (isSMi)
-              p
-              a(href="/msettings?toshow=0") Modify Miner Settings
-              p
-              -if (os == 'linux')
-                a(href="/msoftware?toshow=0") Modify Mining Software
+              a.NavButton(href="/guardiand") Deactivate
+            else
+              li.h4 Not Active
+              if isSGi
                 p
-              a.NavButton(href="/minera") Activate 
-            -else
-              h8 Cannot find mining service    
+                a(href="/nsettings") Modify Guardian Config
+                p
+                a(href="/csettings") Update Conceal-core
+                p
+                a.NavButton(href="/guardiana") Activate
+              else
+                h8 Cannot find Guardian service
+            if upgrade
+              h8 Conceal Core upgrade available 
+      sectionM(id="Miner")
+        .MessageSuite
+          .Title(id="miner_click")
+           h1 Miner :
+          ul.Details Mining service is
+            if minerstatus === 'active' || minerstatus === 'RUNNIN'
+              li.h3 Active
+              p
+              h51.inlineH Hashrate: 
+              h31(id='miner_hash')
+              h51.inlineH(id='miner_hash_unit') click to re-fetch
+              p
+              a(href=urlM target="_blank" rel="noopener") open API
+              p
+              a.NavButton(href="/minerd") Deactivate
+            else
+              li.h4 Not Active
+              if isSMi
+                p
+                a(href="/msettings?toshow=0") Modify Miner Settings
+                p
+                if os === 'linux'
+                  a(href="/msoftware?toshow=0") Modify Mining Software
+                  p
+                a.NavButton(href="/minera") Activate 
+              else
+                h8 Cannot find mining service    
   //
     script. 
       (

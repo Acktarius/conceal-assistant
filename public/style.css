@@ -382,7 +382,7 @@ h7 {
     padding-right: 0.6rem;
     padding-bottom: 0.4rem;
     padding-left: 0.6rem;
-    margin: 0.2rem ;
+    margin: 0.2rem;
     min-width: 21.5rem;
     width: 21.75rem;
     border-radius: 0.6rem;
@@ -743,4 +743,109 @@ footer {
   z-index: 3;
   background-image: linear-gradient(to bottom right , #343A40, #2224255b);
   height: min-content;  
+}
+
+.ScrollableContent {
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 60px);
+  padding: 0 20px;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 60px; /* Add space for fixed banner */
+}
+
+.View {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 2rem; /* Space for footer */
+}
+
+/* Settings page specific styles */
+.WelcomeView section {
+  margin-top: 60px; /* Space for fixed banner */
+  height: auto;
+  min-height: auto;
+  scroll-snap-align: start;
+}
+
+.WelcomeView section:first-of-type {
+  margin-top: 70px; /* Slightly more space for first section */
+}
+
+/* Adjust details positioning in settings */
+.WelcomeView details {
+  margin: 1rem 0.2rem;
+  position: relative;
+  top: 0;
+}
+
+/* Settings specific content */
+.SettingsContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 20px;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 60px;
+}
+
+.SettingsContent section {
+  margin-bottom: 2rem;
+}
+
+.SettingsContent .MessageZero,
+.SettingsContent .MessageSys {
+  margin: 1rem 0.2rem;
+  position: relative;
+}
+
+.SettingsContent details {
+  margin-top: 1rem;
+}
+
+/* Ensure consistent styling in settings view */
+.SettingsContent .MessageSys {
+  border-radius: 0.6rem;
+  margin: 1rem 0.2rem;
+  position: relative;
+  top: 0;
+  width: auto;
+  max-width: 21.75rem;
+}
+
+.caret-icon {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  vertical-align: middle;
+  margin: 0 0.5rem;
+  filter: invert(60%) sepia(11%) saturate(343%) hue-rotate(182deg) brightness(87%) contrast(85%);
+}
+
+.caret-icon:hover {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+}
+
+/* Flight sheet navigation styles */
+.flight-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  color: #868BA1;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.nav-item:hover {
+  color: #FFF;
 }

@@ -1,3 +1,4 @@
+//Copyright © 2022-2025, @Acktarius, All Rights Reserved
 const express = require('express');
 const router = express.Router();
 const { checkEnv } = require('../middleware/checkEnv');
@@ -14,13 +15,28 @@ router.get("^/$|/index(.html)?", checkEnv, (req, res) => {
   }); 
 //Login Page
   router.get("/login(.html)?", alreadyLoggedIn, (req, res) => {
+    // Set security headers
+    res.set({
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+    });
+    
     res.render("login", { title: "Login" , version: pjson.version });
   });
 //Register Page
   router.get("/register", (req, res) => {
-    const noUser = (usersDB.users.length === 0) ? true : false;
-    if (noUser) {
-    res.render("register", { title: "Register" , version: pjson.version })
+    // Set security headers
+    res.set({
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+    });
+    
+    if (usersDB.users.length === 0) {
+      res.render("register", { title: "Register" , version: pjson.version })
     } else {
       res.status(403).render('40x', { erreur: `Forbidden` });
     }

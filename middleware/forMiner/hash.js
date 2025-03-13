@@ -96,9 +96,9 @@ const handleHash = async (req, res) => {
         let hashd = (whichMiner == "xmr") ? 'Totals:</th><td> ' : (whichMiner == "srb") ? 'minute</th><td>' : 'tbd';
         let hashf = (whichMiner == "xmr") ? '</td>' : (whichMiner == "srb") ? ' ' : 'tbd';
         let valueH = inBetweenEvol(data, hashd, hashf);
-        let unitd = (whichMiner == "xmr") ? "<th rowspan='6'>" : (whichMiner == "srb") ? `${valueH} ` : 'tbd';
-        let unitf = (whichMiner == "xmr") ? '</td>' : (whichMiner == "srb") ? '</td>' : 'tbd';
-        let valueU = inBetweenEvol(data, unitd, unitf);
+        let unitd = (whichMiner == "srb") ? `${valueH} ` : 'tbd';
+        let unitf = (whichMiner == "srb") ? '</td>' : 'tbd';
+        let valueU = (whichMiner == "xmr") ? "H/s" : (whichMiner == "srb") ? inBetweenEvol(data, unitd, unitf) : 'tbd';
         if ( valueH.length > 20 ) {
             return res.json({ hash: "not known yet ", unit: valueU, poolHash: "?" });
         } else {

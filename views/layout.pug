@@ -1,25 +1,46 @@
 block variables
 doctype html
-html
+html(lang="en")
   head
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=yes")
     meta(name="theme-color", content="#000000")
+    meta(name="description", content="Conceal Assistant - A tool for managing your Conceal node and mining operations")
+    meta(name="color-scheme", content="dark")
+    
+    //- Favicons
     link(rel="icon" type="image/x-icon" href="/favicon.ico")
     link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-cham.png")
-    // link(rel="icon" type="image/png" href="/favicon.png")
-    // link(rel="icon" type="image/svg+xml" href="/favicon.svg")
+    
     title #{title} | CONCEAL Assistant
-    link(rel="preload" href="/gear-solid.svg" as="image")
-    link(rel="preload" href="/wallet-solid.svg" as="image")    
-    link(rel="preload" href="/right-from-bracket-solid.svg" as="image")
-    link(rel="preload" href="/logo-64x64.png" as="image")
-    link(rel="preload" href="/background.jpg" as="image")
-    link(rel="preload" href="/style.css" as="style")
-    link(rel="preload" href="https://kit.fontawesome.com/2b14384469.js" as="script" crossorigin="anonymous")
-    link(rel="stylesheet" href="/style.css")
-    script(src="https://kit.fontawesome.com/2b14384469.js" crossorigin="anonymous")
+    
+    //- Critical CSS
+    link(rel="stylesheet" href="/style.css" fetchpriority="high")
+    
+    //- Preload critical assets
+    link(rel="preload" href="/background.jpg" as="image" fetchpriority="high" type="image/jpeg")
+    
+    //- Prefetch UI icons that will be needed soon
+    link(rel="prefetch" href="/gear-solid.svg" as="image" type="image/svg+xml")
+    link(rel="prefetch" href="/wallet-solid.svg" as="image" type="image/svg+xml")
+    link(rel="prefetch" href="/right-from-bracket-solid.svg" as="image" type="image/svg+xml")
+    link(rel="prefetch" href="/logo-64x64.png" as="image" type="image/png")
+    
+    //- Noscript fallback
+    noscript
+      style.
+        .requires-js { display: none !important; }
+        .noscript-message { 
+          display: block;
+          text-align: center;
+          padding: 20px;
+          background: #cf332a;
+          color: white;
+        }
+  
   body
+    noscript
+      div.noscript-message JavaScript is required for full functionality of this application.
     div#root
       block layout-content
   footer 

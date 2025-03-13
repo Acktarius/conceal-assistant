@@ -4,10 +4,10 @@ block layout-content
   div.View.WelcomeView
     ul.Banner
       li.h1 Conceal Assistant
-      -if (noUser === false)
+      if !noUser
        a(href="/login")
         img.logo(src="right-to-bracket-solid.svg" Title="Login")
-      -else
+      else
        a(href="/register")
         img.logo(src="rocket-solid.svg" Title="Register")
       li 
@@ -18,38 +18,33 @@ block layout-content
       div.Title
         h1 Assistant For Concealers 
         br
-        -if (noUser === false)
+        if !noUser
          a(href="/login")
           h3.inlineIndex Access your CCX BOX
           img.inlineIndexD(src="right-to-bracket-solid.svg" Title="Login")
-        -else
+        else
          a(href="/register")
           h3.inlineIndex Register 
           img.inlineIndexD(src="rocket-solid.svg" Title="Register")
-  script. 
-    (
+  script.
     (() => { 
-    if (window.localStorage) { 
-    if (localStorage.getItem('reload')) { 
-    localStorage.removeItem('reload'); 
-    } 
-    } 
-    })
-    (); 
-    )
-  script. 
-    (
-    setTimeout (() => {
-    (() => { 
-    if (window.localStorage) { 
-    if (!localStorage.getItem('registered')) { 
-    localStorage['registered'] = true; 
-    window.location.reload(); 
-    } else { 
-    localStorage.removeItem('registered'); 
-    } 
-    } 
-    })
-    (); 
-    } , 2500)
-    )
+      if (window.localStorage) { 
+        if (localStorage.getItem('reload')) { 
+          localStorage.removeItem('reload'); 
+        } 
+      } 
+    })();
+
+  script.
+    setTimeout(() => {
+      (() => { 
+        if (window.localStorage) { 
+          if (!localStorage.getItem('registered')) { 
+            localStorage['registered'] = true; 
+            window.location.reload(); 
+          } else { 
+            localStorage.removeItem('registered'); 
+          } 
+        } 
+      })();
+    }, 2500);

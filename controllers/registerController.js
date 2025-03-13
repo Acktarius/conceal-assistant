@@ -1,3 +1,4 @@
+//Copyright © 2022-2025, @Acktarius, All Rights Reserved
 const usersDB = {
     users: require('../data/users.json'),
     setUsers: function (data) { this.users = data }
@@ -10,6 +11,14 @@ const bcrypt = require('bcrypt')
 const { logEvents } = require('../middleware/logEvents')
 
 const handleNewUser = async (req, res) => {
+    // Set security headers
+    res.set({
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+    });
+
     const { user, pwd } = req.body;
     if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are required.'})
     //check for duplicate in the db
