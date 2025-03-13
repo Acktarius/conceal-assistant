@@ -42,22 +42,22 @@ jobs:
           mkdir -p debian-package/opt/conceal-toolbox
           mkdir -p debian-package/etc/systemd/system
           
-          # Create control file content
-          echo "Package: conceal-assistant
-Priority: optional
-Maintainer: Acktarius <acktarius@protonmail.com>
-Homepage: https://github.com/acktarius/conceal-assistant/
-Depends: dbus-x11, lm-sensors, nodejs (>=18.17.1), curl, zenity
-Architecture: amd64
-Version: PACKAGE_VERSION
-Description: Conceal assistant checks the status of node and mining services.
- (ccx-guardian.service) and (ccx-mining.service)
- It allows to activate or deactivate them.
- Also gives the option to modify mining settings and switch miner,
- Access key parameters of the guardian or update the Core." > debian-package/DEBIAN/control
-
-          # Replace version placeholder
-          sed -i "s/PACKAGE_VERSION/$VERSION_NO_V/" debian-package/DEBIAN/control
+          # Create control file
+          {
+            echo "Package: conceal-assistant"
+            echo "Priority: optional"
+            echo "Maintainer: Acktarius <acktarius@protonmail.com>"
+            echo "Homepage: https://github.com/acktarius/conceal-assistant/"
+            echo "Depends: dbus-x11, lm-sensors, nodejs (>=18.17.1), curl, zenity"
+            echo "Architecture: amd64"
+            echo "Version: $VERSION_NO_V"
+            echo "Description: Conceal assistant checks the status of node and mining services."
+            echo " (ccx-guardian.service) and (ccx-mining.service)"
+            echo " It allows to activate or deactivate them."
+            echo " Also gives the option to modify mining settings and switch miner,"
+            echo " Access key parameters of the guardian or update the Core."
+          } > debian-package/DEBIAN/control
+          
           chmod 644 debian-package/DEBIAN/control
           
           # Copy application files to /opt/conceal-assistant
