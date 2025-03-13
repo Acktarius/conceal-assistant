@@ -28,10 +28,11 @@ jobs:
         run: |
           # Set version based on trigger type
           if [ "${{ github.event_name }}" = "release" ]; then
-            VERSION=${{ github.event.release.tag_name }}
+            VERSION="${{ github.event.release.tag_name }}"
           else
-            VERSION=${{ github.event.inputs.version }}
+            VERSION="${{ github.event.inputs.version }}"
           fi
+          echo "Building package for version: $VERSION"
           PACKAGE_NAME="conceal-assistant"
           
           # Create package directory structure
@@ -149,19 +150,19 @@ jobs:
           
           # Create control file
           cat > "debian-package/DEBIAN/control" << EOCONTROL
-            Package: conceal-assistant
-            Priority: optional
-            Maintainer: Acktarius <acktarius@protonmail.com>
-            Homepage: https://github.com/acktarius/conceal-assistant/
-            Depends: dbus-x11, lm-sensors, nodejs (>=18.17.1), curl
-            Architecture: amd64
-            Version: ${VERSION#v}
-            Description: Conceal assistant checks the status of node and mining services.
-            (ccx-guardian.service) and (ccx-mining.service)
-            It allows to activate or deactivate them.
-            Also gives the option to modify mining settings and switch miner,
-            Access key parameters of the guardian or update the Core.
-            EOCONTROL
+Package: conceal-assistant
+Priority: optional
+Maintainer: Acktarius <acktarius@protonmail.com>
+Homepage: https://github.com/acktarius/conceal-assistant/
+Depends: dbus-x11, lm-sensors, nodejs (>=18.17.1), curl
+Architecture: amd64
+Version: ${VERSION#v}
+Description: Conceal assistant checks the status of node and mining services.
+ (ccx-guardian.service) and (ccx-mining.service)
+ It allows to activate or deactivate them.
+ Also gives the option to modify mining settings and switch miner,
+ Access key parameters of the guardian or update the Core.
+EOCONTROL
 
           # Create copyright file
           cat > "debian-package/DEBIAN/copyright" << EOCOPYRIGHT
@@ -310,10 +311,11 @@ jobs:
         run: |
           # Set version based on trigger type
           if [ "${{ github.event_name }}" = "release" ]; then
-            VERSION=${{ github.event.release.tag_name }}
+            VERSION="${{ github.event.release.tag_name }}"
           else
-            VERSION=${{ github.event.inputs.version }}
+            VERSION="${{ github.event.inputs.version }}"
           fi
+          echo "Building package for version: $VERSION"
           VERSION_NO_V=${VERSION#v}
           dpkg-deb --build debian-package conceal-assistant_${VERSION_NO_V}_all.deb
           
