@@ -36,9 +36,11 @@ block layout-content
           if isSGi
             if guardianstatus === 'active' || guardianstatus === 'RUNNIN'
               if isSGi
-                h51.inlineH Height:
+                br
+                h51.inlineH Height: 
                 h31.inlineH(id='blockchain_height') #{nodeHeight}
-                h51.inlineH Status: 
+                br
+                h51.inlineH Status:  
                 h31.inlineH #{nodeStatus}
                 p
                 a(href=urlN target="_blank" rel="noopener") open API
