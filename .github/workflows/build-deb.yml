@@ -48,7 +48,7 @@ jobs:
           cp data/ccx-assistant.service.template debian-package/etc/systemd/system/ccx-assistant.service
           
           # Create launcher script
-          cat > "debian-package/opt/conceal-toolbox/ccx-assistant_firefox.sh" << 'EOLAUNCHER'
+          cat > "debian-package/opt/conceal-toolbox/ccx-assistant_firefox.sh" << EOLAUNCHER
             #!/bin/bash
             wdir="/opt/conceal-assistant"
 
@@ -148,7 +148,7 @@ jobs:
           chmod +x debian-package/opt/conceal-toolbox/ccx-assistant_firefox.sh
           
           # Create control file
-          cat > "debian-package/DEBIAN/control" << 'EOCONTROL'
+          cat > "debian-package/DEBIAN/control" << EOCONTROL
             Package: conceal-assistant
             Priority: optional
             Maintainer: Acktarius <acktarius@protonmail.com>
@@ -164,7 +164,7 @@ jobs:
             EOCONTROL
 
           # Create copyright file
-          cat > "debian-package/DEBIAN/copyright" << 'EOCOPYRIGHT'
+          cat > "debian-package/DEBIAN/copyright" << EOCOPYRIGHT
             This work included in this package was made by:
                 Acktarius <acktarius@protonmail.com>
                 
@@ -190,7 +190,7 @@ jobs:
             EOCOPYRIGHT
 
           # Create prerm script
-          cat > "debian-package/DEBIAN/prerm" << 'EOPRERM'
+          cat > "debian-package/DEBIAN/prerm" << EOPRERM
             #!/bin/bash
             echo "Stopping ccx-assistant service..."
 
@@ -202,7 +202,7 @@ jobs:
           chmod +x debian-package/DEBIAN/prerm
 
           # Create postrm script
-          cat > "debian-package/DEBIAN/postrm" << 'EOPOSTRM'
+          cat > "debian-package/DEBIAN/postrm" << EOPOSTRM
             #!/bin/bash
             echo "Cleaning up ccx-assistant files..."
 
@@ -239,7 +239,7 @@ jobs:
           chmod +x debian-package/DEBIAN/postrm
           
           # Create preinst script
-          cat > "debian-package/DEBIAN/preinst" << 'EOPREINST'
+          cat > "debian-package/DEBIAN/preinst" << EOPREINST
             #!/bin/bash
 
             # Update npm to latest version
@@ -268,7 +268,7 @@ jobs:
           chmod +x debian-package/DEBIAN/preinst
           
           # Create postinst script
-          cat > "debian-package/DEBIAN/postinst" << 'EOPOSTINST'
+          cat > "debian-package/DEBIAN/postinst" << EOPOSTINST
             #!/bin/bash
             cd /opt/conceal-assistant
             npm install
@@ -286,7 +286,7 @@ jobs:
             sudo -u $INSTALL_USER cp /opt/conceal-assistant/launcher/icons/cham.png /home/$INSTALL_USER/.icons/
 
             # Install desktop entry for the installing user only
-            sudo -u $INSTALL_USER cat > "/home/$INSTALL_USER/.local/share/applications/ccx-assistant_firefox.desktop" << 'EODESKTOP'
+            sudo -u $INSTALL_USER cat > "/home/$INSTALL_USER/.local/share/applications/ccx-assistant_firefox.desktop" << EODESKTOP
             [Desktop Entry]
             Type=Application
             Name=CCX Assistant
