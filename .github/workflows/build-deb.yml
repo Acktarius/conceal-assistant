@@ -149,20 +149,20 @@ jobs:
           chmod +x debian-package/opt/conceal-toolbox/ccx-assistant_firefox.sh
           
           # Create control file with placeholder version
-          cat > "debian-package/DEBIAN/control" << 'EOCONTROL'
-Package: conceal-assistant
-Priority: optional
-Maintainer: Acktarius <acktarius@protonmail.com>
-Homepage: https://github.com/acktarius/conceal-assistant/
-Depends: dbus-x11, lm-sensors, nodejs (>=18.17.1), curl
-Architecture: amd64
-Version: PACKAGE_VERSION
-Description: Conceal assistant checks the status of node and mining services.
- (ccx-guardian.service) and (ccx-mining.service)
- It allows to activate or deactivate them.
- Also gives the option to modify mining settings and switch miner,
- Access key parameters of the guardian or update the Core.
-EOCONTROL
+          cat > "debian-package/DEBIAN/control" << EOCONTROL
+            Package: conceal-assistant
+            Priority: optional
+            Maintainer: Acktarius <acktarius@protonmail.com>
+            Homepage: https://github.com/acktarius/conceal-assistant/
+            Depends: dbus-x11, lm-sensors, nodejs (>=18.17.1), curl
+            Architecture: amd64
+            Version: PACKAGE_VERSION
+            Description: Conceal assistant checks the status of node and mining services.
+             (ccx-guardian.service) and (ccx-mining.service)
+             It allows to activate or deactivate them.
+             Also gives the option to modify mining settings and switch miner,
+             Access key parameters of the guardian or update the Core.
+            EOCONTROL
 
           # Replace version placeholder
           VERSION_NO_V=${VERSION#v}
