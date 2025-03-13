@@ -33,6 +33,7 @@ jobs:
             VERSION="${{ github.event.inputs.version }}"
           fi
           echo "Building package for version: $VERSION"
+          VERSION_NO_V=${VERSION#v}
           PACKAGE_NAME="conceal-assistant"
           
           # Create package directory structure
@@ -41,135 +42,131 @@ jobs:
           mkdir -p debian-package/opt/conceal-toolbox
           mkdir -p debian-package/etc/systemd/system
           
+          # Create control file first
+          cat > debian-package/DEBIAN/control << 'EOCONTROL'
+Package: conceal-assistant
+Priority: optional
+Maintainer: Acktarius <acktarius@protonmail.com>
+Homepage: https://github.com/acktarius/conceal-assistant/
+Depends: dbus-x11, lm-sensors, nodejs (>=18.17.1), curl, zenity
+Architecture: amd64
+Version: PACKAGE_VERSION
+Description: Conceal assistant checks the status of node and mining services.
+ (ccx-guardian.service) and (ccx-mining.service)
+ It allows to activate or deactivate them.
+ Also gives the option to modify mining settings and switch miner,
+ Access key parameters of the guardian or update the Core.
+EOCONTROL
+
+          # Replace version placeholder
+          sed -i "s/PACKAGE_VERSION/$VERSION_NO_V/" debian-package/DEBIAN/control
+          chmod 644 debian-package/DEBIAN/control
+          
           # Copy application files to /opt/conceal-assistant
-          cp -r * debian-package/opt/conceal-assistant/ || true
-          rm -rf debian-package/opt/conceal-assistant/debian-package
+          find . -maxdepth 1 ! -name 'debian-package' ! -name '.' -exec cp -r {} debian-package/opt/conceal-assistant/ \;
           
           # Copy service file directly to systemd directory
           cp data/ccx-assistant.service.template debian-package/etc/systemd/system/ccx-assistant.service
           
           # Create launcher script
-          cat > "debian-package/opt/conceal-toolbox/ccx-assistant_firefox.sh" << EOLAUNCHER
-            #!/bin/bash
-            wdir="/opt/conceal-assistant"
+          cat > debian-package/opt/conceal-toolbox/ccx-assistant_firefox.sh << 'EOLAUNCHER'
+#!/bin/bash
+wdir="/opt/conceal-assistant"
 
-            function assistant_to () {
-            cd $wdir
-            gnome-terminal --geometry=100x15 --title=Conceal_Assistant -- bash -c "sudo nodemon server.js" &
-            sleep 8
-            firefox "http://localhost:3500"
-            }
-            electron() {
-            npm exec electron ${wdir}/electron/main.js
-            }
+function assistant_to () {
+cd $wdir
+gnome-terminal --geometry=100x15 --title=Conceal_Assistant -- bash -c "sudo nodemon server.js" &
+sleep 8
+firefox "http://localhost:3500"
+}
+electron() {
+npm exec electron ${wdir}/electron/main.js
+}
 
-            if [[ ! -f /etc/systemd/system/ccx-assistant.service ]]; then
-                    if zenity --question --title "no service installed" --width 400 --height 80 --text "launch from terminal instead?"
-                    then
-                            if [[ ! -d $wdir ]]; then
-                                    if zenity --question --title "Conceal Assistant couldn't be find" --width 400 --height 80 --text "Would you like to visit Conceal-assistant Github page? or locate a specific folder" --ok-label="Yes" --cancel-label="Locate"
-                                    then
-                                    firefox "https://github.com/acktarius"
-                                    sleep 1
-                                    exit
-                                    else
-                                    wdir=$(zenity --file-selection --title="Locate Conceal-assistant Directory" --width 400 --height 250 --directory)
-                                    case $? in
-                                            0)
-                                            if [[ ! -f $wdir/server.js ]]; then
-                                            zenity --info --title "error" --width 400 --height 80 --text "server.js not here !"
-                                            exit
-                                            else
-                                            assistant_to
-                                            exit
-                                            fi
-                                            ;;
-                                            *)
-                                            exit
-                                            ;;
-                                    esac
-                                    fi
-                            else
-                            assistant_to
-                            exit
-                            fi
-                    fi
-            else
-                actif=$(systemctl status ccx-assistant | head -n 5 | grep -c "Active: a")
-                case $actif in
-                    0)
-                    answer=$(zenity --title "Service not active, choose option" --width 400 --height 220 --list --radiolist --column Selection --column answer FALSE start_and_go FALSE terminal)
-                            case $answer in
-                            start_and_go)
-                    systemctl restart ccx-assistant.service
-                    sleep 1
-                    firefox "http://localhost:3500"
-                    exit
-                            ;;
-                            terminal)
-                    sleep 2
-                    assistant_to
-                            exit
-                            ;;
-                            *)
-                            exit
-                            ;;
-                            esac
-                    ;;
-                    1)
-                    answer=$(zenity --title "Service is Active, choose option" --width 400 --height 220 --list --radiolist --column Selection --column answer TRUE Default FALSE Compact FALSE Terminal FALSE Stop_Service)
-                            case $answer in
-                            Default)
-                    firefox "http://localhost:3500"
-                    exit
-                            ;;
-                            Compact)
-                    electron
-                            ;;
-                            Terminal)
-                    systemctl stop ccx-assistant.service
-                    sleep 2
-                    assistant_to
-                            exit
-                            ;;
-                            Stop_Service)
-                    systemctl stop ccx-assistant.service
-                            ;;
-                            *)
-                            exit
-                            ;;
-                            esac
-                    ;;
-                    *)
-                    exit
-                    ;;
+if [[ ! -f /etc/systemd/system/ccx-assistant.service ]]; then
+        if zenity --question --title "no service installed" --width 400 --height 80 --text "launch from terminal instead?"
+        then
+                if [[ ! -d $wdir ]]; then
+                        if zenity --question --title "Conceal Assistant couldn't be find" --width 400 --height 80 --text "Would you like to visit Conceal-assistant Github page? or locate a specific folder" --ok-label="Yes" --cancel-label="Locate"
+                        then
+                        firefox "https://github.com/acktarius"
+                        sleep 1
+                        exit
+                        else
+                        wdir=$(zenity --file-selection --title="Locate Conceal-assistant Directory" --width 400 --height 250 --directory)
+                        case $? in
+                                0)
+                                if [[ ! -f $wdir/server.js ]]; then
+                                zenity --info --title "error" --width 400 --height 80 --text "server.js not here !"
+                                exit
+                                else
+                                assistant_to
+                                exit
+                                fi
+                                ;;
+                                *)
+                                exit
+                                ;;
+                        esac
+                        fi
+                else
+                assistant_to
+                exit
+                fi
+        fi
+else
+    actif=$(systemctl status ccx-assistant | head -n 5 | grep -c "Active: a")
+    case $actif in
+        0)
+        answer=$(zenity --title "Service not active, choose option" --width 400 --height 220 --list --radiolist --column Selection --column answer FALSE start_and_go FALSE terminal)
+                case $answer in
+                start_and_go)
+        systemctl restart ccx-assistant.service
+        sleep 1
+        firefox "http://localhost:3500"
+        exit
+                ;;
+                terminal)
+        sleep 2
+        assistant_to
+                exit
+                ;;
+                *)
+                exit
+                ;;
                 esac
-            fi
-            EOLAUNCHER
+        ;;
+        1)
+        answer=$(zenity --title "Service is Active, choose option" --width 400 --height 220 --list --radiolist --column Selection --column answer TRUE Default FALSE Compact FALSE Terminal FALSE Stop_Service)
+                case $answer in
+                Default)
+        firefox "http://localhost:3500"
+        exit
+                ;;
+                Compact)
+        electron
+                ;;
+                Terminal)
+        systemctl stop ccx-assistant.service
+        sleep 2
+        assistant_to
+                exit
+                ;;
+                Stop_Service)
+        systemctl stop ccx-assistant.service
+                ;;
+                *)
+                exit
+                ;;
+                esac
+        ;;
+        *)
+        exit
+        ;;
+    esac
+fi
+EOLAUNCHER
           chmod +x debian-package/opt/conceal-toolbox/ccx-assistant_firefox.sh
-          
-          # Create control file with placeholder version
-          cat > "debian-package/DEBIAN/control" << EOCONTROL
-            Package: conceal-assistant
-            Priority: optional
-            Maintainer: Acktarius <acktarius@protonmail.com>
-            Homepage: https://github.com/acktarius/conceal-assistant/
-            Depends: dbus-x11, lm-sensors, nodejs (>=18.17.1), curl
-            Architecture: amd64
-            Version: PACKAGE_VERSION
-            Description: Conceal assistant checks the status of node and mining services.
-             (ccx-guardian.service) and (ccx-mining.service)
-             It allows to activate or deactivate them.
-             Also gives the option to modify mining settings and switch miner,
-             Access key parameters of the guardian or update the Core.
-            EOCONTROL
-
-          # Replace version placeholder
-          VERSION_NO_V=${VERSION#v}
-          sed -i "s/PACKAGE_VERSION/$VERSION_NO_V/" debian-package/DEBIAN/control
-          
-          # Set proper permissions for control file
-          chmod 644 debian-package/DEBIAN/control
 
           # Create copyright file
           cat > "debian-package/DEBIAN/copyright" << EOCOPYRIGHT
