@@ -2,7 +2,7 @@ name: Build Debian Package
 
 on:
   release:
-    types: [created]
+    types: [created, published]
 
 jobs:
   build-deb:
