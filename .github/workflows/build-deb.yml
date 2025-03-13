@@ -42,17 +42,19 @@ jobs:
           mkdir -p debian-package/opt/conceal-toolbox
           mkdir -p debian-package/etc/systemd/system
           
-          # Create control file first
-          cat << EOCONTROL > debian-package/DEBIAN/control
-Package: conceal-assistant
+          # Create control file content
+          echo "Package: conceal-assistant
 Priority: optional
 Maintainer: Acktarius <acktarius@protonmail.com>
 Homepage: https://github.com/acktarius/conceal-assistant/
 Depends: dbus-x11, lm-sensors, nodejs (>=18.17.1), curl, zenity
 Architecture: amd64
 Version: PACKAGE_VERSION
-Description: Conceal assistant checks the status of node and mining services.\n (ccx-guardian.service) and (ccx-mining.service)\n It allows to activate or deactivate them.\n Also gives the option to modify mining settings and switch miner,\n Access key parameters of the guardian or update the Core.
-EOCONTROL
+Description: Conceal assistant checks the status of node and mining services.
+ (ccx-guardian.service) and (ccx-mining.service)
+ It allows to activate or deactivate them.
+ Also gives the option to modify mining settings and switch miner,
+ Access key parameters of the guardian or update the Core." > debian-package/DEBIAN/control
 
           # Replace version placeholder
           sed -i "s/PACKAGE_VERSION/$VERSION_NO_V/" debian-package/DEBIAN/control
