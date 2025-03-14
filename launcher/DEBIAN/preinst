@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Update npm to latest version
+echo "Updating npm to latest version..."
+npm install -g npm@latest
+
+# Install or update nodemon
+if [ ! -f /bin/nodemon ]; then
+    npm i -g nodemon
+else
+    ndmv=$(nodemon --version)
+    echo "nodemon version $ndmv"
+    comp_ndmv=$(echo -e "$ndmv\n2.0.22" | sort -V | head -n1)
+    if [ "$ndmv" != "2.0.22" ]; then
+        if [[ "$comp_ndmv" = "$ndmv" ]]; then
+            npm i -g nodemon
+            echo "nodemon updated"
+        else
+            echo "nodemon install version is more recent"
+        fi
+    else
+        echo "nodemon version match"
+    fi
+fi 
