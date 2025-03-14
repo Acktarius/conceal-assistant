@@ -8,14 +8,16 @@ REAL_USER=$(who | awk '{print $1}' | head -n1)
 INSTALL_USER=${SUDO_USER:-$REAL_USER}
 
 # Create user's local directories if they don't exist
-sudo -u $INSTALL_USER mkdir -p /home/$INSTALL_USER/.local/share/applications
-sudo -u $INSTALL_USER mkdir -p /home/$INSTALL_USER/.icons
+mkdir -p /home/$INSTALL_USER/.local/share/applications
+mkdir -p /home/$INSTALL_USER/.icons
+chown -R $INSTALL_USER:$INSTALL_USER /home/$INSTALL_USER/.local
 
 # Install icon for the installing user
-sudo -u $INSTALL_USER cp /opt/conceal-assistant/launcher/icons/cham.png /home/$INSTALL_USER/.icons/
+cp /opt/conceal-assistant/launcher/icons/cham.png /home/$INSTALL_USER/.icons/
+chown $INSTALL_USER:$INSTALL_USER /home/$INSTALL_USER/.icons/cham.png
 
 # Install desktop entry for the installing user only
-sudo -u $INSTALL_USER cat > "/home/$INSTALL_USER/.local/share/applications/ccx-assistant_firefox.desktop" << 'EODESKTOP'
+cat > "/home/$INSTALL_USER/.local/share/applications/ccx-assistant_firefox.desktop" << 'EODESKTOP'
 [Desktop Entry]
 Type=Application
 Name=CCX Assistant
@@ -27,6 +29,9 @@ Terminal=false
 Comment=open Assistant in Firefox 
 X-GNOME-Autostart-enabled=true
 EODESKTOP
+
+# Set correct ownership of the desktop entry
+chown $INSTALL_USER:$INSTALL_USER "/home/$INSTALL_USER/.local/share/applications/ccx-assistant_firefox.desktop"
 
 # Setup service
 systemctl daemon-reload
