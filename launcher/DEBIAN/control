@@ -8,5 +8,5 @@ Version: PACKAGE_VERSION
 Description: Conceal assistant checks the status of node and mining services.
  (ccx-guardian.service) and (ccx-mining.service)
  It allows to activate or deactivate them.
- Also gives the option to modify mining settings and switch miner,
+ Also gives the option to modify mining settings and switch miner.
  Access key parameters of the guardian or update the Core. 
