@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Get the user who initiated the removal
+INSTALL_USER=${SUDO_USER:-$LOGNAME}
+
+# Remove desktop entry and icon
+rm -f "/home/$INSTALL_USER/.local/share/applications/ccx-assistant_firefox.desktop"
+rm -f "/home/$INSTALL_USER/.icons/cham.png"
+
+# Remove systemd service file
+rm -f /etc/systemd/system/ccx-assistant.service
+
+# Reload systemd daemon
+systemctl daemon-reload
+
+# Clean up npm global packages if no other packages need them
+if ! find /opt -type f -name "package.json" -exec grep -l "nodemon" {} \; | grep -v "conceal-assistant"; then
+    npm uninstall -g nodemon
+fi 

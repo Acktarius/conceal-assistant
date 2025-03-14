@@ -1,0 +1,34 @@
+#!/bin/bash
+cd /opt/conceal-assistant
+npm install
+
+# Get the user who initiated the installation
+SUDO_USER="${SUDO_USER:-$USER}"
+REAL_USER=$(who | awk '{print $1}' | head -n1)
+INSTALL_USER=${SUDO_USER:-$REAL_USER}
+
+# Create user's local directories if they don't exist
+sudo -u $INSTALL_USER mkdir -p /home/$INSTALL_USER/.local/share/applications
+sudo -u $INSTALL_USER mkdir -p /home/$INSTALL_USER/.icons
+
+# Install icon for the installing user
+sudo -u $INSTALL_USER cp /opt/conceal-assistant/launcher/icons/cham.png /home/$INSTALL_USER/.icons/
+
+# Install desktop entry for the installing user only
+sudo -u $INSTALL_USER cat > "/home/$INSTALL_USER/.local/share/applications/ccx-assistant_firefox.desktop" << 'EODESKTOP'
+[Desktop Entry]
+Type=Application
+Name=CCX Assistant
+Exec=/opt/conceal-toolbox/ccx-assistant_firefox.sh
+Icon=cham.png
+Hidden=false
+NoDisplay=false
+Terminal=false
+Comment=open Assistant in Firefox 
+X-GNOME-Autostart-enabled=true
+EODESKTOP
+
+# Setup service
+systemctl daemon-reload
+systemctl enable ccx-assistant.service
+systemctl start ccx-assistant.service 

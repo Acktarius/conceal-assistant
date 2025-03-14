@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Stopping ccx-assistant service..."
+
+if [ -f /etc/systemd/system/ccx-assistant.service ]; then
+    systemctl stop ccx-assistant
+    systemctl disable ccx-assistant
+fi 
